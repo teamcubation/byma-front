@@ -1,0 +1,8 @@
+// cuando no necesites procesar las imágenes
+// (por ejemplo, iconos, archivos estáticos, o imágenes grandes que no se modifican).
+//
+// Ejemplo:
+
+Ruta Relativa:
+
+<img src="/images/logo.png" alt="Logo" />
