@@ -1,24 +1,40 @@
-# Compiled class file
-*.class
+# Node modules
+/node_modules/
 
-# Log file
-*.log
+# Build output
+/build/
 
-# BlueJ files
-*.ctxt
+# Dependency directories
+/.pnp/
+/.pnp.js
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+# dotenv environment files
+.env
+.env.test
+.env.production
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+# Next.js build output
+.next/
+
+# React Native
+# .expo/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# IDEs and text editors
+/.vscode/
+/.idea/
+/.vscode-test/
+/*.iml
+
+# Other
+.npm/

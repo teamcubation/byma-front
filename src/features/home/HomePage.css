@@ -1,0 +1,11 @@
+/* Estilos para la página Home */
+.home-container {
+  background-color: #f4f4f9;
+  padding: 20px;
+  text-align: center;
+}
+
+.home-container h1 {
+  color: #333;
+  font-size: 2rem;
+}

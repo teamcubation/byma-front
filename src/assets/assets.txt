@@ -1,0 +1,12 @@
+// si prefieres que Webpack gestione y optimice las imágenes
+// (por ejemplo, para imágenes que cambian o si deseas que se incluyan en el bundle para una mejor gestión de
+// dependencias).
+//
+//
+// Ejemplo:
+
+import logo from './assets/images/logo.png';
+
+function App() {
+  return <img src={logo} alt="Logo" />;
+}
