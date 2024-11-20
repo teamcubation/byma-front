@@ -1,23 +1,23 @@
 import React from 'react';
 import './styles/App.css';
-import Header from './components/Header';
-import NavbarSection from './components/NavbarSection';
+import NavbarSection from './components/navbar/NavbarSection';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from './features/home/HomePage';
-import ProfilePage from './features/profile/ProfilePage';
-import SettingsPage from './features/settings/SettingsPage';
+import { TablaEmisores } from './features/tabla/TablaEmisores';
+import { Buscador } from './components/buscador/Buscador';
+import { CaminoNavegacion } from './components/caminoNavegacion/CaminoNavegacion'
+import { BotonAgregar } from './components/boton/botonAgregar/BotonAgregar'
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Header />
         <NavbarSection />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-        </Routes>
+          <CaminoNavegacion />
+          <div className='prueba'>
+            <BotonAgregar />
+            <Buscador />
+            <TablaEmisores />
+        </div>
       </div>
     </Router>
   );

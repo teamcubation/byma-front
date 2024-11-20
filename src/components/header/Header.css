@@ -1,0 +1,11 @@
+header {
+    background: #f8f8f8;
+    /* position: fixed; */
+    left: 0;
+    width: 100%;
+}
+
+#byma-logo img {
+    display: block;
+    width: 160px;
+}

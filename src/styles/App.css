@@ -2,19 +2,16 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-}
-
-header {
-  background-color: #282c34;
-  color: white;
-  text-align: center;
-  padding: 20px;
+  color: #052a44;
 }
 
 .navbar {
-  background-color: #333;
+  background-color: #f8f8f8;
   padding: 10px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .navbar ul {
@@ -28,10 +25,22 @@ header {
 }
 
 .navbar a {
-  color: white;
+  color: #061533;
   text-decoration: none;
 }
 
 .navbar a:hover {
   text-decoration: underline;
+}
+
+.navbar #byma-logo img {
+  width: 160px;
+}
+
+
+.prueba {
+  margin: 0 80px 80px 80px;
+  background: #f8f8f8;
+  border-radius: 20px;
+  padding: 0 20px;
 }

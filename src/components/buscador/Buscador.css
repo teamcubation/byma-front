@@ -1,0 +1,20 @@
+.contenedor-buscador {
+    position: relative;
+    padding: 20px;
+}
+
+.contenedor-buscador input {
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1px solid black;
+    width: 265px;
+    background: #f8f8f8;
+}
+
+.contenedor-buscador .icono-buscador {
+    position: absolute;
+    left: 295px;
+    top: 28px;
+    width: 16px;
+    height: 16px;
+}

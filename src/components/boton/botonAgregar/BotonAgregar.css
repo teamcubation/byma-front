@@ -1,0 +1,30 @@
+.contenedor-boton-agregar {
+    padding: 20px 20px 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contenedor-boton-agregar button {
+    background: #009ea1;
+    border: 1px solid #009ea1;
+    padding: 0 10px;
+    border-radius: 50px;
+    height: 35px;
+    width: 130px;
+    cursor: pointer;
+    text-align: right;
+    color: #052a44;
+}
+
+.boton-agregar {
+    position: relative;
+}
+
+.boton-agregar img {
+    position: absolute;
+    top: 9px;
+    left: 10px;
+    width: 16px;
+    height: 16px;
+}
