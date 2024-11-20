@@ -2,4 +2,4 @@ contiene módulos o funciones que se encargan de interactuar con recursos
 externos, como APIs, bases de datos, o servicios de terceros.
 
 Es una forma de separar la lógica relacionada con las solicitudes de datos
- por ejemplo, llamadas a una API) y de mantener tu código más limpio y organizado.
+(por ejemplo, llamadas a una API) y de mantener tu código más limpio y organizado.

@@ -1,46 +1,38 @@
 // src/services/apiService.js
+import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
+const URL = "/emisores";
+const API = axios.create({
+  baseURL: API_URL
+})
 
-/**
- * Realiza una solicitud GET a la API.
- * @param {string} endpoint - El endpoint relativo (ejemplo: '/api/users').
- * @returns {Promise<any>} - La respuesta de la API en formato JSON.
- */
-export const fetchData = async (endpoint) => {
-  try {
-    const response = await fetch(`${API_URL}${endpoint}`);
-    if (!response.ok) {
-      throw new Error(`Error en la solicitud: ${response.status}`);
-    }
-    return await response.json();
-  } catch (error) {
-        console.error('Error al obtener datos:', error);
-        throw error;
-  }
+export const obtenerEmisores = async () => {
+  const respuesta = await API.get("/api/emisores");
+  return respuesta.data;
 };
 
-/**
- * Realiza una solicitud POST a la API.
- * @param {string} endpoint - El endpoint relativo (ejemplo: '/api/users').
- * @param {object} data - Los datos a enviar en el cuerpo de la solicitud.
- * @returns {Promise<any>} - La respuesta de la API en formato JSON.
- */
-export const postData = async (endpoint, data) => {
+export const agregarEmisor = async (datosEmisor) => {
+  console.log("ESTOY EN API SERVICE:", datosEmisor);
+  
   try {
-    const response = await fetch(`${API_URL}${endpoint}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    if (!response.ok) {
-      throw new Error(`Error en la solicitud: ${response.status}`);
-    }
-    return await response.json();
+    const respuesta = await API.post("/api/emisores", datosEmisor);
+    return respuesta.data;
   } catch (error) {
-    console.error('Error al enviar datos:', error);
+    console.error("Error al agregar el emisor:", error.response?.data);
     throw error;
   }
+  
 };
+
+export const actualizarEmisor = async (id, datosActualizadosEmisor) => {
+  const respuesta = await API.put(`/api/emisores/${id}`, datosActualizadosEmisor);
+  return respuesta.data;
+};
+
+export const eliminarEmisor = async (id) => {
+  await API.delete(`/api/emisores/${id}`);
+};
+
+
+

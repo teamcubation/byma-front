@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './TablaEmisores.css'
-import { BotonEditar } from '../../components/boton/botonEditar/BotonEditar'
-import { BotonEliminar } from '../../components/boton/botonEliminar/BotonEliminar'
-import { fetchData } from '../../services/ApiService';
+import { BotonEditar } from '../boton/botonEditar/BotonEditar'
+import { BotonEliminar } from '../boton/botonEliminar/BotonEliminar'
+import { obtenerEmisores } from '../../services/ApiService';
 
 const encabezadosTabla = [
   "Denominacion",
@@ -20,7 +20,7 @@ export const TablaEmisores = () => {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const data = await fetchData('/api/emisores');
+                const data = await obtenerEmisores();
                 setUsers(data);
             } catch (error) {
                 setError(error.message);
@@ -28,7 +28,7 @@ export const TablaEmisores = () => {
         };
 
         getUsers();
-    }, []);
+    }, [emisores]);
 
     if (error) {
         return <p>Error: {error}</p>;
@@ -71,12 +71,19 @@ export const TablaEmisores = () => {
                         </td>
                         <td>{emisor.denominacion}</td>
                         <td>{emisor.email}</td>
-                        <td>{emisor.fechaAlta.toLocaleString()}</td>
+                        <td>{new Date(emisor.fechaAlta).toLocaleString("es-ES", {
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                                hour: "2-digit",
+                                minute: "2-digit"
+                            })}
+                        </td>
                         <td>{emisor.cuentaEmisor}</td>
                         <td>{emisor.idOrganizacion}</td>
                         <td>{emisor.idEntidadLegal}</td>
-                        <BotonEditar/>
-                        <BotonEliminar/>
+                        <BotonEditar id={emisor.id}/>
+                        <BotonEliminar id={emisor.id}/>
                     </tr>
                 ))
                 }

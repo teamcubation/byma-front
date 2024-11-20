@@ -1,7 +1,13 @@
 import React from 'react'
+import { eliminarEmisor } from '../../../services/ApiService';
 
-export const BotonEliminar = () => {
+export const BotonEliminar = ({id}) => {
+
+  const eliminar = async () => {
+    await eliminarEmisor(id);
+  }
+
   return (
-    <button>botonEliminar</button>
+    <button onClick={eliminar}>botonEliminar</button>
   )
 }
