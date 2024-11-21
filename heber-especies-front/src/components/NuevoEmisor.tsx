@@ -10,6 +10,7 @@ import { useState } from "react";
 import { TypeBtnLoading } from "./utils/BtnLoading";
 import { waitFor } from "../utils/utils";
 import { useNavigate } from "react-router-dom"
+import axios from "axios";
 
 export const NuevoEmisor = () => {
   const [btnLoading, setBtnLoading] = useState<TypeBtnLoading>({ state: null, message: "" });
@@ -42,26 +43,28 @@ export const NuevoEmisor = () => {
 
   const onSubmit = async (data: FormSchema) => {
     setBtnLoading({ state: 'loading', message: 'Creando emisor...' });
-    const response = await fetch('http://localhost:8080/api/emisores', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    console.log(response);
 
-    await waitFor(2000);
 
-    if (response.status === 201) {
-      console.log("status 201")
-      setBtnLoading((prevState) => ({ ...prevState, state: 'success', message: 'Emisor creado con éxito' }));
+    try {
+      const response = await axios.post('http://localhost:8080/api/emisores', data, { headers: { 'Content-Type': 'application/json' } });
+      console.log(response, "response");
+      await waitFor(2000);
+      setBtnLoading({ state: 'success', message: 'Emisor creado correctamente' });
       navigate('/abm-emisores');
-    } else if (response.status === 409) {
-      setBtnLoading({ state: 'error', message: 'El email ya se encuentra registrado' });
-    } else {
-      setBtnLoading({ state: 'error', message: 'Error al crear el emisor' });
+
+    } catch (error:any) {
+      console.log(typeof(error));
+      console.log(error.status, "error");
+      if (error.response.status === 409) {
+        setBtnLoading({ state: 'error', message: 'El email ya se encuentra registrado' });
+      } else {
+
+        setBtnLoading({ state: 'error', message: 'Error al crear el emisor' });
+      }
     }
+
+
+
   }
 
   return (
