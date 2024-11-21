@@ -6,7 +6,7 @@ import { Button } from "./ui/button"
 const navItems = [
     {
         label: "ABM Especies",
-        href: "/",
+        href: "/abm-especies",
     },
     {
         label: "ABM Emisores",

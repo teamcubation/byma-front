@@ -66,6 +66,12 @@ export const MisEspecies = () => {
 
   const columns: ColumnDef<TypeEspecie>[] = [
     {
+      accessorKey: "idEspecie",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="ID" />
+      )
+    },
+    {
       accessorKey: "denominacion",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Denominación" />
@@ -204,7 +210,7 @@ export const MisEspecies = () => {
   return (
     <section className="p-6 flex flex-col gap-6">
       <div className="flex justify-end">
-        <Link to="/nuevoEspecie"><Button>Crear especie</Button></Link>
+        <Link to="/Form-Especie"><Button>Crear especie</Button></Link>
       </div>
 
       <Card className='p-4 bg-white rounded-xl shadow-md'>

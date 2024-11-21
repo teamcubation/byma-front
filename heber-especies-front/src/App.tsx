@@ -5,6 +5,8 @@ import { MisEspecies } from "./components/especie/MisEspecies";
 import MainLayout from "./MainLayout";
 import { NuevoEmisor } from "./components/NuevoEmisor";
 import { EditarEmisor } from "./components/EditarEmisor";
+import path from "path";
+import FormEspecie from "./components/especie/FormEspecie";
 
 
 const router = createBrowserRouter([
@@ -13,8 +15,11 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
-        index: true,
+        path: "/abm-especies",
         element: <MisEspecies />,
+      },{
+      path: "/Form-Especie",
+      element: <FormEspecie />,
       },
       {
         path: "/abm-emisores",

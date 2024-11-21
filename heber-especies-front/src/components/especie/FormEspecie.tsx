@@ -9,6 +9,7 @@ import BtnLoading from "../utils/BtnLoading";
 import { TypeBtnLoading } from "../utils/BtnLoading";
 import { waitFor } from "@/utils/utils";
 import { useNavigate } from "react-router-dom";
+import { Checkbox } from "../ui/checkbox";
 const FormEspecie = () => {
     const [btnLoading, setBtnLoading] = useState<TypeBtnLoading>({ state: null, message: "" });
     const navigate = useNavigate();
@@ -98,13 +99,13 @@ const FormEspecie = () => {
 
         await waitFor(2000);
 
-        if (response.status === 201) {
+        if (response.status === 200) {
             setBtnLoading({ state: 'success', message: 'Especie creado correctamente' });
-            navigate('/');
+            navigate('/abm-especies');
         } else if (response.status === 409) {
             setBtnLoading({ state: 'error', message: 'El id de especie ya se encuentra registrado' });
         } else {
-            setBtnLoading({ state: 'error', message: 'Error al crear el emisor' });
+            setBtnLoading({ state: 'error', message: 'Error al crear la especie' });
         }
     }
     return (
@@ -231,19 +232,20 @@ const FormEspecie = () => {
                             </FormItem>
                         )}
                     />
-                    {/* <FormField
+                    { <FormField
                         control={form.control}
                         name="estado"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Estado</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="" {...field} />
+                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
+                    /*
                     <FormField
                         control={form.control}
                         name="vigencia"
