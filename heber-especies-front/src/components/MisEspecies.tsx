@@ -110,6 +110,7 @@ export const MisEspecies = () => {
 
   return (
     <section className="p-6 flex flex-col gap-6">
+      <h1 className="text-3xl font-bold">Mis especies</h1>
       <div className="flex justify-end">
         <Link to="/nuevoEspecie"><Button>Crear especie</Button></Link>
       </div>

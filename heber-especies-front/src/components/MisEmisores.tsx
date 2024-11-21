@@ -37,14 +37,14 @@ export const MisEmisores = () => {
       console.log(response)
       setEmisores(response)
     } catch (error) {
-        if(error instanceof DOMException && error.name === 'AbortError') return;
+      if (error instanceof DOMException && error.name === 'AbortError') return;
     }
   }
 
 
 
 
-  const handleDelete = (id:number) => {
+  const handleDelete = (id: number) => {
     fetch(`http://localhost:8080/api/emisores/${id}`, {
       method: 'DELETE'
     })
@@ -135,6 +135,7 @@ export const MisEmisores = () => {
 
   return (
     <section className="p-6 flex flex-col gap-6">
+      <h1 className="text-3xl font-bold">Mis emisores</h1>
       <div className="flex justify-end">
         <Link to="/nuevoEmisor"><Button>Crear emisor</Button></Link>
       </div>
