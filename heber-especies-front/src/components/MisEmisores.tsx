@@ -5,7 +5,7 @@ import { Card } from "./ui/card"
 import { DataTableColumnHeader } from "./utils/DataTableColumnHeader"
 import { Button } from "./ui/button"
 import { Pencil, Trash2 } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import CardMisEmisores from "./CardMisEmisores"
 import { useEffect, useState } from "react"
 
@@ -22,7 +22,7 @@ export type TypeEmisor = {
 export const MisEmisores = () => {
 
   const [emisores, setEmisores] = useState<TypeEmisor[]>([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -37,14 +37,14 @@ export const MisEmisores = () => {
       console.log(response)
       setEmisores(response)
     } catch (error) {
-        if(error instanceof DOMException && error.name === 'AbortError') return;
+      if (error instanceof DOMException && error.name === 'AbortError') return;
     }
   }
 
 
 
 
-  const handleDelete = (id:number) => {
+  const handleDelete = (id: number) => {
     fetch(`http://localhost:8080/api/emisores/${id}`, {
       method: 'DELETE'
     })
@@ -82,11 +82,11 @@ export const MisEmisores = () => {
       },
     },
     {
-      accessorKey: "cuentaEmisor",
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Cuenta de emisor" />
-      ),
-    },
+          accessorKey: "cuentaEmisor",
+          header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Cuenta de emisor" />
+          ),
+        },
     {
       accessorKey: "idOrganizacion",
       header: ({ column }) => (
@@ -104,7 +104,10 @@ export const MisEmisores = () => {
       header: 'Editar',
       enableGlobalFilter: false,
       cell: ({ row }) => (
-        <Button variant="ghost" size="sm" className="h-8 px-2 py-0 rounded-full bg-blue-300 hover:bg-blue-400" onClick={() => console.log(row.original.id)}>
+        <Button variant="ghost" size="sm" className="h-8 px-2 py-0 rounded-full bg-blue-300 hover:bg-blue-400" onClick={() => {
+          console.log(row)
+          navigate(`/editar-emisor/${row.original.id}`, { state: { emisor: row.original } })
+        }}>
           <Pencil className="h-4 w-4" />
         </Button>
       ),
@@ -135,10 +138,11 @@ export const MisEmisores = () => {
 
   return (
     <section className="p-6 flex flex-col gap-6">
+      <h1 className="text-3xl font-bold">Mis emisores</h1>
       <div className="flex justify-end">
-        <Link to="/nuevoEmisor"><Button>Crear emisor</Button></Link>
+        <Link to="/nuevo-emisor"><Button>Crear emisor</Button></Link>
       </div>
-
+ 
       <Card className='p-4 bg-white rounded-xl shadow-md'>
         <DataTable columns={columns} data={emisores} Card={CardMisEmisores} />
       </Card>

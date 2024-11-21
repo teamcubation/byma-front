@@ -54,8 +54,9 @@ export const NuevoEmisor = () => {
     await waitFor(2000);
 
     if (response.status === 201) {
-      setBtnLoading({ state: 'success', message: 'Emisor creado correctamente' });
-      navigate('/');
+      console.log("status 201")
+      setBtnLoading((prevState) => ({ ...prevState, state: 'success', message: 'Emisor creado con éxito' }));
+      navigate('/abm-emisores');
     } else if (response.status === 409) {
       setBtnLoading({ state: 'error', message: 'El email ya se encuentra registrado' });
     } else {
