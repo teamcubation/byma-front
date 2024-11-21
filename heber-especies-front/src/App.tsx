@@ -2,7 +2,8 @@ import { MisEmisores } from "./components/MisEmisores"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { NuevoEmisor } from "./components/NuevoEmisor";
 import { Toaster } from "./components/ui/sonner";
-import { MisEspecies } from "./components/MisEspecies";
+import { MisEspecies } from "./components/especie/MisEspecies";
+
 
 export const App = () => {
   return (
