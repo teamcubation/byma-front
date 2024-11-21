@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "./components/ui/sonner";
 import { MisEspecies } from "./components/MisEspecies";
 import MainLayout from "./MainLayout";
+import { NuevoEmisor } from "./components/NuevoEmisor";
+import { EditarEmisor } from "./components/EditarEmisor";
 
 
 const router = createBrowserRouter([
@@ -18,6 +20,15 @@ const router = createBrowserRouter([
         path: "/abm-emisores",
         element: <MisEmisores />,
       },
+      {
+        path: "/nuevo-emisor",
+        element: <NuevoEmisor />,
+      }
+      ,
+      {
+        path: "/editar-emisor/:id",
+        element: <EditarEmisor />,
+      }
     ],
   }
 ])
