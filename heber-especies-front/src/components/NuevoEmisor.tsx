@@ -50,6 +50,7 @@ export const NuevoEmisor = () => {
       console.log(response, "response");
       await waitFor(2000);
       setBtnLoading({ state: 'success', message: 'Emisor creado correctamente' });
+      await waitFor(1000);
       navigate('/abm-emisores');
 
     } catch (error:any) {
