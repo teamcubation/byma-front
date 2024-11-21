@@ -7,7 +7,7 @@ import "./style/Navbar.css"
 const navItems = [
     {
         label: "ABM Especies",
-        href: "/",
+        href: "/abm-especies",
     },
     {
         label: "ABM Emisores",
