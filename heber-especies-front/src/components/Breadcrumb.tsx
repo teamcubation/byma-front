@@ -16,8 +16,8 @@ import {
 
 function getBreadcrumbItems(pathname: string): BreadcrumbItem[] {
     const routes: Record<string, string> = {
-        "/": "Especies",
-        "/abm-emisores": "Emisores",
+        "/": "Home",
+        "/abm-emisores": "abm-emisores",
         "/abm-gerentes": "Gerentes",
         "/abm-acdi": "ACDI"
     };
@@ -38,7 +38,7 @@ function getBreadcrumbItems(pathname: string): BreadcrumbItem[] {
     }));
     
     // Siempre agrega "Especies" como el primer elemento
-    return [{ label: "Especies", href: "/" }, ...items.slice(1)];
+    return [{ label: "Home", href: "/" }, ...items.slice(1)];
 }
   
   export function BreadcrumbDemo() {
