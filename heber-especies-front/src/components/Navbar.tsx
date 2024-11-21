@@ -2,6 +2,7 @@ import { MenuIcon, MountainIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import { Button } from "./ui/button"
+import "./style/Navbar.css"
 
 const navItems = [
     {
@@ -16,10 +17,9 @@ const navItems = [
 const Navbar = () => {
     return (
         <>
-            <div className="flex items-center justify-between px-4 py-2 border-b-2 bg-white dark:bg-gray-800">
+            <div className="custom-bg-nav flex items-center justify-between px-4 py-2 "> {/* border-b-2 bg-white dark:bg-gray-800 */}
                 <Link to="/" className="flex items-center gap-2">
-                    <MountainIcon className="h-6 w-6" />
-                    <span className="text-lg font-semibold">Byma Fondos</span>
+                    <img src="src/components/images/logo-byma-fondos.png" className="h-150 w-40" />
                 </Link>
                 <div className="hidden md:flex gap-4">
                     {navItems.map((item) => (
