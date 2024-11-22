@@ -11,7 +11,7 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { Checkbox } from "../ui/checkbox";
 const FormEspecie = () => {
     const location = useLocation();
-    const especie = location.state.especie;
+    const especie = location.state?.especie || null;
     const  {id } = useParams();
 
     useEffect(() => {
@@ -83,15 +83,16 @@ const FormEspecie = () => {
             idGerente: especie?.idGerente ?? "",
             codigoCNV: especie?.codigoCNV ?? "",
             isin: especie?.isin ?? "",
-            vigencia: especie.vigencia ?? new Date(),
-            plazoDeLiquidacion: especie.plazoDeLiquidacion ?? new Date(),
+            vigencia: especie?.vigencia ?? Date.now(),
+            plazoDeLiquidacion: especie?.plazoDeLiquidacion ?? Date.now(),
             familiaDeFondos: especie?.familiaDeFondos ?? "",
             observaciones: especie?.observaciones ?? "",
             idMoneda: especie?.idMoneda ?? "",
-            fechaAlta: especie?.fechaAlta ?? new Date(),
+            fechaAlta: especie?.fechaAlta ?? Date.now(),
         },
     })
     const onSubmit = async (data: FormSchema) => {
+        debugger
         try {
             // Si la especie ya existe, editamos
             if (especie) {
