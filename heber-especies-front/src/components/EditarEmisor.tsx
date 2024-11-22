@@ -49,11 +49,10 @@ export const EditarEmisor = () => {
 
   const onSubmit = async (data: FormSchema) => {
     try {
-      setBtnLoading({ state: 'loading', message: especie ? 'Editando especie...' : 'Creando especie...' });
+      setBtnLoading({ state: 'loading', message: 'Editando Emisor...' });
   
-      // Si existe el id de especie, editamos
-      const response = await fetch(especie ? `http://localhost:8080/api/v1/especies/${id}` : 'http://localhost:8080/api/v1/especies', {
-        method: especie ? 'PUT' : 'POST',
+      const response = await fetch(`http://localhost:8080/api/emisores/${id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -62,21 +61,20 @@ export const EditarEmisor = () => {
   
       console.log(response);
   
-      // Simulamos una breve espera para mejorar la UX
-      await waitFor(2000);
+      await waitFor(2000); // Simula una espera para mejorar la UX
   
       if (response.status === 200) {
-        setBtnLoading({ state: 'success', message: especie ? 'Especie editada correctamente' : 'Especie creada correctamente' });
+        setBtnLoading({ state: 'success', message: 'Emisor editado correctamente' });
         await waitFor(2000); // Breve espera antes de navegar
-        navigate('/abm-especies');
+        navigate('/abm-emisores');
       } else if (response.status === 409) {
-        setBtnLoading({ state: 'error', message: 'El id de especie ya se encuentra registrado' });
+        setBtnLoading({ state: 'error', message: 'El email ya se encuentra registrado' });
       } else {
-        setBtnLoading({ state: 'error', message: 'Error al editar o crear la especie' });
+        setBtnLoading({ state: 'error', message: 'Error al crear el emisor' });
       }
     } catch (error) {
-      console.error('Error al procesar la especie:', error);
-      setBtnLoading({ state: 'error', message: 'Error inesperado al procesar la especie' });
+      console.error('Error al editar el emisor:', error);
+      setBtnLoading({ state: 'error', message: 'Error inesperado al editar el emisor' });
     } finally {
       // Aseguramos que el estado de carga se limpie si ocurre algún problema
       if (btnLoading.state === 'loading') {
@@ -84,7 +82,6 @@ export const EditarEmisor = () => {
       }
     }
   };
-  
 
   return (
     <div className="flex flex-col gap-6">
