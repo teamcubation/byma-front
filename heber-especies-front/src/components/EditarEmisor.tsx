@@ -48,27 +48,40 @@ export const EditarEmisor = () => {
   })
 
   const onSubmit = async (data: FormSchema) => {
-    setBtnLoading({ state: 'loading', message: 'Creando emisor...' });
-    const response = await fetch('http://localhost:8080/api/emisores', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    console.log(response);
-
-    await waitFor(2000);
-
-    if (response.status === 201) {
-      setBtnLoading({ state: 'success', message: 'Emisor creado correctamente' });
-      navigate('/abm-emisores');
-    } else if (response.status === 409) {
-      setBtnLoading({ state: 'error', message: 'El email ya se encuentra registrado' });
-    } else {
-      setBtnLoading({ state: 'error', message: 'Error al crear el emisor' });
+    try {
+      setBtnLoading({ state: 'loading', message: 'Editando Emisor...' });
+  
+      const response = await fetch(`http://localhost:8080/api/emisores/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      console.log(response);
+  
+      await waitFor(2000); // Simula una espera para mejorar la UX
+  
+      if (response.status === 200) {
+        setBtnLoading({ state: 'success', message: 'Emisor editado correctamente' });
+        await waitFor(2000); // Breve espera antes de navegar
+        navigate('/abm-emisores');
+      } else if (response.status === 409) {
+        setBtnLoading({ state: 'error', message: 'El email ya se encuentra registrado' });
+      } else {
+        setBtnLoading({ state: 'error', message: 'Error al crear el emisor' });
+      }
+    } catch (error) {
+      console.error('Error al editar el emisor:', error);
+      setBtnLoading({ state: 'error', message: 'Error inesperado al editar el emisor' });
+    } finally {
+      // Aseguramos que el estado de carga se limpie si ocurre algún problema
+      if (btnLoading.state === 'loading') {
+        setBtnLoading({ state: 'loading', message: '' });
+      }
     }
-  }
+  };
 
   return (
     <div className="flex flex-col gap-6">
