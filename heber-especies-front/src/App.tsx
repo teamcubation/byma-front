@@ -18,9 +18,13 @@ const router = createBrowserRouter([
         path: "/abm-especies",
         element: <MisEspecies />,
       },{
-      path: "/Form-Especie",
+      path: "/edit-Especie/:id",
       element: <FormEspecie />,
       },
+      {
+        path: "/Form-Especie",
+        element: <FormEspecie />,
+        },
       {
         path: "/abm-emisores",
         element: <MisEmisores />,

@@ -8,6 +8,7 @@ import { Pencil, Trash2 } from "lucide-react"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import CardMisEspecies from "./CardMisEspecies"
+import { useNavigate } from "react-router-dom"
 
 export type TypeEspecie = {
   idEspecie: number,
@@ -26,11 +27,13 @@ export type TypeEspecie = {
   isin: string,
   familiaDeFondos: string,
   observaciones: string,
-  movimiento: boolean,
+  moneda: number,
   fechaAlta: ISODateString
 }
 
 export const MisEspecies = () => {
+
+  const navigate = useNavigate()
 
   const [especies, setEspecies] = useState<TypeEspecie[]>([]);
 
@@ -162,9 +165,9 @@ export const MisEspecies = () => {
       )
     },
     {
-      accessorKey: "movimiento",
+      accessorKey: "idMoneda",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Movimiento" />
+        <DataTableColumnHeader column={column} title="ID moneda" />
       )
     },
 
@@ -175,22 +178,29 @@ export const MisEspecies = () => {
       ),
     },
     {
-      accessorKey: "editar",
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Editar" />
-      ),
+      accessorKey: 'editar',
+      header: 'Editar',
+      enableGlobalFilter: false,
       cell: ({ row }) => (
-        <Link to={`/editarEspecie/${row.original.idEspecie}`}><Pencil className="w-6 h-6 text-primary-foreground" /></Link>
-      )
+        <Button variant="ghost" size="sm" className="h-8 px-2 py-0 rounded-full bg-blue-300 hover:bg-blue-400" onClick={() => {
+          const idEspecie = row.original.idEspecie
+          console.log(idEspecie)
+
+          navigate(`/edit-Especie/${idEspecie}`, { state: { especie: row.original } })
+        }}>
+          <Pencil className="h-4 w-4" />
+        </Button>
+      ),
     },
-    {
-      accessorKey: "eliminar",
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Eliminar" />
-      ),
+    { 
+      accessorKey: 'eliminar',
+      header: 'Eliminar',
+      enableGlobalFilter: false,
       cell: ({ row }) => (
-        <Trash2 onClick={() => handleDelete(row.original.idEspecie)} className="w-6 h-6 text-primary-foreground cursor-pointer" />
-      )
+        <Button variant="ghost" size="sm" className="h-8 px-2 py-0 rounded-full bg-red-300 hover:bg-red-400" onClick={() => handleDelete(row.original.idEspecie)}>
+          <Trash2 className="h-4 w-4" />
+        </Button>
+      ),
     }
 
   ]
