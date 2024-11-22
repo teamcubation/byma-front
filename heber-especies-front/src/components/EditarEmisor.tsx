@@ -29,8 +29,8 @@ export const EditarEmisor = () => {
     cuentaEmisor: z.string()
       .min(1, { message: "La cuenta de emisor es requerida" })
       .max(255, { message: "La cuenta de emisor supera la cantidad máxima de caracteres" }),
-    idOrganizacion: z.string(),
-    idEntidadLegal: z.string()
+    idOrganizacion: z.number(),
+    idEntidadLegal: z.number()
   })
 
   type FormSchema = z.infer<typeof formSchema>;
