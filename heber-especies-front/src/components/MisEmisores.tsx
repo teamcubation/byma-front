@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom"
 import CardMisEmisores from "./CardMisEmisores"
 import { useEffect, useState } from "react"
 
-export type TypeEmisor = {
+export interface TypeEmisor {
   id: number
   denominacion: string
   email: mail
@@ -18,6 +18,8 @@ export type TypeEmisor = {
   idOrganizacion: number,
   idEntidadLegal: number
 }
+
+type emisorKeys = keyof TypeEmisor
 
 export const MisEmisores = () => {
 

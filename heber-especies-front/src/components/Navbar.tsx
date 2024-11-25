@@ -13,6 +13,14 @@ const navItems = [
         label: "ABM Emisores",
         href: "/abm-emisores",
     },
+    {
+        label: "ABM Acdis",
+        href: "/abm-acdis",
+    },
+    {
+        label: "ABM Gerentes",
+        href: "/abm-gerentes",
+    },
 ]
 const Navbar = () => {
     return (
