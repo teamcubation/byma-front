@@ -11,6 +11,7 @@ import { TypeBtnLoading } from "./utils/BtnLoading";
 import { waitFor } from "../utils/utils";
 import { useNavigate } from "react-router-dom"
 import axios from "axios";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 
 export const NuevoEmisor = () => {
   const [btnLoading, setBtnLoading] = useState<TypeBtnLoading>({ state: null, message: "" });
@@ -53,8 +54,8 @@ export const NuevoEmisor = () => {
       await waitFor(1000);
       navigate('/abm-emisores');
 
-    } catch (error:any) {
-      console.log(typeof(error));
+    } catch (error: any) {
+      console.log(typeof (error));
       console.log(error.status, "error");
       if (error.response.status === 409) {
         setBtnLoading({ state: 'error', message: 'El email ya se encuentra registrado' });
@@ -71,84 +72,95 @@ export const NuevoEmisor = () => {
   return (
     <div className="flex flex-col gap-6">
       <h1>Formulario</h1>
+      <div className="container min-h-screen mx-auto flex justify-center items-center">
+        <Card className="lg:w-1/2">
+          <CardHeader>
+            <CardTitle>{"Nuevo Emisor"}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 p-6">
+                <FormField
+                  control={form.control}
+                  name="denominacion"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Denominación</FormLabel>
+                      <FormControl>
+                        <Input placeholder="" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 p-6">
-          <FormField
-            control={form.control}
-            name="denominacion"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Denominación</FormLabel>
-                <FormControl>
-                  <Input placeholder="" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="example@gmail.com" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="example@gmail.com" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                <FormField
+                  control={form.control}
+                  name="cuentaEmisor"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Cuenta de emisor</FormLabel>
+                      <FormControl>
+                        <Input placeholder="" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-          <FormField
-            control={form.control}
-            name="cuentaEmisor"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Cuenta de emisor</FormLabel>
-                <FormControl>
-                  <Input placeholder="" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                <FormField
+                  control={form.control}
+                  name="idOrganizacion"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Id de organización</FormLabel>
+                      <FormControl>
+                        <Input type='number' placeholder="" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-          <FormField
-            control={form.control}
-            name="idOrganizacion"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Id de organización</FormLabel>
-                <FormControl>
-                  <Input type='number' placeholder="" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                <FormField
+                  control={form.control}
+                  name="idEntidadLegal"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Id de entidad legal</FormLabel>
+                      <FormControl>
+                        <Input type='number' placeholder="" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-          <FormField
-            control={form.control}
-            name="idEntidadLegal"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Id de entidad legal</FormLabel>
-                <FormControl>
-                  <Input type='number' placeholder="" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                <div className="flex justify-end">
+                  <BtnLoading btnLoading={btnLoading}></BtnLoading>
+                </div>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
 
-          <div className="flex justify-end">
-            <BtnLoading btnLoading={btnLoading}></BtnLoading>
-          </div>
-        </form>
-      </Form>
+
+
     </div>
   )
 }
