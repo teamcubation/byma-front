@@ -3,13 +3,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "./components/ui/sonner";
 import { MisEspecies } from "./components/especie/MisEspecies";
 import MainLayout from "./MainLayout";
+import { MisAcdis } from "./components/acdis/MisAcdis";
+import { NuevoAcdi } from "./components/acdis/NuevoAcdi";
 import { NuevoEmisor } from "./components/NuevoEmisor";
 import { EditarEmisor } from "./components/EditarEmisor";
 import path from "path";
 import FormEspecie from "./components/especie/FormEspecie";
 import { MisGerentes } from "./components/features/gerente/AbmGerentes";
 import { FormGerente } from "./components/features/gerente/FormGerente";
-
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,18 @@ const router = createBrowserRouter([
       {
         path: "/abm-emisores",
         element: <MisEmisores />,
+      },
+      {
+        path: "/abm-acdis",
+        element: <MisAcdis/>
+      },
+      {
+        path: "/nuevo-acdi",
+        element: <NuevoAcdi/>
+      },
+      {
+        path: "/editar-acdi/:id",
+        element: <NuevoAcdi/>,
       },
       {
         path: "/nuevo-emisor",
@@ -54,6 +67,7 @@ const router = createBrowserRouter([
         element: <FormGerente />,
       }
     ],
+    
   }
 ])
 export const App = () => {

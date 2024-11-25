@@ -29,8 +29,8 @@ export const EditarEmisor = () => {
     cuentaEmisor: z.string()
       .min(1, { message: "La cuenta de emisor es requerida" })
       .max(255, { message: "La cuenta de emisor supera la cantidad máxima de caracteres" }),
-    idOrganizacion: z.number(),
-    idEntidadLegal: z.number()
+    idOrganizacion: z.string().regex(/^\d+$/, { message: "El id de organización debe ser numérico" }),
+    idEntidadLegal: z.string().regex(/^\d+$/, { message: "El id de organización debe ser numérico" })
   })
 
   type FormSchema = z.infer<typeof formSchema>;
@@ -42,11 +42,11 @@ export const EditarEmisor = () => {
       denominacion: location.state.emisor.denominacion,
       email: location.state.emisor.email,
       cuentaEmisor: location.state.emisor.cuentaEmisor,
-      idOrganizacion: location.state.emisor.idOrganizacion,
-      idEntidadLegal: location.state.emisor.idEntidadLegal,
-    },
+      idOrganizacion: String(location.state.emisor.idOrganizacion),
+      idEntidadLegal: String(location.state.emisor.idEntidadLegal),
+    }
   })
-
+  
   const onSubmit = async (data: FormSchema) => {
     try {
       setBtnLoading({ state: 'loading', message: 'Editando Emisor...' });
