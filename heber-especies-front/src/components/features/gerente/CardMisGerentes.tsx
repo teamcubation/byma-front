@@ -53,7 +53,7 @@ export default function CardMisGerentes<T>({
     <Card className="w-full max-w-2xl mx-auto hover:shadow-lg transition-shadow duration-300">
       <CardContent className="p-6 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* {denominacion && (
+          {denominacion && (
             <div className="flex items-center space-x-2 text-sm">
               <Text className="w-4 h-4 text-muted-foreground" />
               <span className="font-medium">Denominacion:</span>
@@ -80,14 +80,8 @@ export default function CardMisGerentes<T>({
               <span className="font-medium">Liquida en Byma:</span>
               <span>{liquidaEnByma}</span>
             </div>
-          )} */}
-          {
-            Object.keys(row.original as Object).map((key, index) => {
-              return (
-                renderColumn(key)
-              )
-            })
-          }
+          )}
+         
           
         </div>
         <div className="flex justify-end space-x-2 mt-4">

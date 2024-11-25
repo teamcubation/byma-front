@@ -236,7 +236,7 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  className={`${row.original[booleanKey as keyof TData] ? "" : "opacity-50"}`}
+                  className={`${row.original[booleanKey as keyof TData] ?? true ? "" : "opacity-50"}`}
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
