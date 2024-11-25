@@ -109,7 +109,7 @@ const FormEspecie = () => {
         try {
             if (especie) {
                 setBtnLoading({ state: 'loading', message: 'Editando especie...' });
-                const response = await fetch(`http://localhost:8080/api/v1/especies/${id}`, {
+                const response = await fetch(`http://localhost:10002/api/v1/especies/${id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -135,7 +135,7 @@ const FormEspecie = () => {
                 }
                 setBtnLoading({ state: 'loading', message: 'Creando especie...' });
 
-                const response = await fetch(`http://localhost:8080/api/v1/especies`, {
+                const response = await fetch(`http://localhost:10002/api/v1/especies`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

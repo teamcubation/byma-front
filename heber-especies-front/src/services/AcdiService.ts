@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/api/v1/acdis";
+const API_URL = "http://localhost:10003/api/v1/acdis";
 
 export const getAcdis = async (signal?: AbortSignal) => {
     try {

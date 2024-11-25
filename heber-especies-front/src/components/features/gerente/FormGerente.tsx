@@ -58,9 +58,9 @@ export const FormGerente = () => {
       let response;
 
       if (location.state?.gerente) {
-        response = await axios.patch(`http://localhost:8080/api/v1/gerentes/${id}`, data, { headers: { 'Content-Type': 'application/json' } });
+        response = await axios.patch(`http://localhost:10000/api/v1/gerentes/${id}`, data, { headers: { 'Content-Type': 'application/json' } });
       } else {
-        response = await axios.post('http://localhost:8080/api/v1/gerentes', data, { headers: { 'Content-Type': 'application/json' } });
+        response = await axios.post('http://localhost:10000/api/v1/gerentes', data, { headers: { 'Content-Type': 'application/json' } });
       }
 
       console.log(response, "response");

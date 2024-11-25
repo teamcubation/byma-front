@@ -128,7 +128,7 @@ export const MisGerentes = () => {
   // ? callback que trae los gerentes de la API
   const traerGerentes = async (signal: AbortSignal) => {
     try {
-      const response = await axios.get('http://localhost:8080/api/v1/gerentes')
+      const response = await axios.get('http://localhost:10000/api/v1/gerentes')
       const data = await response.data;
       console.log(data)
       const gerente = data[0] as TypeGerente
@@ -144,7 +144,7 @@ export const MisGerentes = () => {
   // ? callback para manejar el borrado logico del gerente
   const handleDelete = async (id: number) => {
     try {
-      await axios.patch(`http://localhost:8080/api/v1/gerentes/toggle-habilitar/${id}`);
+      await axios.patch(`http://localhost:10000/api/v1/gerentes/toggle-habilitar/${id}`);
 
       setGerentes((prevGerentes) =>
         prevGerentes.map((gerente) =>

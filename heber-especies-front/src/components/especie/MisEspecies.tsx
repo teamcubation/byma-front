@@ -47,7 +47,7 @@ export const MisEspecies = () => {
 
   const traerEspecies = async (signal: AbortSignal) => {
     try {
-      const response = await fetch('http://localhost:8080/api/v1/especies', { signal: signal }).then(res => res.json())
+      const response = await fetch('http://localhost:10002/api/v1/especies', { signal: signal }).then(res => res.json())
       console.log(response)
       setEspecies(response)
     } catch (error) {
@@ -59,7 +59,7 @@ export const MisEspecies = () => {
 
 
   const handleDelete = (id: number) => {
-    fetch(`http://localhost:8080/api/v1/especies/${id}`, {
+    fetch(`http://localhost:10002/api/v1/especies/${id}`, {
       method: 'DELETE'
     })
 
