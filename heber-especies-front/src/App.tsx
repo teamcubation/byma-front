@@ -7,6 +7,8 @@ import { NuevoEmisor } from "./components/NuevoEmisor";
 import { EditarEmisor } from "./components/EditarEmisor";
 import path from "path";
 import FormEspecie from "./components/especie/FormEspecie";
+import { MisGerentes } from "./components/features/gerente/AbmGerentes";
+import { FormGerente } from "./components/features/gerente/FormGerente";
 
 
 const router = createBrowserRouter([
@@ -17,14 +19,14 @@ const router = createBrowserRouter([
       {
         path: "/abm-especies",
         element: <MisEspecies />,
-      },{
-      path: "/edit-Especie/:id",
-      element: <FormEspecie />,
+      }, {
+        path: "/edit-Especie/:id",
+        element: <FormEspecie />,
       },
       {
         path: "/Form-Especie",
         element: <FormEspecie />,
-        },
+      },
       {
         path: "/abm-emisores",
         element: <MisEmisores />,
@@ -37,6 +39,19 @@ const router = createBrowserRouter([
       {
         path: "/editar-emisor/:id",
         element: <EditarEmisor />,
+      },
+      {
+        path: "/abm-gerentes",
+        element: <MisGerentes />,
+      },
+      {
+        path: "/nuevo-gerente",
+        element: <FormGerente />,
+      }
+      ,
+      {
+        path: "/editar-gerente/:id",
+        element: <FormGerente />,
       }
     ],
   }

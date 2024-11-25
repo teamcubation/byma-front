@@ -10,7 +10,7 @@ import { useEffect, useState } from "react"
 import CardMisEspecies from "./CardMisEspecies"
 import { useNavigate } from "react-router-dom"
 
-export type TypeEspecie = {
+export interface TypeEspecie {
   idEspecie: number,
   denominacion: string,
   precio: number,

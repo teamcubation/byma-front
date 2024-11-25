@@ -33,6 +33,9 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useMediaQuery } from "react-responsive";
 import { LoaderCircle, Search } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { TypeGerente } from "../features/gerente/AbmGerentes";
+import { TypeEmisor } from "../MisEmisores";
+import { TypeEspecie } from "../especie/MisEspecies";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -42,6 +45,7 @@ interface DataTableProps<TData, TValue> {
   txtPlaceholderFilter?: string;
   columnsHidden?: Array<Extract<keyof TData, string>>;
   dataLoading?: boolean;
+  booleanKey?: keyof TData;
 }
 
 const TableSkeleton = () => (
@@ -80,13 +84,19 @@ export function DataTable<TData, TValue>({
   txtPlaceholderFilter = "Filtrar...",
   columnsHidden = [],
   dataLoading = false,
+  booleanKey
 }: Readonly<DataTableProps<TData, TValue>>): JSX.Element {
+
   const [sorting, setSorting] = useState<SortingState>([]);
+
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
     columnsHidden.reduce((acc, column) => ({ ...acc, [column]: false }), {})
   );
+
   const [filtering, setFiltering] = useState<string>("");
+
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
+
   const [inputIsLoading, setInputIsLoading] = useState(false);
 
   const [parent] = useAutoAnimate();
@@ -119,7 +129,7 @@ export function DataTable<TData, TValue>({
       // @ts-expect-error Pendiente: mejorar el tipado
       const headerElement = column.columnDef.header({ column });
       return isValidElement(headerElement)
-      // @ts-expect-error Pendiente: mejorar el tipado
+        // @ts-expect-error Pendiente: mejorar el tipado
         ? headerElement.props.title
         : "Encabezado no disponible";
     } else if (typeof column.columnDef.header === "string") {
@@ -199,13 +209,13 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead className="text-center" key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}
@@ -226,6 +236,7 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
+                  className={`${row.original[booleanKey as keyof TData] ? "" : "opacity-50"}`}
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
