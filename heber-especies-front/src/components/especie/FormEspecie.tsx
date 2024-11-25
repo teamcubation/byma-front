@@ -12,7 +12,7 @@ import { Checkbox } from "../ui/checkbox";
 const FormEspecie = () => {
     const location = useLocation();
     const especie = location.state?.especie || null;
-    const  {id } = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         console.log("idEspecie recibido:", id);
@@ -41,11 +41,19 @@ const FormEspecie = () => {
         idEmisor: z.string().regex(/^\d+$/, { message: "El id de organización debe ser numérico" }),
         idGerente: z.string().regex(/^\d+$/, { message: "El id de entidad legal debe ser numérico" }),
         vigencia: z.preprocess(
-            (value) => (typeof value === "string" || value instanceof Date ? new Date(value) : value),
+            (value) => {
+                if (typeof value === "string") return new Date(value);
+                if (value instanceof Date) return value;
+                return new Date();
+            },
             z.date()
         ),
         plazoDeLiquidacion: z.preprocess(
-            (value) => (typeof value === "string" || value instanceof Date ? new Date(value) : value),
+            (value) => {
+                if (typeof value === "string") return new Date(value);
+                if (value instanceof Date) return value;
+                return new Date();
+            },
             z.date()
         ),
         codigoCNV: z.string()
@@ -62,7 +70,11 @@ const FormEspecie = () => {
             .max(255, { message: "La denominación supera la cantidad máxima de caracteres" }),
         idMoneda: z.string().regex(/^\d+$/, { message: "El id de la moneda debe ser numérico" }),
         fechaAlta: z.preprocess(
-            (value) => (typeof value === "string" || value instanceof Date ? new Date(value) : value),
+            (value) => {
+                if (typeof value === "string") return new Date(value);
+                if (value instanceof Date) return value;
+                return new Date();
+            },
             z.date()
         )
 
@@ -84,7 +96,7 @@ const FormEspecie = () => {
             codigoCNV: especie?.codigoCNV ?? "",
             isin: especie?.isin ?? "",
             vigencia: especie?.vigencia ?? Date.now(),
-            plazoDeLiquidacion: especie?.plazoDeLiquidacion ?? Date.now(),
+             plazoDeLiquidacion: especie?.plazoDeLiquidacion ?? Date.now(),
             familiaDeFondos: especie?.familiaDeFondos ?? "",
             observaciones: especie?.observaciones ?? "",
             idMoneda: especie?.idMoneda ?? "",
@@ -92,9 +104,8 @@ const FormEspecie = () => {
         },
     })
     const onSubmit = async (data: FormSchema) => {
-        debugger
+        debugger;
         try {
-            // Si la especie ya existe, editamos
             if (especie) {
                 setBtnLoading({ state: 'loading', message: 'Editando especie...' });
                 const response = await fetch(`http://localhost:8080/api/v1/especies/${id}`, {
@@ -104,13 +115,10 @@ const FormEspecie = () => {
                     },
                     body: JSON.stringify(data),
                 });
-    
-                console.log(response);
-    
-                // Verificamos la respuesta
-                if (response.status === 200) {
+
+                if (response.ok) {
                     setBtnLoading({ state: 'success', message: 'Especie editada correctamente' });
-                    await waitFor(2000); // Simulamos un breve retardo antes de navegar
+                    await waitFor(2000);
                     navigate('/abm-especies');
                 } else if (response.status === 409) {
                     setBtnLoading({ state: 'error', message: 'El id de especie ya se encuentra registrado' });
@@ -118,24 +126,25 @@ const FormEspecie = () => {
                     setBtnLoading({ state: 'error', message: 'Error al editar la especie' });
                 }
             } else {
-                // Si la especie no existe, creamos una nueva
+                const dataToSend = {
+                    ...data,
+                    vigencia: new Date(data.vigencia).toISOString(),
+                    plazoDeLiquidacion: new Date(data.plazoDeLiquidacion).toISOString(),
+                    fechaAlta: new Date(data.fechaAlta).toISOString()
+                }
                 setBtnLoading({ state: 'loading', message: 'Creando especie...' });
-                const response = await fetch('http://localhost:8080/api/v1/especies', {
+
+                const response = await fetch(`http://localhost:8080/api/v1/especies`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(data),
+                    body: JSON.stringify(dataToSend),
                 });
-                await waitFor(2000);
 
-    
-                console.log(response);
-    
-                // Verificamos la respuesta
-                if (response.status === 200) {
+                if (response.ok) {
                     setBtnLoading({ state: 'success', message: 'Especie creada correctamente' });
-                    await waitFor(2000); // Simulamos un breve retardo antes de navegar
+                    await waitFor(2000);
                     navigate('/abm-especies');
                 } else if (response.status === 409) {
                     setBtnLoading({ state: 'error', message: 'El id de especie ya se encuentra registrado' });
@@ -143,18 +152,14 @@ const FormEspecie = () => {
                     setBtnLoading({ state: 'error', message: 'Error al crear la especie' });
                 }
             }
-        } catch (error) {
-            console.error('Error al procesar la especie:', error);
-            setBtnLoading({ state: 'error', message: 'Error inesperado al procesar la especie' });
-        } finally {
-            // Aseguramos que el estado de carga se limpie si ocurre algún problema
-            if (btnLoading.state === 'loading') {
-                setBtnLoading({ state: 'loading', message: '' });
-            }
+        } catch (error: any) {
+            console.error(error);
+            setBtnLoading({ state: 'error', message: 'Error al procesar la solicitud' });
         }
     };
-    
-    
+
+
+
 
     return (
         <div className="flex flex-col gap-6">
@@ -221,7 +226,10 @@ const FormEspecie = () => {
                             <FormItem>
                                 <FormLabel>Codigo CVSA</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="" {...field} />
+                                    <Input placeholder="" {...field} 
+                                    readOnly={!!especie}
+                                    className={especie ? "bg-gray-100 cursor-not-allowed" : ""}
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
