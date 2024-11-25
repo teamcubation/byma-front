@@ -280,21 +280,8 @@ const FormEspecie = () => {
                             </FormItem>
                         )}
                     />
-                    {<FormField
-                        control={form.control}
-                        name="estado"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Estado</FormLabel>
-                                <FormControl>
-                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    /*
-                    <FormField
+                    
+                    {/* <FormField
                         control={form.control}
                         name="vigencia"
                         render={({ field }) => (
@@ -319,7 +306,7 @@ const FormEspecie = () => {
                                 <FormMessage />
                             </FormItem>
                         )}
-                    /> */}
+                    />  */}
                             <FormField
                                 control={form.control}
                                 name="codigoCNV"
@@ -385,7 +372,22 @@ const FormEspecie = () => {
                                     </FormItem>
                                 )}
                             />
-
+                            <FormField
+                                control={form.control}
+                                name="estado"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <Checkbox
+                                                checked={field.value}
+                                                onCheckedChange={field.onChange}
+                                            />
+                                        </FormControl>
+                                        <FormLabel>Estado</FormLabel>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
 
                             <div className="flex justify-end">
