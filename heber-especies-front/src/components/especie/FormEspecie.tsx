@@ -14,7 +14,6 @@ const FormEspecie = () => {
     const location = useLocation();
     const especie = location.state?.especie || null;
     const { id } = useParams();
-    const { id } = useParams();
 
     useEffect(() => {
         console.log("idEspecie recibido:", id);
