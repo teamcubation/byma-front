@@ -58,9 +58,9 @@ export const FormGerente = () => {
       let response;
 
       if (location.state?.gerente) {
-        response = await axios.patch(`http://localhost:10000/api/v1/gerentes/${id}`, data, { headers: { 'Content-Type': 'application/json' } });
+        response = await axios.patch(`${import.meta.env.VITE_GERENTE_BASE_URL}/gerentes/${id}`, data, { headers: { 'Content-Type': 'application/json' } });
       } else {
-        response = await axios.post('http://localhost:10000/api/v1/gerentes', data, { headers: { 'Content-Type': 'application/json' } });
+        response = await axios.post(`${import.meta.env.VITE_GERENTE_BASE_URL}/gerentes`, data, { headers: { 'Content-Type': 'application/json' } });
       }
 
       console.log(response, "response");
@@ -83,8 +83,8 @@ export const FormGerente = () => {
   }
 
   return (
-    <div className="container min-h-screen mx-auto flex justify-center items-center">
-      <Card className="lg:w-1/2">
+    <div className="container p-2 min-h-screen mx-auto flex justify-center items-center">
+      <Card className="w-full lg:w-1/2">
         <CardHeader>
           <CardTitle>{id ? "Editar Gerente" : "Nuevo Gerente"}</CardTitle>
         </CardHeader>
