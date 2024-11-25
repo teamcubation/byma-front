@@ -84,7 +84,7 @@ export const FormGerente = () => {
 
   return (
     <div className="container h-screen mx-auto flex justify-center items-center">
-      <Card className="w-1/2">
+      <Card className="lg:w-1/2">
         <CardHeader>
           <CardTitle>{id ? "Editar Gerente" : "Nuevo Gerente"}</CardTitle>
         </CardHeader>

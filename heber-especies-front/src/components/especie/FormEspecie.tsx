@@ -9,10 +9,11 @@ import { TypeBtnLoading } from "../utils/BtnLoading";
 import { waitFor } from "@/utils/utils";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { Checkbox } from "../ui/checkbox";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 const FormEspecie = () => {
     const location = useLocation();
     const especie = location.state?.especie || null;
-    const  {id } = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         console.log("idEspecie recibido:", id);
@@ -104,9 +105,9 @@ const FormEspecie = () => {
                     },
                     body: JSON.stringify(data),
                 });
-    
+
                 console.log(response);
-    
+
                 // Verificamos la respuesta
                 if (response.status === 200) {
                     setBtnLoading({ state: 'success', message: 'Especie editada correctamente' });
@@ -129,9 +130,9 @@ const FormEspecie = () => {
                 });
                 await waitFor(2000);
 
-    
+
                 console.log(response);
-    
+
                 // Verificamos la respuesta
                 if (response.status === 200) {
                     setBtnLoading({ state: 'success', message: 'Especie creada correctamente' });
@@ -153,132 +154,137 @@ const FormEspecie = () => {
             }
         }
     };
-    
-    
+
+
 
     return (
-        <div className="flex flex-col gap-6">
+        <div className="container min-h-screen mx-auto flex justify-center items-center">
 
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 p-6">
-                    <FormField
-                        control={form.control}
-                        name="denominacion"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Denominación</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+            <Card className="lg:w-1/2">
+                <CardHeader>
+                    <CardTitle>{id ? "Editar especie" : "Crear nueva especie"}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 p-6">
+                            <FormField
+                                control={form.control}
+                                name="denominacion"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Denominación</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
-                    <FormField
-                        control={form.control}
-                        name="precio"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Precio</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="laminaMinima"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Lamina minima</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="cafci"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>CAFCI</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="codigoCVSA"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Codigo CVSA</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="idEmisor"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Id emisor</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="idGerente"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Id gerente</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="cuentaDeEmision"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Cuenta de emision</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    {<FormField
-                        control={form.control}
-                        name="estado"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Estado</FormLabel>
-                                <FormControl>
-                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                            <FormField
+                                control={form.control}
+                                name="precio"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Precio</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="laminaMinima"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Lamina minima</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="cafci"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>CAFCI</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="codigoCVSA"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Codigo CVSA</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="idEmisor"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Id emisor</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="idGerente"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Id gerente</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="cuentaDeEmision"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Cuenta de emision</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            {<FormField
+                                control={form.control}
+                                name="estado"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Estado</FormLabel>
+                                        <FormControl>
+                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
                     /*
                     <FormField
                         control={form.control}
@@ -306,79 +312,81 @@ const FormEspecie = () => {
                             </FormItem>
                         )}
                     /> */}
-                    <FormField
-                        control={form.control}
-                        name="codigoCNV"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Codigo CNV</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="isin"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>ISIN</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="familiaDeFondos"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Familia de fondos</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="observaciones"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Observaciones</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="idMoneda"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>ID Moneda</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                            <FormField
+                                control={form.control}
+                                name="codigoCNV"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Codigo CNV</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="isin"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>ISIN</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="familiaDeFondos"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Familia de fondos</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="observaciones"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Observaciones</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="idMoneda"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>ID Moneda</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
 
 
-                    <div className="flex justify-end">
-                        <BtnLoading btnLoading={btnLoading}></BtnLoading>
-                    </div>
-                </form>
-            </Form>
+                            <div className="flex justify-end">
+                                <BtnLoading btnLoading={btnLoading}></BtnLoading>
+                            </div>
+                        </form>
+                    </Form>
+                </CardContent>
+            </Card>
         </div>
     );
 }
