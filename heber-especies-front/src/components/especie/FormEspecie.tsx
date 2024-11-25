@@ -87,25 +87,24 @@ const FormEspecie = () => {
         defaultValues: {
             codigoCVSA: especie?.codigoCVSA ?? "",
             denominacion: especie?.denominacion ?? "",
-            laminaMinima: especie?.laminaMinima ?? "",
-            precio: especie?.precio ?? "",
+            laminaMinima: especie?.laminaMinima?.toString() ?? "",
+            precio: especie?.precio?.toString() ?? "",
             cafci: especie?.cafci ?? "",
             cuentaDeEmision: especie?.cuentaDeEmision ?? "",
-            estado: especie?.estado ?? false,
-            idEmisor: especie?.idEmisor ?? "",
-            idGerente: especie?.idGerente ?? "",
+            estado: especie?.estado === "true",
+            idEmisor: especie?.idEmisor?.toString() ?? "",
+            idGerente: especie?.idGerente?.toString() ?? "",
             codigoCNV: especie?.codigoCNV ?? "",
             isin: especie?.isin ?? "",
             vigencia: especie?.vigencia ?? Date.now(),
-             plazoDeLiquidacion: especie?.plazoDeLiquidacion ?? Date.now(),
+            plazoDeLiquidacion: especie?.plazoDeLiquidacion ?? Date.now(),
             familiaDeFondos: especie?.familiaDeFondos ?? "",
             observaciones: especie?.observaciones ?? "",
-            idMoneda: especie?.idMoneda ?? "",
+            idMoneda: especie?.idMoneda?.toString() ?? "",
             fechaAlta: especie?.fechaAlta ?? Date.now(),
         },
     })
     const onSubmit = async (data: FormSchema) => {
-        debugger;
         try {
             if (especie) {
                 setBtnLoading({ state: 'loading', message: 'Editando especie...' });
