@@ -64,3 +64,12 @@
     @apply bg-background text-foreground;
   }
 } */
+
+nav ol li {
+  color: #24abae;
+  font-size: 15px;
+}
+
+nav ol li svg {
+  color: black;
+}
