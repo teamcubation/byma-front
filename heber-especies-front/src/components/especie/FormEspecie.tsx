@@ -88,7 +88,7 @@ const FormEspecie = () => {
             codigoCVSA: especie?.codigoCVSA ?? "",
             denominacion: especie?.denominacion ?? "",
             laminaMinima: especie?.laminaMinima ?? "",
-            precio: especie?.precio ?? "",
+            precio: especie?.precio?.toString() ?? "",
             cafci: especie?.cafci ?? "",
             cuentaDeEmision: especie?.cuentaDeEmision ?? "",
             estado: especie?.estado ?? false,

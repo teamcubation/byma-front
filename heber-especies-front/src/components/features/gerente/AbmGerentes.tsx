@@ -252,9 +252,14 @@ export const MisGerentes = () => {
   console.dir(columns, "columns")
   return (
     <section className="p-6 flex flex-col gap-6">
-      <h1 className="text-3xl font-bold">Mis gerentes</h1>
+      <h1 className="text-3xl font-bold bg-verde-normal hover:bg-verde-normal-hover">Mis gerentes</h1>
       <div className="flex justify-end">
-        <Link to="/nuevo-gerente"><Button>Crear gerente</Button></Link>
+        <Link to="/nuevo-gerente">
+          <Button className="" size="lg">Crear gerente</Button>
+        </Link>
+        <Button className="" size="default">Crear gerente</Button>
+        <Button className="" size="sm">Crear gerente</Button>
+
       </div>
 
       <Card className='p-4 bg-white rounded-xl shadow-md'>
