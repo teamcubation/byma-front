@@ -30,7 +30,7 @@ const FormEspecie = () => {
         denominacion: z.string()
             .min(1, { message: "La denominación es requerida" })
             .max(255, { message: "La denominación supera la cantidad máxima de caracteres" }),
-        laminaMinima: z.string().regex(/^\d+$/, { message: "El id de especie debe ser numérico" }),
+        laminaMinima: z.string().regex(/^\d+$/, { message: "La lamina minima debe ser numérico" }),
         precio: z.string().regex(/^\d+$/, { message: "El precio debe ser numérico" }),
         cafci: z.string()
             .min(1, { message: "La denominación es requerida" })
@@ -105,7 +105,6 @@ const FormEspecie = () => {
         },
     })
     const onSubmit = async (data: FormSchema) => {
-        debugger;
         try {
             if (especie) {
                 setBtnLoading({ state: 'loading', message: 'Editando especie...' });
@@ -193,7 +192,7 @@ const FormEspecie = () => {
                             <FormItem>
                                 <FormLabel>Precio</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="" {...field} />
+                                    <Input type="number" placeholder="" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -206,7 +205,7 @@ const FormEspecie = () => {
                             <FormItem>
                                 <FormLabel>Lamina minima</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="" {...field} />
+                                    <Input type="number" placeholder="" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -248,7 +247,7 @@ const FormEspecie = () => {
                             <FormItem>
                                 <FormLabel>Id emisor</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="" {...field} />
+                                    <Input type="number" placeholder="" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -261,7 +260,7 @@ const FormEspecie = () => {
                             <FormItem>
                                 <FormLabel>Id gerente</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="" {...field} />
+                                    <Input type="number" placeholder="" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -379,7 +378,7 @@ const FormEspecie = () => {
                                     <FormItem>
                                         <FormLabel>ID Moneda</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="" {...field} />
+                                            <Input type="number" placeholder="" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
