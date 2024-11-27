@@ -3,7 +3,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Card } from "../ui/card";
 import { DataTableColumnHeader } from "../utils/DataTableColumnHeader";
 import { Button } from "../ui/button";
-import { Pencil, Trash2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import CardMisAcdis from "./CardMisAcdis";
 import { useEffect, useRef, useState } from "react";
@@ -21,6 +20,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { waitFor } from "@/utils/utils";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { sign } from "crypto";
 
 export type TypeAcdi = {
@@ -38,7 +45,7 @@ export type TypeAcdi = {
 export const MisAcdis = () => {
   const [acdis, setAcdis] = useState<TypeAcdi[]>([]);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -49,7 +56,7 @@ export const MisAcdis = () => {
 
   const traerAcdis = async (signal: AbortSignal) => {
     try {
-      const response = await fetch("http://localhost:8080/api/v1/acdis", {
+      const response = await fetch("http://localhost:10003/api/v1/acdis", {
         signal: signal,
       }).then((res) => res.json());
       console.log(response);
@@ -63,7 +70,7 @@ export const MisAcdis = () => {
     const toastId = toast.loading("Generando eliminacion del Acdi");
     try {
       await waitFor(2000);
-      fetch(`http://localhost:8080/api/v1/acdis/${id}`, {
+      fetch(`http://localhost:10003/api/v1/acdis/${id}`, {
         method: "DELETE",
       });
       setAcdis((prevAcdis) => prevAcdis.filter((acdi) => acdi.idAcdi !== id));
@@ -84,7 +91,7 @@ export const MisAcdis = () => {
       await waitFor(2000);
 
       const response = await fetch(
-        `http://localhost:8080/api/v1/acdis/${id}/baja`,
+        `http://localhost:10003/api/v1/acdis/${id}/baja`,
         {
           method: "PUT",
           headers: {
@@ -181,78 +188,101 @@ export const MisAcdis = () => {
       ),
     },
     {
-      accessorKey: "modificar",
-      header: "Modificar",
+      accessorKey: "opciones",
+      header: "Opciones",
       enableGlobalFilter: false,
       cell: ({ row }) => (
-        <Button
-          variant="ghost"
-          size="sm"
-          className="h-8 px-2 py-0 rounded-full bg-blue-300 hover:bg-blue-400"
-          onClick={() => navigate(`/editar-acdi/${row.original.idAcdi}`)}
-        >
-          <Pencil className="h-4 w-4" />
-        </Button>
-      ),
-    },
-    {
-      accessorKey: "eliminar",
-      header: "Eliminar",
-      enableGlobalFilter: false,
-      cell: ({ row }) => (
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant="ghost">
-              <Trash2 className="h-4 w-4" />
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Eliminacion de Acdi</AlertDialogTitle>
-              <AlertDialogDescription>
-                Se eliminira el Acdi ¿Estás seguro?
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>No</AlertDialogCancel>
-              <AlertDialogAction
-                onClick={() => handleDelete(row.original.idAcdi)}
-              >
-                Si
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      ),
-    },
-    {
-      accessorKey: "baja",
-      header: "Baja",
-      enableGlobalFilter: false,
-      cell: ({ row }) => (
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant="ghost">
-              <Trash2 className="h-4 w-4" />
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Baja de Acdi</AlertDialogTitle>
-              <AlertDialogDescription>
-                Se dara la baja del Acdi ¿Estás seguro?
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>No</AlertDialogCancel>
-              <AlertDialogAction
-                onClick={() => handleBajaAcdi(row.original.idAcdi)}
-              >
-                Si
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                </svg>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-46">
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <Button
+                    variant="ghost"
+                    className="font-normal"
+                    onClick={() =>
+                      navigate(`/editar-acdi/${row.original.idAcdi}`)
+                    }
+                  >
+                    <span>Modificar</span>
+                  </Button>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="font-normal"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <span>Eliminar</span>
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Eliminacion de Acdi</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Se eliminira el Acdi ¿Estás seguro?
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>No</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => handleDelete(row.original.idAcdi)}
+                        >
+                          Si
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="font-normal"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <span>Dar de baja</span>
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Baja de Acdi</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Se dara la baja del Acdi ¿Estás seguro?
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>No</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => handleBajaAcdi(row.original.idAcdi)}
+                        >
+                          Si
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </>
       ),
     },
   ];

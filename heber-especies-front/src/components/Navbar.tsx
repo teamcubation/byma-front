@@ -6,16 +6,16 @@ import "./style/Navbar.css"
 
 const navItems = [
     {
+        label: "ABM Acdis",
+        href: "/abm-acdis",
+    },
+    {
         label: "ABM Especies",
         href: "/abm-especies",
     },
     {
         label: "ABM Emisores",
         href: "/abm-emisores",
-    },
-    {
-        label: "ABM Acdis",
-        href: "/abm-acdis",
     },
     {
         label: "ABM Gerentes",

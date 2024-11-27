@@ -9,6 +9,25 @@ import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import CardMisEspecies from "./CardMisEspecies"
 import { useNavigate } from "react-router-dom"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export interface TypeEspecie {
   idEspecie: number,
@@ -47,7 +66,7 @@ export const MisEspecies = () => {
 
   const traerEspecies = async (signal: AbortSignal) => {
     try {
-      const response = await fetch('http://localhost:8080/api/v1/especies', { signal: signal }).then(res => res.json())
+      const response = await fetch('http://localhost:10002/api/v1/especies', { signal: signal }).then(res => res.json())
       console.log(response)
       setEspecies(response)
     } catch (error) {
@@ -59,7 +78,7 @@ export const MisEspecies = () => {
 
 
   const handleDelete = (id: number) => {
-    fetch(`http://localhost:8080/api/v1/especies/${id}`, {
+    fetch(`http://localhost:10002/api/v1/especies/${id}`, {
       method: 'DELETE'
     })
 
@@ -178,30 +197,78 @@ export const MisEspecies = () => {
       ),
     },
     {
-      accessorKey: 'editar',
-      header: 'Editar',
+      accessorKey: 'opciones',
+      header: 'Opciones',
       enableGlobalFilter: false,
       cell: ({ row }) => (
-        <Button variant="ghost" size="sm" className="h-8 px-2 py-0 rounded-full bg-blue-300 hover:bg-blue-400" onClick={() => {
-          const idEspecie = row.original.idEspecie
-          console.log(idEspecie)
-
-          navigate(`/edit-Especie/${idEspecie}`, { state: { especie: row.original } })
-        }}>
-          <Pencil className="h-4 w-4" />
-        </Button>
+        <>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                </svg>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-46">
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <Button
+                    variant="ghost"
+                    className="font-normal"
+                    onClick={() => {
+                      const idEspecie = row.original.idEspecie
+                      console.log(idEspecie)
+            
+                      navigate(`/edit-Especie/${idEspecie}`, { state: { especie: row.original } })
+                    }}
+                  >
+                    <span>Modificar</span>
+                  </Button>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="font-normal"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <span>Eliminar</span>
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Eliminacion de Especie</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Se eliminira la Especie ¿Estás seguro?
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>No</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => handleDelete(row.original.idEspecie)}
+                        >
+                          Si
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+            </DropdownMenuContent>
+          </DropdownMenu>
+          </>
       ),
     },
-    { 
-      accessorKey: 'eliminar',
-      header: 'Eliminar',
-      enableGlobalFilter: false,
-      cell: ({ row }) => (
-        <Button variant="ghost" size="sm" className="h-8 px-2 py-0 rounded-full bg-red-300 hover:bg-red-400" onClick={() => handleDelete(row.original.idEspecie)}>
-          <Trash2 className="h-4 w-4" />
-        </Button>
-      ),
-    }
+   
 
   ]
 
@@ -219,6 +286,7 @@ export const MisEspecies = () => {
 
   return (
     <section className="p-6 flex flex-col gap-6">
+      <h1 className="text-3xl font-bold">Mis especies</h1>
       <div className="flex justify-end">
         <Link to="/Form-Especie"><Button>Crear especie</Button></Link>
       </div>

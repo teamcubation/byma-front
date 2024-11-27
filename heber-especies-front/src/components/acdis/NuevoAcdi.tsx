@@ -86,7 +86,7 @@ export const NuevoAcdi = () => {
       await waitFor(2000);
       id ? await updateAcdi(id, data) : await createAcdi(data);
 
-      toast.success(`ACDI ${id ? "modificado" : "creado"} con éxito`, { id: toastId });
+      toast.success(`ACDI ${id ? "modificado" : "creado"} con exito`, { id: toastId });
       await waitFor(2000);
       navigate("/abm-acdis");
     } catch (error) {

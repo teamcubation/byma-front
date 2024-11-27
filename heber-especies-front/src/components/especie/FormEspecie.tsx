@@ -30,7 +30,7 @@ const FormEspecie = () => {
         denominacion: z.string()
             .min(1, { message: "La denominación es requerida" })
             .max(255, { message: "La denominación supera la cantidad máxima de caracteres" }),
-        laminaMinima: z.string().regex(/^\d+$/, { message: "El id de especie debe ser numérico" }),
+        laminaMinima: z.string().regex(/^\d+$/, { message: "La lamina minima debe ser numérico" }),
         precio: z.string().regex(/^\d+$/, { message: "El precio debe ser numérico" }),
         cafci: z.string()
             .min(1, { message: "La denominación es requerida" })
@@ -87,29 +87,28 @@ const FormEspecie = () => {
         defaultValues: {
             codigoCVSA: especie?.codigoCVSA ?? "",
             denominacion: especie?.denominacion ?? "",
-            laminaMinima: especie?.laminaMinima ?? "",
+            laminaMinima: especie?.laminaMinima?.toString() ?? "",
             precio: especie?.precio?.toString() ?? "",
             cafci: especie?.cafci ?? "",
             cuentaDeEmision: especie?.cuentaDeEmision ?? "",
-            estado: especie?.estado ?? false,
-            idEmisor: especie?.idEmisor ?? "",
-            idGerente: especie?.idGerente ?? "",
+            estado: especie?.estado === "true",
+            idEmisor: especie?.idEmisor?.toString() ?? "",
+            idGerente: especie?.idGerente?.toString() ?? "",
             codigoCNV: especie?.codigoCNV ?? "",
             isin: especie?.isin ?? "",
             vigencia: especie?.vigencia ?? Date.now(),
-             plazoDeLiquidacion: especie?.plazoDeLiquidacion ?? Date.now(),
+            plazoDeLiquidacion: especie?.plazoDeLiquidacion ?? Date.now(),
             familiaDeFondos: especie?.familiaDeFondos ?? "",
             observaciones: especie?.observaciones ?? "",
-            idMoneda: especie?.idMoneda ?? "",
+            idMoneda: especie?.idMoneda?.toString() ?? "",
             fechaAlta: especie?.fechaAlta ?? Date.now(),
         },
     })
     const onSubmit = async (data: FormSchema) => {
-        debugger;
         try {
             if (especie) {
                 setBtnLoading({ state: 'loading', message: 'Editando especie...' });
-                const response = await fetch(`http://localhost:8080/api/v1/especies/${id}`, {
+                const response = await fetch(`http://localhost:10002/api/v1/especies/${id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -135,7 +134,7 @@ const FormEspecie = () => {
                 }
                 setBtnLoading({ state: 'loading', message: 'Creando especie...' });
 
-                const response = await fetch(`http://localhost:8080/api/v1/especies`, {
+                const response = await fetch(`http://localhost:10002/api/v1/especies`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -193,7 +192,7 @@ const FormEspecie = () => {
                             <FormItem>
                                 <FormLabel>Precio</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="" {...field} />
+                                    <Input type="number" placeholder="" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -206,7 +205,7 @@ const FormEspecie = () => {
                             <FormItem>
                                 <FormLabel>Lamina minima</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="" {...field} />
+                                    <Input type="number" placeholder="" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -248,7 +247,7 @@ const FormEspecie = () => {
                             <FormItem>
                                 <FormLabel>Id emisor</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="" {...field} />
+                                    <Input type="number" placeholder="" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -261,7 +260,7 @@ const FormEspecie = () => {
                             <FormItem>
                                 <FormLabel>Id gerente</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="" {...field} />
+                                    <Input type="number" placeholder="" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -280,21 +279,8 @@ const FormEspecie = () => {
                             </FormItem>
                         )}
                     />
-                    {<FormField
-                        control={form.control}
-                        name="estado"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Estado</FormLabel>
-                                <FormControl>
-                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    /*
-                    <FormField
+                    
+                    {/* <FormField
                         control={form.control}
                         name="vigencia"
                         render={({ field }) => (
@@ -319,7 +305,7 @@ const FormEspecie = () => {
                                 <FormMessage />
                             </FormItem>
                         )}
-                    /> */}
+                    />  */}
                             <FormField
                                 control={form.control}
                                 name="codigoCNV"
@@ -379,13 +365,28 @@ const FormEspecie = () => {
                                     <FormItem>
                                         <FormLabel>ID Moneda</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="" {...field} />
+                                            <Input type="number" placeholder="" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
-
+                            <FormField
+                                control={form.control}
+                                name="estado"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <Checkbox
+                                                checked={field.value}
+                                                onCheckedChange={field.onChange}
+                                            />
+                                        </FormControl>
+                                        <FormLabel>Estado</FormLabel>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
 
                             <div className="flex justify-end">

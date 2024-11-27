@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom"
 import CardMisEmisores from "./CardMisEmisores"
 import { useEffect, useState } from "react"
 
-export interface TypeEmisor {
+export type TypeEmisor = {
   id: number
   denominacion: string
   email: mail
@@ -18,8 +18,6 @@ export interface TypeEmisor {
   idOrganizacion: number,
   idEntidadLegal: number
 }
-
-type emisorKeys = keyof TypeEmisor
 
 export const MisEmisores = () => {
 
@@ -35,7 +33,7 @@ export const MisEmisores = () => {
 
   const traerEmisores = async (signal: AbortSignal) => {
     try {
-      const response = await fetch('http://localhost:8080/api/emisores', { signal: signal }).then(res => res.json())
+      const response = await fetch('http://localhost:10001/api/v1/emisores', { signal: signal }).then(res => res.json())
       console.log(response)
       setEmisores(response)
     } catch (error) {
@@ -47,7 +45,7 @@ export const MisEmisores = () => {
 
 
   const handleDelete = (id: number) => {
-    fetch(`http://localhost:8080/api/emisores/${id}`, {
+    fetch(`http://localhost:10001/api/v1/emisores/${id}`, {
       method: 'DELETE'
     })
 
