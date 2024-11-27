@@ -87,20 +87,20 @@ const FormEspecie = () => {
         defaultValues: {
             codigoCVSA: especie?.codigoCVSA ?? "",
             denominacion: especie?.denominacion ?? "",
-            laminaMinima: especie?.laminaMinima ?? "",
-            precio: especie?.precio ?? "",
+            laminaMinima: especie?.laminaMinima?.toString() ?? "",
+            precio: especie?.precio?.toString() ?? "",
             cafci: especie?.cafci ?? "",
             cuentaDeEmision: especie?.cuentaDeEmision ?? "",
-            estado: especie?.estado ?? false,
-            idEmisor: especie?.idEmisor ?? "",
-            idGerente: especie?.idGerente ?? "",
+            estado: especie?.estado === "true",
+            idEmisor: especie?.idEmisor?.toString() ?? "",
+            idGerente: especie?.idGerente?.toString() ?? "",
             codigoCNV: especie?.codigoCNV ?? "",
             isin: especie?.isin ?? "",
             vigencia: especie?.vigencia ?? Date.now(),
-             plazoDeLiquidacion: especie?.plazoDeLiquidacion ?? Date.now(),
+            plazoDeLiquidacion: especie?.plazoDeLiquidacion ?? Date.now(),
             familiaDeFondos: especie?.familiaDeFondos ?? "",
             observaciones: especie?.observaciones ?? "",
-            idMoneda: especie?.idMoneda ?? "",
+            idMoneda: especie?.idMoneda?.toString() ?? "",
             fechaAlta: especie?.fechaAlta ?? Date.now(),
         },
     })
@@ -279,21 +279,8 @@ const FormEspecie = () => {
                             </FormItem>
                         )}
                     />
-                    {<FormField
-                        control={form.control}
-                        name="estado"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Estado</FormLabel>
-                                <FormControl>
-                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    /*
-                    <FormField
+                    
+                    {/* <FormField
                         control={form.control}
                         name="vigencia"
                         render={({ field }) => (
@@ -318,7 +305,7 @@ const FormEspecie = () => {
                                 <FormMessage />
                             </FormItem>
                         )}
-                    /> */}
+                    />  */}
                             <FormField
                                 control={form.control}
                                 name="codigoCNV"
@@ -384,7 +371,22 @@ const FormEspecie = () => {
                                     </FormItem>
                                 )}
                             />
-
+                            <FormField
+                                control={form.control}
+                                name="estado"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <Checkbox
+                                                checked={field.value}
+                                                onCheckedChange={field.onChange}
+                                            />
+                                        </FormControl>
+                                        <FormLabel>Estado</FormLabel>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
 
                             <div className="flex justify-end">
