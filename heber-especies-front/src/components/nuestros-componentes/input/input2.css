@@ -1,0 +1,175 @@
+/* Contenedor principal de los inputs */
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    /* Espacio entre la etiqueta, el contenedor del input y el texto condicional */
+    position: relative;
+    /* Necesario para posicionar íconos internos */
+    width: 272px;
+}
+
+/* Estilo general del input */
+.input-s {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    border: 0.75px solid #061533;
+    border-radius: 12px;
+    padding: 8px 40px 8px 16px;
+    /* Ajuste para íconos */
+    font-size: 14px;
+    outline: none;
+}
+
+/* Placeholder */
+.input-s::placeholder {
+    color: #aaa;
+    font-size: 14px;
+}
+
+/* Estilos adicionales para login (ícono incluido) */
+.input-container.login .input-s {
+    padding-left: 48px;
+    /* Ajusta el espacio para el ícono */
+}
+
+
+/* Icono izquierdo */
+.input-container.login::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    /* Espacio entre el borde izquierdo y el ícono */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    background-image: url('./login.svg');
+    /* Ruta del ícono de login */
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 1;
+}
+/* Estilos adicionales para password (íconos en ambos lados) */
+.input-container.password .input-s {
+    padding-left: 48px; /* Espacio adicional para el ícono izquierdo */
+    padding-right: 48px; /* Espacio adicional para el ícono derecho */
+  }
+  
+  /* Ícono a la izquierda para password */
+  .input-container.password::before {
+    content: '';
+    position: absolute;
+    left: 12px; /* Distancia del borde izquierdo */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px; /* Tamaño del ícono */
+    height: 22px; /* Tamaño del ícono */
+    background-image: url('./login.svg'); /* Ruta al ícono izquierdo */
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 1;
+  }
+  
+  /* Ícono a la derecha para password */
+  .input-container.password::after {
+    content: '';
+    position: absolute;
+    right: 12px; /* Distancia del borde derecho */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px; /* Tamaño del ícono */
+    height: 22px; /* Tamaño del ícono */
+    background-image: url('./eye.svg'); /* Ruta al ícono derecho */
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 1;
+  }
+  
+
+/* Input en estado de error */
+.input-container.error .input-s {
+    border-color: #FF4D4F;
+    background-color: #FFF5F5;
+    /* Fondo claro para indicar error */
+}
+
+/* Icono derecho para error */
+.input-container.error::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    /* Espacio entre el borde derecho y el ícono */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    background-image: url('./error.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    filter: #FF4D4F;
+}
+
+/* Input en estado correcto */
+.input-container.success .input-s {
+    border-color: #00C000;
+    background-color: #E8F7E8;
+}
+
+/* Icono derecho para éxito */
+.input-container.success::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    background-image: url('./success.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    filter: #00C000;
+}
+
+/* Input en estado de advertencia */
+.input-container.warning .input-s {
+    border-color: #FAAD14;
+    background-color: #FFF9E5;
+}
+
+/* Icono derecho para advertencia */
+.input-container.warning::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    background-image: url('./warning.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    filter: #FAAD14;
+}
+
+/* Input en estado de aviso */
+.input-container.notice .input-s {
+    border-color: #0183D9;
+    background-color: #E6F4FF;
+}
+
+/* Icono derecho para aviso */
+.input-container.notice::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    background-image: url('./notice.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    filter: #0183D9;
+}
