@@ -12,7 +12,7 @@ const MyForm: React.FC = () => {
     if (inputValue === '') {
       setInputStatus('error');
     } else if (inputValue.length < 3) {
-      setInputStatus('warning');
+      setInputStatus(undefined);
     } else {
       setInputStatus('success');
     }
@@ -27,15 +27,20 @@ const MyForm: React.FC = () => {
         status={inputStatus}
         placeholder="Ingrese su nombre"
         type="text"
+        errorMessage='El nombre no puede ser vacio'
+        successMessage='El nombre es correcto'
+        warningMessage='El nombre debe tener al menos 3 caracteres'
+        noticeMessage='El nombre es correcto'
       />
     <div></div>
       <Input
         value={inputValue}
         onChange={handleChange}
         onBlur={handleBlur}
-        status={"password"}
+        status={inputStatus}
         placeholder="Ingrese su contraseña"
         type="password"
+        isPassword={true}
       />
       <Input
         value={inputValue}

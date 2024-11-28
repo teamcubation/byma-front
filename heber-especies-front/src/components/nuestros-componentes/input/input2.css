@@ -28,15 +28,15 @@
     font-size: 14px;
 }
 
-/* Estilos adicionales para login (ícono incluido) */
-.input-container.login .input-s {
+/* Estilos adicionales para user (ícono incluido) */
+.input-container.user .input-s {
     padding-left: 48px;
     /* Ajusta el espacio para el ícono */
 }
 
 
 /* Icono izquierdo */
-.input-container.login::before {
+.input-container.user::before {
     content: '';
     position: absolute;
     left: 16px;
@@ -45,8 +45,8 @@
     transform: translateY(-50%);
     width: 22px;
     height: 22px;
-    background-image: url('./login.svg');
-    /* Ruta del ícono de login */
+    background-image: url('./icons/user.svg');
+    /* Ruta del ícono de user */
     background-repeat: no-repeat;
     background-size: contain;
     z-index: 1;
@@ -66,14 +66,14 @@
     transform: translateY(-50%);
     width: 22px; /* Tamaño del ícono */
     height: 22px; /* Tamaño del ícono */
-    background-image: url('./login.svg'); /* Ruta al ícono izquierdo */
+    background-image: url('./icons/lock.svg'); /* Ruta al ícono izquierdo */
     background-repeat: no-repeat;
     background-size: contain;
     z-index: 1;
   }
   
   /* Ícono a la derecha para password */
-  .input-container.password::after {
+  .input-container.password .password-eye {
     content: '';
     position: absolute;
     right: 12px; /* Distancia del borde derecho */
@@ -81,7 +81,20 @@
     transform: translateY(-50%);
     width: 22px; /* Tamaño del ícono */
     height: 22px; /* Tamaño del ícono */
-    background-image: url('./eye.svg'); /* Ruta al ícono derecho */
+    background-image: url('./icons/eye.svg'); /* Ruta al ícono derecho */
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 1;
+  }
+  .input-container.password .password-eyeClose {
+    content: '';
+    position: absolute;
+    right: 12px; /* Distancia del borde derecho */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px; /* Tamaño del ícono */
+    height: 22px; /* Tamaño del ícono */
+    background-image: url('./icons/eyeClose.svg'); /* Ruta al ícono derecho */
     background-repeat: no-repeat;
     background-size: contain;
     z-index: 1;
@@ -95,21 +108,34 @@
     /* Fondo claro para indicar error */
 }
 
-/* Icono derecho para error */
+/* Icono derecho para éxito */
 .input-container.error::after {
     content: '';
     position: absolute;
     right: 16px;
-    /* Espacio entre el borde derecho y el ícono */
     top: 50%;
     transform: translateY(-50%);
     width: 22px;
     height: 22px;
-    background-image: url('./error.svg');
+    background-image: url('./icons/error.svg');
     background-repeat: no-repeat;
     background-size: contain;
     filter: #FF4D4F;
 }
+.input-container.error .error-text {
+    position: absolute;
+    top: 100%; /* Posicionar debajo del input */
+    left: 2px; /* Alinear al inicio del input */
+    margin-top: 8px; /* Espacio de 8px desde el input */
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 100%; /* Igual al alto del texto */
+    letter-spacing: 0.005em;
+    color: #FF4D4F; /* Color rojo del texto de error */
+  }
+  
 
 /* Input en estado correcto */
 .input-container.success .input-s {
@@ -126,11 +152,24 @@
     transform: translateY(-50%);
     width: 22px;
     height: 22px;
-    background-image: url('./success.svg');
+    background-image: url('./icons/success.svg');
     background-repeat: no-repeat;
     background-size: contain;
     filter: #00C000;
 }
+.input-container.success .success-text {
+    position: absolute;
+    top: 100%; /* Posicionar debajo del input */
+    left: 2px; /* Alinear al inicio del input */
+    margin-top: 8px; /* Espacio de 8px desde el input */
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 100%; /* Igual al alto del texto */
+    letter-spacing: 0.005em;
+    color: #00C000; /* Color rojo del texto de error */
+  }
 
 /* Input en estado de advertencia */
 .input-container.warning .input-s {
@@ -147,11 +186,24 @@
     transform: translateY(-50%);
     width: 22px;
     height: 22px;
-    background-image: url('./warning.svg');
+    background-image: url('./icons/warning.svg');
     background-repeat: no-repeat;
     background-size: contain;
     filter: #FAAD14;
 }
+.input-container.warning .warning-text {
+    position: absolute;
+    top: 100%; /* Posicionar debajo del input */
+    left: 2px; /* Alinear al inicio del input */
+    margin-top: 8px; /* Espacio de 8px desde el input */
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 100%; /* Igual al alto del texto */
+    letter-spacing: 0.005em;
+    color: #FAAD14; /* Color rojo del texto de error */
+  }
 
 /* Input en estado de aviso */
 .input-container.notice .input-s {
@@ -168,8 +220,21 @@
     transform: translateY(-50%);
     width: 22px;
     height: 22px;
-    background-image: url('./notice.svg');
+    background-image: url('./icons/notice.svg');
     background-repeat: no-repeat;
     background-size: contain;
     filter: #0183D9;
 }
+.input-container.notice .notice-text {
+    position: absolute;
+    top: 100%; /* Posicionar debajo del input */
+    left: 2px; /* Alinear al inicio del input */
+    margin-top: 8px; /* Espacio de 8px desde el input */
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 100%; /* Igual al alto del texto */
+    letter-spacing: 0.005em;
+    color: #0183D9; /* Color rojo del texto de error */
+  }
