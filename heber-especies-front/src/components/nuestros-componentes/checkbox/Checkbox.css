@@ -1,0 +1,44 @@
+/* Base Styles for Checkbox */
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .custom-checkbox .checkbox-box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1.9px solid #061533;
+    border-radius: 4px;
+    box-sizing: border-box;
+    filter: drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.25)) drop-shadow(-1px -1px 5px rgba(0, 0, 0, 0.25)); /* Drop shadow when unchecked */
+    background: transparent;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  /* Checked state */
+  .custom-checkbox input:checked + .checkbox-box {
+    background: #068A8C;
+    border-color: #061533;
+  }
+  
+  .custom-checkbox input:checked + .checkbox-box::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 12px;
+    border: solid #061533;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    top: 0.5px;
+    left: 6px;
+  }
+  

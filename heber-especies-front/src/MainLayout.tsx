@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar'
 import InputText from './components/nuestros-componentes/input/inputText'
+import App from './components/nuestros-componentes/checkbox/form'
 import { Outlet } from 'react-router-dom'
 import { BreadcrumbDemo } from './components/Breadcrumb'
 
@@ -12,7 +13,7 @@ const MainLayout = () => {
         <BreadcrumbDemo />
 
       </div>
-      <div>        <InputText />
+      <div>        <App/>
       </div>
       <Outlet />
     </>
