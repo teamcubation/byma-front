@@ -14,6 +14,7 @@ type InputProps = {
   warningMessage?: string;
   noticeMessage?: string;
   isPassword?: boolean
+  size?: 's' | 'm' | 'l';
 };
 
 const Input: React.FC<InputProps> = ({
@@ -27,6 +28,7 @@ const Input: React.FC<InputProps> = ({
   errorMessage,
   successMessage,
   warningMessage,
+  size = 's',
   noticeMessage
 }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -35,12 +37,12 @@ const Input: React.FC<InputProps> = ({
     setPasswordVisible(!passwordVisible);
   }
   const getInputClass = () => {
-    let className = '';
+    let className = `${size}`;
 
     if (isPassword) {
-      className = 'password';
+      className += ' password';
     } else if (status === 'user') {
-      className = 'user';
+      className += ' user';
     }
 
     switch (status) {

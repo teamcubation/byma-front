@@ -31,6 +31,7 @@ const MyForm: React.FC = () => {
         successMessage='El nombre es correcto'
         warningMessage='El nombre debe tener al menos 3 caracteres'
         noticeMessage='El nombre es correcto'
+        size='m'
       />
     <div></div>
       <Input
@@ -41,6 +42,7 @@ const MyForm: React.FC = () => {
         placeholder="Ingrese su contraseña"
         type="password"
         isPassword={true}
+        size='s'
       />
       <Input
         value={inputValue}
@@ -49,6 +51,7 @@ const MyForm: React.FC = () => {
         status={inputStatus}
         placeholder="Correo electrónico"
         type="email"
+        size='l'
       />
     </div>
   );

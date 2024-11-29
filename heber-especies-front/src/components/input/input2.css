@@ -8,6 +8,19 @@
     /* Necesario para posicionar íconos internos */
     width: 272px;
 }
+/* Tamaño S (pequeño) */
+.input-container.s {
+    width: 272px; /* Ancho del tamaño S */
+}
+
+/* Tamaño M (mediano) */
+.input-container.m {
+    width: 420px; /* Ancho del tamaño M */
+}
+/* Tamaño L (grande) */
+.input-container.l {
+    width: 568px; /* Ancho del tamaño L */
+}
 
 /* Estilo general del input */
 .input-s {
