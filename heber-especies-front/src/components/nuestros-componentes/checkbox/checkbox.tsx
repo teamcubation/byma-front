@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import './Checkbox.css';
+import React from 'react';
+import './Checkbox.css'; // Asegúrate de tener tu CSS importado
 
-const CustomCheckbox: React.FC = () => {
-  const [checked, setChecked] = useState(false);
+interface CheckboxProps {
+  isDisabled: boolean; // Prop para controlar si está habilitado o deshabilitado
+}
 
-  const handleCheckboxChange = () => {
-    setChecked(!checked);
-  };
-
+const Checkbox: React.FC<CheckboxProps> = ({ isDisabled }) => {
   return (
     <label className="custom-checkbox">
-      <input type="checkbox" checked={checked} onChange={handleCheckboxChange} />
+      <input type="checkbox" disabled={isDisabled} />
       <span className="checkbox-box"></span>
     </label>
   );
 };
 
-export default CustomCheckbox;
+export default Checkbox;

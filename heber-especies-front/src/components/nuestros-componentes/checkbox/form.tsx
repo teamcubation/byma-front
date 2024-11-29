@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
-import CustomCheckbox from './checkbox';
-
+import Checkbox from './checkbox';
 
 const App: React.FC = () => {
-  const [checked, setChecked] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setChecked(!checked);
-  };
+  const [isDisabled, setIsDisabled] = useState(false); // Estado para controlar el estado del checkbox
 
   return (
     <div>
-      
-      <CustomCheckbox checked={checked} onChange={handleCheckboxChange} />
+      {/* Renderizar el checkbox con el estado pasado como prop */}
+      <Checkbox isDisabled={isDisabled} />
 
-      <p>{checked ? 'Checkbox marcado' : 'Checkbox desmarcado'}</p>
+      {/* Botón para alternar el estado de deshabilitación */}
+      <button onClick={() => setIsDisabled(!isDisabled)}>
+        {isDisabled ? 'Habilitar Checkbox' : 'Deshabilitar Checkbox'}
+      </button>
     </div>
   );
 };
