@@ -1,0 +1,105 @@
+/* Contenedor principal de los radio buttons */
+.radio-buttons-group {
+    display: flex;
+    flex-direction: column; /* Apila los radio buttons verticalmente */
+    gap: 10px; /* Espacio entre cada radio button */
+  }
+  
+  /* Estilos para cada contenedor de radio button */
+  .radio-container {
+    display: flex;
+    align-items: center; /* Alinea el texto al costado del radio button */
+    justify-content: flex-start; /* Asegura que los elementos se alineen a la izquierda */
+    margin-bottom: 10px;
+  }
+  
+  /* Estilo para el radio input (oculto) */
+  .radio-input {
+    position: absolute;
+    opacity: 0; /* Oculta el radio input real */
+    z-index: 2; /* Mantiene el radio en la parte superior */
+  }
+  
+  /* Estilo de la etiqueta del radio (el círculo) */
+  .radio-label {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; /* Hace que sea redondo */
+    border: 3px solid #061533;
+    position: relative;
+    transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Hover: efecto de cambio de color y sombra */
+  .radio-label:hover {
+    filter: drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.25)) drop-shadow(-1px -1px 5px rgba(0, 0, 0, 0.25)); /* Agrega la sombra */
+  }
+  
+  /* Cuando está seleccionado, cambia el borde y el fondo */
+  .radio-input:checked + .radio-label {
+    background-color: #f0f0f0; /* Fondo más claro cuando está seleccionado */
+  }
+  
+  /* Estilo del círculo interior cuando está seleccionado */
+  .radio-input:checked + .radio-label::before {
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    background-color: #068A8C;
+    border-radius: 50%;
+  }
+  
+  /* Texto del label al costado del radio button */
+  .radio-label-text {
+    margin-left: 10px; /* Espacio entre el radio button y el texto */
+    font-size: 16px;
+    font-weight: 600;
+    color: #061533; /* Color del texto */
+  }
+ 
+ /* RB desactivado */
+.radio-label.disabled {
+  position: relative;
+  width: 20px;
+  height: 20px;
+
+  /* Ellipse 79 */
+  box-sizing: border-box;
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+
+  background: #E2E2E2;
+  border: 1.5px solid #7B808C;
+  cursor: not-allowed;
+}
+
+/* Deshabilitar todo efecto hover cuando el radio está deshabilitado */
+.radio-label.disabled:hover {
+  filter: none;
+  background-color: #E2E2E2;
+  cursor: not-allowed; 
+}
+
+/* Asegúrate de que el input esté deshabilitado y no interactúe */
+.radio-input:disabled + .radio-label {
+  background-color: #E2E2E2; 
+  border: 1.5px solid #7B808C; 
+  cursor: not-allowed;
+}
+
+/* El círculo interior también se desactiva cuando está seleccionado y deshabilitado */
+.radio-input:disabled:checked + .radio-label::before {
+  background-color: #B0B0B0;
+}
+
+.radio-input:disabled + .radio-label:hover {
+  filter: none;
+}
