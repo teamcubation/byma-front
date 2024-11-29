@@ -1,0 +1,110 @@
+.combo-box-container {
+    width: 272px;
+  }
+  
+.combo-box {
+  position: relative;
+  width: 272px;
+  font-family: Arial, sans-serif;
+}
+
+.container-combo-box-label {
+  margin: 8px 0;
+}
+
+.combo-box-icon {
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('./keyboard-arrow-down.svg');
+}
+
+.combo-box-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 16px;
+  cursor: pointer;
+  width: 272px;
+  height: 40px;
+  border: 0.75px solid #061533;
+  border-radius: 12px;
+}
+
+.combo-box-placeholder {
+  font-size: 14px;
+  color: #999;
+}
+
+.combo-box-placeholder.selected {
+  color: #333;
+}
+
+.combo-box-dropdown {
+  background-color: #F1F1F1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 4px;
+  max-height: 260px;
+  display: flex;
+  overflow: hidden;
+  
+  border-radius: 12px;
+}
+
+.custom-scroll-container {
+  flex: 1;
+  max-height: 260px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.custom-scroll-container::-webkit-scrollbar {
+  display: none; /* Oculta en navegadores basados en WebKit (Chrome, Edge, Safari) */
+}
+
+.combo-box-item {
+  padding: 16px;
+  font-size: 14px;
+  cursor: pointer;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.combo-box-item:hover {
+  background-color: #E1E0E0;
+  transition: background-color 0.2s ease;
+  
+}
+
+/* Scroll personalizado */
+.custom-scroll-track {
+  width: 8px;
+  background-color: #FDFDFD;
+  margin: 8px 8px 8px 0;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+
+div.custom-scroll-thumb {
+  width: 100%;
+  background-color: #F8F8F8;
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  height: 95.31px;
+}
+
+.custom-scroll-thumb:hover {
+  background-color: #555;
+}
