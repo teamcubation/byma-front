@@ -1,6 +1,6 @@
 import Navbar from './components/Navbar'
-import InputText from './components/nuestros-componentes/input/inputText'
-import MyForm from './components/nuestros-componentes/input/myForm'
+import InputText from './components/input/inputText'
+import MyForm from './components/input/myForm'
 
 import { Outlet } from 'react-router-dom'
 import { BreadcrumbDemo } from './components/Breadcrumb'
