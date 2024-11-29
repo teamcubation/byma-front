@@ -68,6 +68,11 @@ module.exports = {
 					"darker": "hsl(var(--verde-darker))",
 
 				}
+			},
+			backgroundImage: {
+				'banner-login': "url('/src/assets/img/banner-login.png')",
+				'fondo-login': "url('/src/assets/img/bg-login.svg')",
+				'fondo-light-404':"url('/src/assets/img/bg-light-404.svg')",
 			}
 
 		}
