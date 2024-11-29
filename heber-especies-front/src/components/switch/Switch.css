@@ -1,0 +1,72 @@
+.switch {
+    position: relative;
+    width: 50px;  /* Ajustado a un tamaño adecuado */
+    height: 28px; /* Ajustado a un tamaño adecuado */
+  }
+  .switch.disabled {
+    cursor: not-allowed;  /* Cuando está deshabilitado, el cursor será de "prohibido" */
+  } 
+  
+  .switch .switch-rectangle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    transition: background 0.3s ease;
+  }
+  
+  /* ON activado */
+  .switch.on .switch-rectangle {
+    background: #068A8C;
+  }
+  
+  /* OFF activado */
+  .switch.off .switch-rectangle {
+    background: #009EA1;
+  }
+  
+  /* ON desactivado */
+  .switch.on.disabled .switch-rectangle {
+    background: #E2E2E2; /* Color de fondo cuando está ON pero desactivado */
+  }
+  
+  /* OFF desactivado */
+  .switch.off.disabled .switch-rectangle {
+    background: #E2E2E2; /* Color de fondo cuando está OFF pero desactivado */
+  }
+  
+  .switch .switch-ellipse {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #FDFDFD;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    transition: left 0.3s ease;
+  }
+  
+  /* Elipse cuando está ON activado */
+  .switch.on .switch-ellipse {
+    left: calc(100% - 24px); /* Elipse desplazada a la derecha */
+  }
+  
+  /* Elipse cuando está OFF activado */
+  .switch.off .switch-ellipse {
+    left: 4px; /* Elipse desplazada a la izquierda */
+  }
+  
+  /* Elipse cuando está ON desactivado */
+  .switch.on.disabled .switch-ellipse {
+    left: calc(100% - 24px); /* Elipse se mantiene a la derecha */
+    background: #7B808C; /* Elipse de color gris cuando está desactivado */
+  }
+  
+  /* Elipse cuando está OFF desactivado */
+  .switch.off.disabled .switch-ellipse {
+    left: 4px; /* Elipse se mantiene a la izquierda */
+    background: #7B808C; /* Elipse de color gris cuando está desactivado */
+  }
+  
