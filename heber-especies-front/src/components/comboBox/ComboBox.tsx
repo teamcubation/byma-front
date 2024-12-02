@@ -1,99 +1,34 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import "./ComboBox.css";
 
 interface ComboBoxProps {
   items: string[];
   placeholder?: string;
+  enableManualInput?: boolean; // Nueva prop para habilitar entrada manual
 }
 
 const ComboBox: React.FC<ComboBoxProps> = ({
   items = ["ítem 1", "ítem 2", "ítem 3", "ítem 4", "ítem 5", "ítem 6", "ítem 7", "ítem 8"],
-  placeholder = "Seleccione una opción"
+  placeholder = "Seleccione una opción",
+  enableManualInput = false,
 }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [selectedItem, setSelectedItem] = React.useState<string | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const thumbRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
-  const dragStartY = useRef(0);
-  const thumbStartY = useRef(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState(""); // Valor del input para entrada manual
 
-  const handleToggle = (event: React.MouseEvent) => {
-    if (
-      scrollRef.current?.contains(event.target as Node) ||
-      thumbRef.current?.contains(event.target as Node) ||
-      trackRef.current?.contains(event.target as Node)
-    ) {
-      return;
-    }
+  const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
-  React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        scrollRef.current?.contains(event.target as Node) ||
-        thumbRef.current?.contains(event.target as Node) ||
-        trackRef.current?.contains(event.target as Node)
-      ) {
-        return;
-      }
-      setIsOpen(false);
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   const handleSelect = (item: string) => {
     setSelectedItem(item);
+    setInputValue(item); // Actualiza el input con el valor seleccionado
     setIsOpen(false);
   };
 
-  const handleMouseDown = (event: React.MouseEvent) => {
-    isDragging.current = true;
-    dragStartY.current = event.clientY;
-    thumbStartY.current = thumbRef.current?.offsetTop || 0;
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-  };
-
-  const handleMouseMove = (event: MouseEvent) => {
-    if (!isDragging.current || !scrollRef.current || !thumbRef.current) return;
-
-    const deltaY = event.clientY - dragStartY.current;
-    const thumbHeight = thumbRef.current.offsetHeight;
-    const scrollHeight = scrollRef.current.scrollHeight - scrollRef.current.clientHeight;
-
-    const newTop = Math.min(
-      Math.max(thumbStartY.current + deltaY, 0),
-      scrollRef.current.clientHeight - thumbHeight
-    );
-
-    thumbRef.current.style.top = `${newTop}px`;
-    const scrollRatio = newTop / (scrollRef.current.clientHeight - thumbHeight);
-    scrollRef.current.scrollTop = scrollRatio * scrollHeight;
-  };
-
-  const handleMouseUp = () => {
-    isDragging.current = false;
-    document.removeEventListener("mousemove", handleMouseMove);
-    document.removeEventListener("mouseup", handleMouseUp);
-  };
-
-  const handleScroll = () => {
-    if (!scrollRef.current || !thumbRef.current) return;
-
-    const thumbHeight =
-      scrollRef.current.clientHeight * (scrollRef.current.clientHeight / scrollRef.current.scrollHeight);
-    thumbRef.current.style.height = `${95.31}px`;
-
-    const scrollRatio =
-      scrollRef.current.scrollTop / (scrollRef.current.scrollHeight - scrollRef.current.clientHeight);
-    thumbRef.current.style.top = `${scrollRatio * (scrollRef.current.clientHeight - 95.31)}px`;
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+    setSelectedItem(null); // Limpia la selección actual si el usuario escribe
   };
 
   return (
@@ -102,16 +37,33 @@ const ComboBox: React.FC<ComboBoxProps> = ({
         <label className="combo-box-label">Lorem ipsum</label>
       </div>
       <div className="combo-box" onClick={handleToggle}>
-        <div className="combo-box-input">
-          <span className={`combo-box-placeholder ${selectedItem ? "selected" : ""}`}>
-            {selectedItem || placeholder}
-          </span>
-          <div className="combo-box-icon"></div>
-        </div>
+        {enableManualInput ? (
+          // Input editable si la entrada manual está habilitada
+          <div className="combo-box-input-container">
+            <input
+              type="text"
+              className="combo-box-input"
+              value={inputValue}
+              placeholder={placeholder}
+              onChange={handleInputChange}
+              onClick={() => setIsOpen(true)} // Abre el menú al hacer clic en el input
+            />
+            <div className="combo-box-input-icon-search"></div>
+          </div>
+        ) : (
+          // Modo de solo selección
+          <div className="combo-box-input">
+            <span className={`combo-box-placeholder ${selectedItem ? "selected" : ""}`}>
+              {selectedItem || placeholder}
+            </span>
+            <div className="combo-box-icon"></div>
+          </div>
+        )}
         {isOpen && (
           <div className="combo-box-dropdown">
-            <div className="custom-scroll-container" onScroll={handleScroll} ref={scrollRef}>
-              {items.map((item, index) => (
+            { (enableManualInput ? items
+              .filter(item => item.toLowerCase().includes(inputValue.toLowerCase())) : items)
+              .map((item, index) => (
                 <div
                   key={index}
                   className={`combo-box-item ${selectedItem === item ? "selected-item" : ""}`}
@@ -119,15 +71,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
                 >
                   {item}
                 </div>
-              ))}
-            </div>
-            <div className="custom-scroll-track" ref={trackRef}>
-              <div
-                className="custom-scroll-thumb"
-                onMouseDown={handleMouseDown}
-                ref={thumbRef}
-              ></div>
-            </div>
+              )) }
           </div>
         )}
       </div>
