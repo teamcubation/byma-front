@@ -48,3 +48,16 @@ export default tseslint.config({
   },
 })
 ```
+
+# Credenciales para simular el login
+
+```JSON
+
+{
+  "username": "emilys",
+  "password": "emilyspass",
+}
+
+```
+
+

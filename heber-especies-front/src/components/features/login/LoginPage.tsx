@@ -90,6 +90,8 @@ function LoginPage({ }: Props) {
         if (accessToken) {
             navigate('/abm-gerentes');
         }
+
+        //TODO: definir bien como se debe comportar el front en caso de querer acceder a una pagina sin estar logueado
         if (searchParams.get('message')) {
             alert(searchParams.get('message'));
         }
