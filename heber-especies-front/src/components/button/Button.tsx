@@ -8,13 +8,15 @@ interface ButtonProps {
   className?: string;   // Clases adicionales para personalización
 }
 
-const Button = ({ onClick, text, disable=false, className }: ButtonProps) => {
+const Button = ({ onClick, text, disable=false, className="" }: ButtonProps) => {
     return (
         <button onClick={onClick}
             disabled={disable}
-            className={`custom-button ${className}`}>
-            <div className="icon-wrapper icon-add"></div>
-            <span className="button-text">{text}</span>
+            className={`button button--hover button--active  ${className} `}>
+            <div className="button__icon-wrapper">
+                <div className='button__icon--add'></div>
+            </div>
+            <span className="button__text">{text}</span>
         </button>
     );
 };

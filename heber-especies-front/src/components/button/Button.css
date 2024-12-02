@@ -1,4 +1,4 @@
-.custom-button {
+.button {
     width: 160px;
     height: 38px;
     background: #00b5b8ff;
@@ -12,7 +12,7 @@
     border: none;
   }
   
-  .icon-wrapper {
+  .button__icon-wrapper {
     width: 20px;
     height: 20px;
     display: flex;
@@ -21,7 +21,7 @@
     font-weight: 100;
   }
   
-  .icon-add {
+  .button__icon--add {
     background-image: url('./icons/add-azul.svg');
     background-size: cover;
     background-position: center;
@@ -29,7 +29,7 @@
     height: 24px;
   }
   
-  .button-text {
+  .button__text {
     font-family: 'Lato', sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -39,36 +39,33 @@
     color: #061533;
   }
   
-  .custom-button:hover {
+  .button:hover {
     background: #56CCCE;
   }
   
-  .custom-button:hover .button-text {
+  .button:hover .button__text {
     color: #225569;
   }
   
-  .custom-button:hover .icon-add {
+  .button:hover .button__icon--add {
     background-image: url('./icons/add-gris-hover.svg');
-    background-size: cover;
-    background-position: center;
-    width: 24px;
-    height: 24px;
+
   }
   
-  .custom-button:active {
+  .button:active {
     background: #058c8e;
   }
   
-  .custom-button:disabled  {
+  .button:disabled  {
     background: #E3E3E3;
     color: #737885;
     cursor: not-allowed;
   }
   
-  .custom-button:disabled .button-text {
+  .button:disabled .button__text {
     color: #737885;
   }
   
-  .custom-button:disabled .icon-add {
+  .button:disabled .button__icon--add {
     background-image: url('./icons/add-disable.svg');
   }
