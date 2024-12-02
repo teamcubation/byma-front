@@ -1,6 +1,4 @@
 .button {
-    width: 160px;
-    height: 38px;
     background: #00b5b8ff;
     border-radius: 50px;
     display: flex;
@@ -10,6 +8,21 @@
     gap: 10px;
     cursor: pointer;
     border: none;
+  }
+
+  .button__size--large {
+    width: 167px;
+    height: 46.63px;
+  }
+
+  .button__size--medium {
+    width: 150px;
+    height: 39.38px;
+  }
+
+  .button__size--small {
+    width: 151px;
+    height: 33.16px;
   }
   
   .button__icon-wrapper {
