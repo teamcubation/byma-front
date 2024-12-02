@@ -1,105 +1,88 @@
-/* Contenedor principal de los radio buttons */
-.radio-buttons-group {
-    display: flex;
-    flex-direction: column; /* Apila los radio buttons verticalmente */
-    gap: 10px; /* Espacio entre cada radio button */
-  }
-  
-  /* Estilos para cada contenedor de radio button */
-  .radio-container {
-    display: flex;
-    align-items: center; /* Alinea el texto al costado del radio button */
-    justify-content: flex-start; /* Asegura que los elementos se alineen a la izquierda */
-    margin-bottom: 10px;
-  }
-  
-  /* Estilo para el radio input (oculto) */
-  .radio-input {
-    position: absolute;
-    opacity: 0; /* Oculta el radio input real */
-    z-index: 2; /* Mantiene el radio en la parte superior */
-  }
-  
-  /* Estilo de la etiqueta del radio (el círculo) */
-  .radio-label {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%; /* Hace que sea redondo */
-    border: 3px solid #061533;
-    position: relative;
-    transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Hover: efecto de cambio de color y sombra */
-  .radio-label:hover {
-    filter: drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.25)) drop-shadow(-1px -1px 5px rgba(0, 0, 0, 0.25)); /* Agrega la sombra */
-  }
-  
-  /* Cuando está seleccionado, cambia el borde y el fondo */
-  .radio-input:checked + .radio-label {
-    background-color: #f0f0f0; /* Fondo más claro cuando está seleccionado */
-  }
-  
-  /* Estilo del círculo interior cuando está seleccionado */
-  .radio-input:checked + .radio-label::before {
-    content: '';
-    position: absolute;
-    width: 70%;
-    height: 70%;
-    background-color: #068A8C;
-    border-radius: 50%;
-  }
-  
-  /* Texto del label al costado del radio button */
-  .radio-label-text {
-    margin-left: 10px; /* Espacio entre el radio button y el texto */
-    font-size: 16px;
-    font-weight: 600;
-    color: #061533; /* Color del texto */
-  }
- 
- /* RB desactivado */
-.radio-label.disabled {
-  position: relative;
-  width: 20px;
-  height: 20px;
+/* Bloque principal: group */
+.group {
+  display: flex;
+  flex-direction: column; /* Apila los radio buttons verticalmente */
+  gap: 10px; /* Espacio entre cada radio button */
+}
 
-  /* Ellipse 79 */
-  box-sizing: border-box;
+/* Elemento: contenedor del radio button */
+.group__container {
+  display: flex;
+  align-items: center; /* Alinea el texto al costado del radio button */
+  justify-content: flex-start; /* Asegura que los elementos se alineen a la izquierda */
+  margin-bottom: 10px;
+}
+
+/* Elemento: input del radio */
+.group__input {
   position: absolute;
-  left: 0%;
-  right: 0%;
-  top: 0%;
-  bottom: 0%;
+  opacity: 0; /* Oculta el radio input real */
+  z-index: 2; /* Mantiene el radio en la parte superior */
+}
 
-  background: #E2E2E2;
-  border: 1.5px solid #7B808C;
+/* Elemento: label del radio */
+.group__label {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%; /* Hace que sea redondo */
+  border: 3px solid #061533;
+  position: relative;
+  transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modificador: hover sobre el label */
+.group__label:hover {
+  filter: drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.25))
+    drop-shadow(-1px -1px 5px rgba(0, 0, 0, 0.25)); /* Agrega la sombra */
+}
+
+/* Modificador: seleccionado */
+.group__label--checked {
+  background-color: #f0f0f0; /* Fondo más claro cuando está seleccionado */
+}
+
+/* Elemento: círculo interior cuando está seleccionado */
+.group__label--checked::before {
+  content: '';
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  background-color: #068A8C;
+  border-radius: 50%;
+}
+
+/* Elemento: texto asociado al radio button */
+.group__text {
+  margin-left: 10px; /* Espacio entre el radio button y el texto */
+  font-size: 16px;
+  font-weight: 600;
+  color: #061533; /* Color del texto */
+}
+
+/* Modificador: deshabilitado */
+.group__label--disabled {
+  background: #e2e2e2; /* Fondo gris */
+  border: 1.5px solid #7b808c; /* Borde gris */
+  cursor: not-allowed; /* Cambia el cursor */
+}
+
+/* Deshabilitar hover en estado deshabilitado */
+.group__label--disabled:hover {
+  filter: none;
+  background-color: #e2e2e2;
+}
+
+/* Deshabilitar el círculo interior */
+.group__input--disabled + .group__label {
+  background-color: #e2e2e2;
+  border: 1.5px solid #7b808c;
   cursor: not-allowed;
 }
 
-/* Deshabilitar todo efecto hover cuando el radio está deshabilitado */
-.radio-label.disabled:hover {
-  filter: none;
-  background-color: #E2E2E2;
-  cursor: not-allowed; 
-}
-
-/* Asegúrate de que el input esté deshabilitado y no interactúe */
-.radio-input:disabled + .radio-label {
-  background-color: #E2E2E2; 
-  border: 1.5px solid #7B808C; 
-  cursor: not-allowed;
-}
-
-/* El círculo interior también se desactiva cuando está seleccionado y deshabilitado */
-.radio-input:disabled:checked + .radio-label::before {
-  background-color: #B0B0B0;
-}
-
-.radio-input:disabled + .radio-label:hover {
-  filter: none;
+.group__input--disabled--checked + .group__label::before {
+  background-color: #b0b0b0;
 }

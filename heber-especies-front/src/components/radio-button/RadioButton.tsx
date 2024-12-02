@@ -8,7 +8,6 @@ interface RadioButtonProps {
   checked: boolean;
   onChange: (value: string) => void;
   disabled?: boolean;
-
 }
 
 const RadioButton: React.FC<RadioButtonProps> = ({
@@ -24,18 +23,23 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   };
 
   return (
-    <div className="radio-container">
+    <div className="group__container">
       <input
         type="radio"
         id={id}
         name={name}
         checked={checked}
         onChange={handleChange}
-        className="radio-input"
+        className="group__input"
         disabled={disabled}
       />
-      <label htmlFor={id} className="radio-label"></label>
-      <span className="radio-label-text">{label}</span>
+      <label
+        htmlFor={id}
+        className={`group__label ${
+          disabled ? "group__label--disabled" : ""
+        } ${checked ? "group__label--checked" : ""}`}
+      ></label>
+      {label && <span className="group__text">{label}</span>}
     </div>
   );
 };
