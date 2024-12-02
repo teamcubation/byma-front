@@ -1,9 +1,9 @@
-/* Base Styles for Checkbox */
 .checkbox {
   position: relative;
   display: inline-block;
   width: 20px;
   height: 20px;
+  cursor: pointer;
 }
 
 .checkbox__input {
@@ -12,7 +12,6 @@
   cursor: pointer;
 }
 
-/* Initial (Active) State */
 .checkbox__box {
   position: absolute;
   width: 100%;
@@ -24,18 +23,16 @@
   transition: background-color 0.3s, border-color 0.3s, filter 0.3s;
 }
 
-/* Hover State */
 .checkbox:hover .checkbox__box {
   filter: drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.25)) drop-shadow(-1px -1px 5px rgba(0, 0, 0, 0.25));
 }
 
-/* Checked State */
-.checkbox__input:checked + .checkbox__box {
+.checkbox--checked .checkbox__box {
   background: #068A8C;
   border-color: #061533;
 }
 
-.checkbox__input:checked + .checkbox__box::after {
+.checkbox--checked .checkbox__box::after {
   content: '';
   position: absolute;
   width: 5px;
@@ -47,14 +44,19 @@
   left: 6px;
 }
 
-/* Disabled State */
-.checkbox__input:disabled + .checkbox__box {
-  background: #E2E2E2;
-  border: 1.9px solid #7B808C;
-  filter: none; /* Remove shadow for disabled state */
+.checkbox--disabled {
   cursor: not-allowed;
 }
+.checkbox--disabled:hover .checkbox__box {
+  filter: none;
+}
 
-.checkbox__input:disabled:checked + .checkbox__box::after {
-  border-color: #7B808C; /* Faint color for the checkmark in disabled state */
+.checkbox--disabled .checkbox__box {
+  background: #E2E2E2;
+  border: 1.9px solid #7B808C;
+  filter: none;
+}
+
+.checkbox--disabled.checkbox--checked .checkbox__box::after {
+  border-color: #7B808C;
 }

@@ -2,14 +2,22 @@ import React, { useState } from 'react';
 import Checkbox from './checkbox';
 
 const App: React.FC = () => {
-  const [isDisabled, setIsDisabled] = useState(false); // Estado para controlar el estado del checkbox
+  const [isChecked, setIsChecked] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false); 
+
+  const handleCheckboxToggle = (checked: boolean) => {
+    setIsChecked(checked);
+  };
 
   return (
     <div>
-      {/* Renderizar el checkbox con el estado pasado como prop */}
-      <Checkbox isDisabled={isDisabled} />
+      
+      <Checkbox
+        isDisabled={isDisabled}
+        isChecked={isChecked}
+        onToggle={handleCheckboxToggle}
+      />
 
-      {/* Botón para alternar el estado de deshabilitación */}
       <button onClick={() => setIsDisabled(!isDisabled)}>
         {isDisabled ? 'Habilitar Checkbox' : 'Deshabilitar Checkbox'}
       </button>
