@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import './Switch.css'; // Importamos los estilos CSS
+import './Switch.css';
 
 interface SwitchProps {
-  disabled: boolean;  // Prop para saber si el switch está deshabilitado
+  disabled: boolean;
+  size? : "s | l";
 }
 
-const Switch: React.FC<SwitchProps> = ({ disabled }) => {
+const Switch: React.FC<SwitchProps> = ({ disabled, size = 's' }) => {
   const [isOn, setIsOn] = useState(false);
 
   const toggleSwitch = () => {
