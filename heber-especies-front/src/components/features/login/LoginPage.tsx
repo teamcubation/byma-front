@@ -6,14 +6,14 @@ import { Toaster } from '@/components/ui/sonner'
 import { waitFor } from '@/utils/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
-import { CheckCircle2, CircleX, Eye, EyeOff, Loader2, Lock, LockKeyhole, Mail, User } from 'lucide-react'
-import { useState } from 'react'
+import { CheckCircle2, CircleX, Eye, EyeOff, InfoIcon, Loader2, Lock, LockKeyhole, Mail, User, X } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { set, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import logoByma from '@/assets/img/BYMA-Logo-Login.svg'
 import logoBymaBlanco from '@/assets/img/BYMA-Logo-Login-2.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 type Props = {}
 
@@ -33,25 +33,19 @@ const formSchema = z.object({
     username: z
         .string()
         .min(1, { message: "El nombre de usuario es requerido" }),
-    // .email({ message: "El email no tiene el formato correcto" }),
     password: z
         .string()
         .min(1, { message: "La contraseña es requerida" }),
-    // .regex(
-    //     /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).+$/,
-    //     {
-    //         message: "La contraseña debe tener al menos 1 letra mayúscula, 1 número y 1 carácter especial",
-    //     }
-    // ),
+
 });
 
 function LoginPage({ }: Props) {
 
-    const [toastId, setToastId] = useState<string | number | undefined>();
     const [showPassword, setShowPassword] = useState(false);
-    const [user, setUser] = useState<LoginResponse | null>(null);
-    const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+
 
     const togglePasswordVisibility = () => {
         setShowPassword((visible) => !visible);
@@ -69,65 +63,38 @@ function LoginPage({ }: Props) {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values);
-
-        setError(null);
         setIsLoading(true);
 
-        setToastId(toast.loading((
-            <div className='flex flex-col gap-4'>
-                <div className='flex items-center gap-4'>
-                    <Loader2 className="h-6 w-6 animate-spin" />
-                    <h2 className='ps-4 text-xl font-bold'>Cargando...</h2>
-                </div>
-                <div className='ps-14'>
-                    <p>Por favor espere...</p>
-                </div>
-            </div>
-        ), {
-            className: "p-4 min-w-[450px] h-fit border-2 border-gray-400 bg-white text-background-foreground",
-            unstyled: true
-        }))
 
         try {
-            const response = await axios.post<LoginResponse>('https://dummyjson.com/auth/login', values)
-            toast.success((
-                <div className='p-4 min-w-[450px] flex flex-row items-start gap-4 bg-background'>
-                    <div className=''>
-                        <CheckCircle2 strokeWidth={1} size={24} />
-                    </div>
-                    <div className=''>
-                        <h2 className='text-xl font-bold'>Login Exitoso</h2>
-                        <p>Bienvenido/a {response.data.username}</p>
-                    </div>
-                </div>
-            ), {
-                id: toastId,
-                className: "w-fit h-fit border-2 border-green-400 bg-background ",
-                unstyled: true,
-                position: "top-center",
-                duration: 10000
-            });
-            await waitFor(10000);
+            const response = await axios.post<LoginResponse>('https://dummyjson.com/auth/login', values);
+            console.log(response.data);
+            window.localStorage.setItem('accessToken', response.data.accessToken);
             setIsLoading(false);
-            setUser(response.data);
-            toast.dismiss(toastId);
+            navigate('/abm-gerentes');
 
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                // El error es de Axios
-                setError(error.response?.data?.message || "Error en el inicio de sesión");
+                form.setError("root", { message: error.response?.data?.message || "Error en el inicio de sesión" });
             } else {
-                // Error genérico o desconocido
-                setError("Ocurrió un error inesperado");
+                form.setError("root", { message: "Error en el inicio de sesión" });
             }
-            //toast.error("Error en el inicio de sesión", { id: toastId });
         } finally {
-            toast.dismiss(toastId);
-            setToastId(undefined);
+            setIsLoading(false);
         }
 
-        setIsLoading(false);
     }
+
+    useEffect(() => {
+        const accessToken = window.localStorage.getItem('accessToken');
+        if (accessToken) {
+            navigate('/abm-gerentes');
+        }
+        if (searchParams.get('message')) {
+            alert(searchParams.get('message'));
+        }
+    }, []);
+
     return (
         <>
             <section className={`w-full min-h-screen bg-[#152D5C]`}>
@@ -148,12 +115,12 @@ function LoginPage({ }: Props) {
 
 
                                 <Form {...form}>
-                                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                                    <form className={`flex flex-col gap-4 rounded-lg`} onSubmit={form.handleSubmit(onSubmit)}>
                                         <FormField
                                             control={form.control}
                                             name="username"
                                             render={({ field }) => (
-                                                <FormItem>
+                                                <FormItem className='relative'>
                                                     <FormLabel className='text-white'>Usuario:</FormLabel>
                                                     <FormControl >
                                                         <div className='relative'>
@@ -170,7 +137,7 @@ function LoginPage({ }: Props) {
                                                             )}
                                                         </div>
                                                     </FormControl>
-                                                    <FormMessage className='' />
+                                                    <FormMessage className='absolute -bottom-1 left-0 transform translate-y-full' />
                                                 </FormItem>
                                             )}
                                         />
@@ -178,7 +145,7 @@ function LoginPage({ }: Props) {
                                             control={form.control}
                                             name="password"
                                             render={({ field }) => (
-                                                <FormItem>
+                                                <FormItem className='relative'>
                                                     <FormLabel className='text-white'>Contraseña:</FormLabel>
                                                     <FormControl >
                                                         <div className='relative'>
@@ -215,7 +182,7 @@ function LoginPage({ }: Props) {
 
                                                         </div>
                                                     </FormControl>
-                                                    <FormMessage />
+                                                    <FormMessage className='absolute -bottom-1 left-0 transform translate-y-full' />
                                                 </FormItem>
                                             )}
                                         />
@@ -229,13 +196,33 @@ function LoginPage({ }: Props) {
                                                 <Button type='submit' className='w-full bg-white' disabled={isLoading}>Enviar</Button>
                                             )
                                         }
+
                                     </form>
 
                                 </Form>
                             </div>
                         </CardContent>
-                        <CardFooter className='flex-col gap-28 mb-16 items-center justify-center'>
+                        <CardFooter className='relative flex-col gap-28 mb-16 items-center justify-center'>
                             <Link to="/" className='text-white text-sm'>¿Olvidaste la contraseña?</Link>
+                            {
+                                //TODO: extraer este codigo a un componente "Alerta"
+                                form.formState.errors.root && (
+                                    <div className='absolute top-0 transform translate-y-1/2 w-full text-white border-2 border-l-8 border-red-500 rounded-e-lg ps-2 pe-4 py-2 flex flex-row justify-between gap-3'>
+                                        <div className='flex gap-8'>
+                                            <div className='h-9 w-9 flex items-center justify-center'>
+                                                <InfoIcon className="text-red-500" strokeWidth={2} size={24} />
+                                            </div>
+                                            <div>
+                                                <h3 className='text-base font-bold'>Error al iniciar sesión</h3>
+                                                <p className='text-sm'>{form.formState.errors.root.message}</p>
+                                            </div>
+                                        </div>
+                                        <Button className='' variant="ghost" size="icon" onClick={() => form.reset()}>
+                                            <X strokeWidth={2} size={24} />
+                                        </Button>
+                                    </div>
+                                )
+                            }
                             <img src={logoBymaBlanco} alt="logo Byma" />
                         </CardFooter>
                     </Card>

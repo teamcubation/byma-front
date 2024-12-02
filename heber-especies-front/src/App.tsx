@@ -1,5 +1,5 @@
 import { MisEmisores } from "./components/MisEmisores"
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { Toaster } from "./components/ui/sonner";
 import { MisEspecies } from "./components/especie/MisEspecies";
 import MainLayout from "./MainLayout";
@@ -13,16 +13,24 @@ import { MisGerentes } from "./components/features/gerente/AbmGerentes";
 import { FormGerente } from "./components/features/gerente/FormGerente";
 import LoginPage from "./components/features/login/LoginPage";
 import Pagina404 from "./components/features/Pagina404/Pagina404";
+import PrivateRoute from "./components/PrivateRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: <Navigate to="/login" replace />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    element: (
+      <PrivateRoute>
+        <MainLayout />
+      </PrivateRoute>
+    ),
     children: [
-      {
-        index: true,
-        element: <LoginPage/>
-      },
       {
         path: "/abm-especies",
         element: <MisEspecies />,
@@ -75,7 +83,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <Pagina404/>
+        element: <Pagina404 />
       }
     ],
 

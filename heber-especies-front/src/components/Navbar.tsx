@@ -1,5 +1,5 @@
-import { MenuIcon, MountainIcon } from "lucide-react"
-import { Link } from "react-router-dom"
+import { LogOut, MenuIcon, MountainIcon } from "lucide-react"
+import { Link, useNavigate } from "react-router-dom"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import { Button } from "./ui/button"
 import "./style/Navbar.css"
@@ -23,6 +23,7 @@ const navItems = [
     },
 ]
 const Navbar = () => {
+    const navigate = useNavigate();
     return (
         <>
             <div className="custom-bg-nav flex items-center justify-between px-4 py-2 "> {/* border-b-2 bg-white dark:bg-gray-800 */}
@@ -39,6 +40,16 @@ const Navbar = () => {
                             {item.label}
                         </Link>
                     ))}
+                    {
+                        window.localStorage.getItem('accessToken') && (
+                            <Button variant="outline" size="icon" onClick={() => {
+                                window.localStorage.clear();
+                                navigate("/");
+                            }}>
+                                <LogOut size={24} strokeWidth={2} />
+                            </Button>
+                        )
+                    }
                 </div>
                 <Sheet>
                     <SheetTrigger asChild>
