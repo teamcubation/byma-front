@@ -33,40 +33,40 @@ const ComboBox: React.FC<ComboBoxProps> = ({
 
   return (
     <div className="combo-box-container">
-      <div className="container-combo-box-label">
-        <label className="combo-box-label">Lorem ipsum</label>
+      <div className="combo-box-container__label_container">
+        <label className="combo-box-container__label">Lorem ipsum</label>
       </div>
       <div className="combo-box" onClick={handleToggle}>
         {enableManualInput ? (
           // Input editable si la entrada manual está habilitada
-          <div className="combo-box-input-container">
+          <div className="combo-box__input-container">
             <input
               type="text"
-              className="combo-box-input"
+              className="combo-box__input"
               value={inputValue}
               placeholder={placeholder}
               onChange={handleInputChange}
               onClick={() => setIsOpen(true)} // Abre el menú al hacer clic en el input
             />
-            <div className="combo-box-input-icon-search"></div>
+            <div className="combo-box__icon-search"></div>
           </div>
         ) : (
           // Modo de solo selección
-          <div className="combo-box-input">
-            <span className={`combo-box-placeholder ${selectedItem ? "selected" : ""}`}>
+          <div className="combo-box__input">
+            <span className={`combo-box__placeholder ${selectedItem ? "combo-box__placeholder--selected" : ""}`}>
               {selectedItem || placeholder}
             </span>
-            <div className="combo-box-icon"></div>
+            <div className="combo-box__icon"></div>
           </div>
         )}
         {isOpen && (
-          <div className="combo-box-dropdown">
+          <div className="combo-box__dropdown">
             { (enableManualInput ? items
               .filter(item => item.toLowerCase().includes(inputValue.toLowerCase())) : items)
               .map((item, index) => (
                 <div
                   key={index}
-                  className={`combo-box-item ${selectedItem === item ? "selected-item" : ""}`}
+                  className={`combo-box__item ${selectedItem === item ? "combo-box__item--selected" : ""}`}
                   onClick={() => handleSelect(item)}
                 >
                   {item}
