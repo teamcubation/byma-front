@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./ComboBox.css";
 
 interface ComboBoxProps {
   items: string[];
   placeholder?: string;
-  enableManualInput?: boolean; // Nueva prop para habilitar entrada manual
+  enableManualInput?: boolean;
 }
 
 const ComboBox: React.FC<ComboBoxProps> = ({
   items = ["ítem 1", "ítem 2", "ítem 3", "ítem 4", "ítem 5", "ítem 6", "ítem 7", "ítem 8"],
   placeholder = "Seleccione una opción",
-  enableManualInput = false,
+  enableManualInput = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
-  const [inputValue, setInputValue] = useState(""); // Valor del input para entrada manual
+  const [inputValue, setInputValue] = useState("");
+  const comboBoxRef = useRef<HTMLDivElement>(null);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -22,23 +23,40 @@ const ComboBox: React.FC<ComboBoxProps> = ({
 
   const handleSelect = (item: string) => {
     setSelectedItem(item);
-    setInputValue(item); // Actualiza el input con el valor seleccionado
+    setInputValue(item);
     setIsOpen(false);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
-    setSelectedItem(null); // Limpia la selección actual si el usuario escribe
+    setSelectedItem(null);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isOpen && 
+        comboBoxRef.current && 
+        !comboBoxRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
     <div className="combo-box-container">
       <div className="combo-box-container__label_container">
         <label className="combo-box-container__label">Lorem ipsum</label>
       </div>
-      <div className="combo-box" onClick={handleToggle}>
+      <div className="combo-box" onClick={handleToggle} ref={comboBoxRef}>
         {enableManualInput ? (
-          // Input editable si la entrada manual está habilitada
           <div className="combo-box__input-container">
             <input
               type="text"
@@ -46,12 +64,11 @@ const ComboBox: React.FC<ComboBoxProps> = ({
               value={inputValue}
               placeholder={placeholder}
               onChange={handleInputChange}
-              onClick={() => setIsOpen(true)} // Abre el menú al hacer clic en el input
+              onClick={() => setIsOpen(true)}
             />
             <div className="combo-box__icon-search"></div>
           </div>
         ) : (
-          // Modo de solo selección
           <div className="combo-box__input">
             <span className={`combo-box__placeholder ${selectedItem ? "combo-box__placeholder--selected" : ""}`}>
               {selectedItem || placeholder}
