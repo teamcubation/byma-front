@@ -14,6 +14,7 @@ const ParentComponent: React.FC = () => {
         {isSwitchDisabled ? 'Habilitar' : 'Deshabilitar'} Switch
       </button>
       <Switch disabled={isSwitchDisabled} />
+      <Switch disabled={isSwitchDisabled} size='l'/>
     </div>
   );
 };

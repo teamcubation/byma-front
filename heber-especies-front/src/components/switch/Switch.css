@@ -1,27 +1,23 @@
 .switch {
   position: relative;
+  cursor: pointer;
 }
 
-.switch.s {
-  width: 50px;
-  /* Ajustado a un tamaño adecuado */
-  height: 28px;
-  /* Ajustado a un tamaño adecuado */
-}
-
-.switch.l {
-  width: 70px;
-  /* Ajustado a un tamaño adecuado */
-  height: 40px;
-  /* Ajustado a un tamaño adecuado */
-}
-
-.switch.disabled {
+.switch--disabled {
   cursor: not-allowed;
-  /* Cuando está deshabilitado, el cursor será de "prohibido" */
 }
 
-.switch .switch-rectangle {
+.switch--small {
+  width: 28px;
+  height: 16px;
+}
+
+.switch--large {
+  width: 44px;
+  height: 22px;
+}
+
+.switch__rectangle {
   position: absolute;
   top: 0;
   left: 0;
@@ -31,63 +27,55 @@
   transition: background 0.3s ease;
 }
 
-/* ON activado */
-.switch.on .switch-rectangle {
+.switch--on .switch__rectangle {
   background: #068A8C;
 }
 
-/* OFF activado */
-.switch.off .switch-rectangle {
+.switch--off .switch__rectangle {
   background: #009EA1;
 }
 
-/* ON desactivado */
-.switch.on.disabled .switch-rectangle {
+.switch--on.switch--disabled .switch__rectangle,
+.switch--off.switch--disabled .switch__rectangle {
   background: #E2E2E2;
-  /* Color de fondo cuando está ON pero desactivado */
 }
 
-/* OFF desactivado */
-.switch.off.disabled .switch-rectangle {
-  background: #E2E2E2;
-  /* Color de fondo cuando está OFF pero desactivado */
-}
-
-.switch .switch-ellipse {
+.switch__ellipse {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   background: #FDFDFD;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
   transition: left 0.3s ease;
 }
 
-/* Elipse cuando está ON activado */
-.switch.on .switch-ellipse {
+.switch--small .switch__ellipse {
+  width: 12px;
+  height: 12px;
+}
+
+.switch--small.switch--on .switch__ellipse {
+  left: calc(100% - 14px);
+}
+
+.switch--small.switch--off .switch__ellipse {
+  left: 2px;
+}
+
+.switch--large .switch__ellipse {
+  width: 20px;
+  height: 20px;
+}
+
+.switch--large.switch--on .switch__ellipse {
   left: calc(100% - 24px);
-  /* Elipse desplazada a la derecha */
 }
 
-/* Elipse cuando está OFF activado */
-.switch.off .switch-ellipse {
+.switch--large.switch--off .switch__ellipse {
   left: 4px;
-  /* Elipse desplazada a la izquierda */
 }
 
-/* Elipse cuando está ON desactivado */
-.switch.on.disabled .switch-ellipse {
-  left: calc(100% - 24px);
-  /* Elipse se mantiene a la derecha */
+.switch--on.switch--disabled .switch__ellipse,
+.switch--off.switch--disabled .switch__ellipse {
   background: #7B808C;
-  /* Elipse de color gris cuando está desactivado */
-}
-
-/* Elipse cuando está OFF desactivado */
-.switch.off.disabled .switch-ellipse {
-  left: 4px;
-  /* Elipse se mantiene a la izquierda */
-  background: #7B808C;
-  /* Elipse de color gris cuando está desactivado */
 }

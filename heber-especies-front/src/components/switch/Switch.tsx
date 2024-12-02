@@ -3,7 +3,7 @@ import './Switch.css';
 
 interface SwitchProps {
   disabled: boolean;
-  size? : "s | l";
+  size?: 's' | 'l'; // Tamaño opcional: pequeño o grande
 }
 
 const Switch: React.FC<SwitchProps> = ({ disabled, size = 's' }) => {
@@ -16,12 +16,12 @@ const Switch: React.FC<SwitchProps> = ({ disabled, size = 's' }) => {
   };
 
   return (
-    <div 
-      className={`switch ${isOn ? 'on' : 'off'} ${disabled ? 'disabled' : ''}`} 
+    <div
+      className={`switch ${size === 's' ? 'switch--small' : 'switch--large'} ${isOn ? 'switch--on' : 'switch--off'} ${disabled ? 'switch--disabled' : ''}`}
       onClick={toggleSwitch}
     >
-      <div className="switch-rectangle"></div>
-      <div className="switch-ellipse"></div>
+      <div className="switch__rectangle"></div>
+      <div className="switch__ellipse"></div>
     </div>
   );
 };
