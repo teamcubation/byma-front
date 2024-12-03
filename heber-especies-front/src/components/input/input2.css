@@ -8,9 +8,6 @@
     /* Necesario para posicionar íconos internos */
     width: 272px;
 }
-.input-container.altura {
-    height: 140px;
-}
 /* Tamaño S (pequeño) */
 .input-container.s {
     width: 272px; /* Ancho del tamaño S */
