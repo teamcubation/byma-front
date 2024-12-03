@@ -1,0 +1,26 @@
+/* Bloque base */
+.input-textarea {
+    position: relative;
+    height: 120px;
+    box-sizing: border-box;
+    border: 0.75px solid #061533;
+    border-radius: 12px;
+    padding: 8px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    resize: none; /* Evita que se redimensione el textarea */
+    outline: none;
+  }
+  
+  /* Modificadores para los tamaños */
+  .input-textarea--l {
+    width: 568px;
+  }
+  
+  .input-textarea--m {
+    width: 420px;
+  }
+  
+  .input-textarea--s {
+    width: 272px;
+  }
