@@ -1,0 +1,103 @@
+.button-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+  }
+
+  .button-icon__dark-mode {
+    background: #274071;
+  }
+
+  .button-icon__light-mode {
+    background: #E2E2E2;
+  }
+  
+  .button-icon__icon-wrapper {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .button-icon__icon {
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Icons light mode */
+.button-icon__icon--interrogative-black {
+  width: 9.95px;
+  height: 18.15px;
+  background-image: url('./icon-buttonIcon/interrogative-black.svg');
+}
+
+.button-icon__icon--bell-black {
+  width: 15px;
+  height: 19.19px;
+  background-image: url('./icon-buttonIcon/bell-black.svg');
+}
+
+.button-icon__icon--minor-black {
+  width: 6.71px;
+  height: 11.31px;
+  background-image: url('./icon-buttonIcon/minor-black.svg');
+}
+
+.button-icon__icon--major-black {
+  width: 6.71px;
+  height: 11.31px;
+  background-image: url('./icon-buttonIcon/major-black.svg');
+}
+
+  /* Icons dark mode */
+  .button-icon__icon--interrogative-white {
+    width: 9.95px;
+    height: 18.15px;
+    background-image: url('./icon-buttonIcon/interrogative-white.svg');
+  }
+  
+  .button-icon__icon--bell-white {
+    width: 15px;
+    height: 19.19px;
+    background-image: url('./icon-buttonIcon/bell-white.svg');
+  }
+  
+  .button-icon__icon--minor-white {
+    width: 6.71px;
+    height: 11.31px;
+    background-image: url('./icon-buttonIcon/minor-white.svg');
+  }
+  
+  .button-icon__icon--major-white {
+    width: 6.71px;
+    height: 11.31px;
+    background-image: url('./icon-buttonIcon/major-white.svg');
+  }
+
+.button-icon__dark-mode:hover {
+  background: #233A66;
+}
+
+.button-icon__dark-mode:active {
+  background: #1F335A;
+  ;
+}
+
+.button-icon__light-mode:hover {
+  background: #CCCCCC;
+}
+
+.button-icon__light-mode:active {
+  background: #b6b6b6;
+}
+
+
+
+
+  
