@@ -15,6 +15,7 @@ type InputProps = {
   noticeMessage?: string;
   isPassword?: boolean
   size?: 's' | 'm' | 'l';
+  heigth?: boolean;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -29,6 +30,7 @@ const Input: React.FC<InputProps> = ({
   successMessage,
   warningMessage,
   size = 's',
+  heigth = true,
   noticeMessage
 }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
