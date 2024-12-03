@@ -84,7 +84,7 @@
   padding: 16px;
   font-size: 14px;
   cursor: pointer;
-  min-height: 52px;
+  height: 52px;
   display: flex;
   align-items: center;
   width: 100%;
@@ -93,6 +93,10 @@
 .combo-box__item:hover {
   background-color: #E1E0E0;
   transition: background-color 0.2s ease;
+}
+
+.combo-box__item--selected {
+  background: #E1E0E0;
 }
 
 .combo-box__input-container {
