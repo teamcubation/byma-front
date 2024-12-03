@@ -6,17 +6,21 @@ interface ButtonProps {
   text: string;         // Texto del botón
   disable?: boolean;     // Indica si el botón está deshabilitado
   className?: string;   // Clases adicionales para personalización
+  icon?: string;        // Icono del botón
 }
 
-const Button = ({ onClick, text, disable=false, className="" }: ButtonProps) => {
+const Button = ({ onClick, text, disable = false, className = "", icon = "" }: ButtonProps) => {
     return (
         <button onClick={onClick}
             disabled={disable}
-            className={`button button__size--medium ${className} `}>
-            <div className="button__icon-wrapper">
-                <div className='button__icon--add'></div>
-            </div>
-            <span className="button__text">{text}</span>
+            className={`button button__size--medium ${className} ${!icon ? 'button--no-icon' : ''}`}>
+            {icon && (
+                <div className="button__icon-wrapper">
+                    <div className={`button__icon ${icon}`}></div>
+                </div>
+            )}
+
+            <span className={`button__text`}>{text}</span>
         </button>
     );
 };
