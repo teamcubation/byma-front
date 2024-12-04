@@ -1,0 +1,76 @@
+.switch {
+  position: relative;
+  cursor: pointer;
+
+  &__rectangle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    transition: background-color 0.3s, border-color 0.3s;
+    background: #009EA1;
+  }
+
+  &__ellipse {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #FDFDFD;
+    border-radius: 50%;
+    transition: left 0.3s;
+  }
+
+  &--small {
+    width: 28px;
+    height: 16px;
+
+    & .switch__ellipse {
+      width: 12px;
+      height: 12px;
+    }
+
+    &.switch--on .switch__ellipse {
+      left: calc(100% - 14px);
+    }
+
+    &.switch--off .switch__ellipse {
+      left: 2px;
+    }
+  }
+
+  &--large {
+    width: 44px;
+    height: 22px;
+
+    & .switch__ellipse {
+      width: 18px;
+      height: 18px;
+    }
+
+    &.switch--on .switch__ellipse {
+      left: calc(100% - 21px);
+    }
+
+    &.switch--off .switch__ellipse {
+      left: 2.5px;
+    }
+  }
+
+  &--on {
+    & .switch__rectangle {
+      background: #068A8C;
+    }
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+
+    & .switch__rectangle {
+      background: #E2E2E2;
+    }
+
+    & .switch__ellipse {
+      background: #7B808C;
+    }
+  }
+}
