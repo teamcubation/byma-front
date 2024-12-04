@@ -2,7 +2,7 @@ import { LogOut, MenuIcon, MountainIcon } from "lucide-react"
 import { Link, useNavigate } from "react-router-dom"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import { Button } from "./ui/button"
-import "./style/Navbar.css"
+import "./style/Navbar.scss"
 
 const navItems = [
     {
