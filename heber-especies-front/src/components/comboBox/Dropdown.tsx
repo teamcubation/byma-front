@@ -1,5 +1,6 @@
 import React from "react";
 import "./ComboBox.css";
+import Checkbox from "./checkbox/Checkbox";
 
 interface DropdownProps {
   items: string[];
@@ -8,6 +9,7 @@ interface DropdownProps {
   enableMultiselect: boolean;
   inputValue: string;
   enableManualInput: boolean;
+  isOpen: boolean;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -17,13 +19,16 @@ const Dropdown: React.FC<DropdownProps> = ({
   enableMultiselect,
   inputValue,
   enableManualInput,
+  isOpen
 }) => {
   const filteredItems = enableManualInput
     ? items.filter((item) => item.toLowerCase().includes(inputValue.toLowerCase()))
     : items;
 
   return (
-    <div className="combo-box__dropdown">
+    <div className={`combo-box__dropdown ${
+      isOpen ? "combo-box__dropdown--open" : ""
+    }`}>
       {filteredItems.map((item, index) => (
         <div
           key={index}
@@ -33,15 +38,15 @@ const Dropdown: React.FC<DropdownProps> = ({
           onClick={() => onSelect(item)}
         >
           {enableMultiselect ? (
-            <label>
-              <input
-                type="checkbox"
-                checked={selectedItems.includes(item)}
-                onClick={(e) => e.stopPropagation()}
-                onChange={() => onSelect(item)}
+            <div className="combo-box__checkbox">
+              <Checkbox
+                isChecked={selectedItems.includes(item)}
+                onToggle={() => onSelect(item)}
               />
-              {item}
-            </label>
+              <div className="combo-box__item-checkbox">
+                {item}
+              </div>
+            </div>
           ) : (
             <>{item}</>
           )}

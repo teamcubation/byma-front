@@ -13,7 +13,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
   items = ["ítem 1", "ítem 2", "ítem 3", "ítem 4", "ítem 5", "ítem 6", "ítem 7", "ítem 8"],
   placeholder = "Seleccione una opción",
   enableManualInput = false,
-  enableMultiselect = true,
+  enableMultiselect = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -90,7 +90,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
             <div className="combo-box__icon"></div>
           </div>
         )}
-        {isOpen && (
+        {
           <Dropdown
           items={items}
           selectedItems={selectedItems}
@@ -98,8 +98,9 @@ const ComboBox: React.FC<ComboBoxProps> = ({
           enableMultiselect={enableMultiselect}
           inputValue={inputValue}
           enableManualInput={enableManualInput}
+          isOpen={isOpen}
         />
-        )}
+        }
       </div>
     </div>
   );

@@ -48,12 +48,20 @@
   background-color: #F1F1F1;
   border: 1px solid #ccc;
   border-radius: 4px;
-  max-height: 260px;
   display: flex;
   flex-direction: column;
   border-radius: 12px;
   overflow-y: scroll;
   box-shadow: -1px -1px 3px rgba(0, 0, 0, 0.25), 1px 1px 3px rgba(0, 0, 0, 0.25);
+
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.combo-box__dropdown--open {
+  max-height: 260px;
+  opacity: 1;
 }
 
 .combo-box__dropdown::-webkit-scrollbar {
@@ -116,4 +124,13 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.combo-box__checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.combo-box__item-checkbox {
+  margin-left: 16px;
 }
