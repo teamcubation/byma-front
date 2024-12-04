@@ -1,5 +1,5 @@
 import React from "react";
-import "./RadioButton.css";
+import "./RadioButton.scss";
 
 interface RadioButtonProps {
   id: string;

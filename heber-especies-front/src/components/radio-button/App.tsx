@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import RadioButton from "./RadioButton"; // Importamos el RadioButton
-import "./RadioButton.css";
+import RadioButton from "./RadioButton";
 
 const App: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>("");
 
-  // Maneja el cambio de selección del radio button
   const handleRadioChange = (value: string) => {
-    setSelectedOption(value); // Cambia el estado al ID del radio seleccionado
+    setSelectedOption(value);
   };
 
   return (
