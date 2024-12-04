@@ -8,19 +8,16 @@
     padding: 8px;
     font-size: 14px;
     font-family: Arial, sans-serif;
-    resize: none; /* Evita que se redimensione el textarea */
+    resize: none;
     outline: none;
-  }
-  
-  /* Modificadores para los tamaños */
-  .input-textarea--l {
-    width: 568px;
-  }
-  
-  .input-textarea--m {
-    width: 420px;
-  }
-  
-  .input-textarea--s {
-    width: 272px;
+
+    &--l {
+      width: 568px;
+    }
+    &--m {
+      width: 420px;
+    }
+    &--s {
+      width: 272px;
+    }
   }

@@ -3,7 +3,7 @@ import TextArea from "./textarea";
 const Form: React.FC = () => {
   return (
     <form>
-      <TextArea />
+      <TextArea placeholder="escriba algo..."/>
     </form>
   );
 };

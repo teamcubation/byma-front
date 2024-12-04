@@ -1,15 +1,16 @@
 import React from 'react';
-import './TextArea.css';
+import './textarea.scss';
 
 interface TextAreaProps {
   size?: 'l' | 'm' | 's';
+  placeholder: string;
 }
 
-const TextArea: React.FC<TextAreaProps> = ({ size = "m" }) => {
+const TextArea: React.FC<TextAreaProps> = ({ size = "m", placeholder}) => {
   return (
     <textarea
       className={`input-textarea input-textarea--${size}`}
-      placeholder="Escribe aquí..."
+      placeholder={placeholder}
     ></textarea>
   );
 };
