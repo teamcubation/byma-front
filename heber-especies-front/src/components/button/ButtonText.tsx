@@ -1,7 +1,7 @@
 import React from 'react';
-import './Button.css';
+import './ButtonText.css';
 
-interface ButtonProps {
+interface ButtonTextProps {
   onClick?: () => void; // Evento al hacer clic
   text: string;         // Texto del botón
   disable?: boolean;     // Indica si el botón está deshabilitado
@@ -9,7 +9,7 @@ interface ButtonProps {
   icon?: string;        // Icono del botón
 }
 
-const Button = ({ onClick, text, disable = false, className = "", icon = "" }: ButtonProps) => {
+const ButtonText = ({ onClick, text, disable = false, className = "", icon = "" }: ButtonTextProps) => {
     return (
         <button onClick={onClick}
             disabled={disable}
@@ -25,4 +25,4 @@ const Button = ({ onClick, text, disable = false, className = "", icon = "" }: B
     );
 };
 
-export default Button;
+export default ButtonText;
