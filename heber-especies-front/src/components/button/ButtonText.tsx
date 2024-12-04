@@ -13,7 +13,7 @@ const ButtonText = ({ onClick, text, disable = false, className = "", icon = "" 
     return (
         <button onClick={onClick}
             disabled={disable}
-            className={`button button__size--medium ${className} ${!icon ? 'button--no-icon' : ''}`}>
+            className={`${className.includes('button--terciary') ? 'button--terciary' : 'button'} button__size--medium ${className} ${!icon ? 'button--no-icon' : ''}`}>
             {icon && (
                 <div className="button__icon-wrapper">
                     <div className={`button__icon ${icon}`}></div>

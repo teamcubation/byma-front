@@ -126,3 +126,28 @@
 .button--secondary:disabled .button__text {
   color: #7B808C;
 }
+
+.button--terciary {
+  background: none;
+  border: none !important;
+  padding: 0 !important;
+  cursor: pointer;
+  width: auto;
+  height: auto;
+}
+
+.button--terciary .button__text {
+  color: #00B6B8;
+}
+
+.button--terciary:hover .button__text {
+  color: #56CCCE;
+}
+
+.button--terciary:active .button__text {
+  color: #058C8E;
+}
+
+.button--terciary:disabled .button__text {
+  color: #7B808C;
+}
