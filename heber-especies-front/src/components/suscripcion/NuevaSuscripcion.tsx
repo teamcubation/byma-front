@@ -17,7 +17,7 @@ import { useState, useEffect } from "react";
 import { waitFor } from "../../utils/utils";
 import { useNavigate, useParams } from "react-router-dom";
 
-import suscripcionesData from "./suscripciones.json";
+import suscripcionesData from "./data/suscripciones.json";
 
 const formSchema = z.object({
   idSuscripcion: z

@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import CardSuscripcion from "./CardSuscripcion";
 
-import suscripcionesData from "./suscripciones.json"; 
+import suscripcionesData from "./data/suscripciones.json"; 
 import { TypeSuscripcion } from "./typeSuscripcion";
 
 const useHandleDelete = (setSuscripciones: React.Dispatch<React.SetStateAction<TypeSuscripcion[]>>) => {
