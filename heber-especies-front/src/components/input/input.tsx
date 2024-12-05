@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import "./input2.css";
+import "./input.scss";
 
 type InputProps = {
   value: string;
@@ -13,7 +13,7 @@ type InputProps = {
   successMessage?: string;
   warningMessage?: string;
   noticeMessage?: string;
-  isPassword?: boolean
+  isPassword?: boolean;
   size?: 's' | 'm' | 'l';
 };
 
@@ -35,9 +35,10 @@ const Input: React.FC<InputProps> = ({
 
   const handlePasswordToggle = () => {
     setPasswordVisible(!passwordVisible);
-  }
+  };
+
   const getInputClass = () => {
-    let className = `${size}`;
+    let className = size;
 
     if (isPassword) {
       className += ' password';
@@ -65,42 +66,36 @@ const Input: React.FC<InputProps> = ({
     return className.trim();
   };
 
-
   return (
-    <div className={`input-container ${getInputClass()}`}>
+    <div className={`input__container ${getInputClass()}`}>
       <input
-        className="input-s"
+        className="input__s"
         type={isPassword ? (passwordVisible ? "text" : "password") : type}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
         placeholder={placeholder}
       />
-      {/* Renderiza íconos dependiendo del estado */}
       {isPassword && !status && (
         <i
-          className={passwordVisible ? "password-eyeClose" : "password-eye"}
+          className={passwordVisible ? "password--eyeClose" : "password--eye"}
           onClick={handlePasswordToggle}
         ></i>
       )}
-      
 
-      {/* Mensajes de estado */}
       {status === 'error' && errorMessage && (
-        <div className="error-text">{errorMessage}</div>
+        <div className="error__text">{errorMessage}</div>
       )}
       {status === 'success' && successMessage && (
-        <div className="success-text">{successMessage}</div>
+        <div className="success__text">{successMessage}</div>
       )}
       {status === 'warning' && warningMessage && (
-        <div className="warning-text">{warningMessage}</div>
+        <div className="warning__text">{warningMessage}</div>
       )}
       {status === 'notice' && noticeMessage && (
-        <div className="notice-text">{noticeMessage}</div>
+        <div className="notice__text">{noticeMessage}</div>
       )}
     </div>
-
-
   );
 };
 

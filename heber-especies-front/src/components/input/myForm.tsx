@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Input from './inputText';
+import Input from './input';
 const MyForm: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [inputStatus, setInputStatus] = useState<'error' | 'success' | 'warning' | 'notice' | "password" | undefined>(undefined);

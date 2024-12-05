@@ -1,5 +1,5 @@
 import Navbar from './components/Navbar'
-import InputText from './components/input/inputText'
+import InputText from './components/input/input'
 import MyForm from './components/input/myForm'
 import ParentComponent from './components/switch/App'
 import { Outlet } from 'react-router-dom'
@@ -14,7 +14,7 @@ const MainLayout = () => {
         <BreadcrumbDemo />
 
       </div>
-      <div>        <ParentComponent />
+      <div>        <MyForm />
       </div>
       <Outlet />
     </>
