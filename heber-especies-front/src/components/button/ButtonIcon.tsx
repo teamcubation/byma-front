@@ -7,7 +7,6 @@ interface ButtonIconProps {
 }
 
 const ButtonIcon = ({ onClick, icon }: ButtonIconProps) => {
-  console.log("icon= ", icon);
   return (
     <button className="button-icon" onClick={onClick}>
       <span className="button__icon">
