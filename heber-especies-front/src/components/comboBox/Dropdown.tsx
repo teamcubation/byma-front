@@ -1,5 +1,5 @@
 import React from "react";
-import "./ComboBox.css";
+import "./ComboBox.scss";
 import Checkbox from "./checkbox/Checkbox";
 
 interface DropdownProps {

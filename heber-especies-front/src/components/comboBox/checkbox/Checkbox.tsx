@@ -1,5 +1,5 @@
 import React from 'react';
-import './Checkbox.css';
+import './Checkbox.scss';
 
 interface CheckboxProps {
   isDisabled?: boolean;

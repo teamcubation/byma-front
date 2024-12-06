@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./ComboBox.css";
+import "./ComboBox.scss";
 import Dropdown from "./Dropdown";
 
 interface ComboBoxProps {
