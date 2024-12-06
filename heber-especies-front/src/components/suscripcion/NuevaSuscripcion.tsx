@@ -1,16 +1,6 @@
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
+import { Form } from "../ui/form";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "../ui/input";
-import { Checkbox } from "../ui/checkbox";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { useState, useEffect } from "react";
@@ -18,163 +8,8 @@ import { waitFor } from "../../utils/utils";
 import { useNavigate, useParams } from "react-router-dom";
 
 import suscripcionesData from "./suscripciones.json";
-
-const formSchema = z.object({
-  idSuscripcion: z
-    .string()
-    .min(1, { message: "El id de la suscripcion es requerido" })
-    .regex(/^\d+$/, { message: "El id de la suscripcion debe ser un numero" }),
-  estado: z.string().min(1, { message: "El estado es requerido" }).max(50, {
-    message: "El estado supera la cantidad maxima de caracteres",
-  }),
-  fechaAlta: z
-    .string()
-    .min(1, { message: "La fecha de alta es requerida" })
-    .max(30, {
-      message: "La fecha de alta supera la cantidad maxima de caracteres",
-    }),
-  nroCertificado: z
-    .string()
-    .min(1, { message: "El numero de certificado es requerido" })
-    .regex(/^\d+$/, {
-      message: "El numero de certificado debe ser un numero",
-    }),
-  idEspecie: z
-    .string()
-    .min(1, { message: "El id de la especie es requerido" })
-    .regex(/^\d+$/, { message: "El id de la especie debe ser un numero" }),
-  CantCuotapartes: z
-    .string()
-    .min(1, { message: "La cantidad de cuotapartes es requerida" })
-    .regex(/^\d+$/, {
-      message: "La cantidad de cuotapartes debe ser un numero",
-    }),
-  IdAcdi: z
-    .string()
-    .min(1, { message: "El id ACDI es requerido" })
-    .regex(/^\d+$/, { message: "El id ACDI debe ser un numero" }),
-  idEmisor: z
-    .string()
-    .regex(/^\d+$/, { message: "El id del emisor debe ser un numero" })
-    .min(1, { message: "El id del emisor es requerido" }),
-  nroPedido: z
-    .string()
-    .regex(/^\d+$/, { message: "El numero de pedido debe ser un numero" })
-    .min(1, { message: "El numero de pedido es requerido" }),
-  nroSecuencia: z
-    .string()
-    .regex(/^\d+$/, { message: "El numero de secuencia debe ser un numero" })
-    .min(1, { message: "El numero de secuencia es requerido" }),
-  fechaCambioDeEstado: z
-    .string()
-    .min(1, { message: "La fecha de cambio de estado es requerida" })
-    .max(30, {
-      message:
-        "La fecha de cambio de estado supera la cantidad maxima de caracteres",
-    }),
-  rolIngresante: z
-    .string()
-    .min(1, { message: "El rol ingresante es requerido" })
-    .max(50, {
-      message: "El rol ingresante supera la cantidad maxima de caracteres",
-    }),
-  monto: z
-    .string()
-    .regex(/^\d+$/, { message: "El monto debe ser un numero" })
-    .min(1, { message: "El monto es requerido" }),
-  liquidaEnByma: z.boolean(),
-  numeroReferencia: z
-    .string()
-    .regex(/^\d+$/, { message: "El numero de referencia debe ser un numero" })
-    .min(1, { message: "El numero de referencia es requerido" }),
-  procesadoCustodia: z.boolean(),
-  ultimoError: z.string().max(255, {
-    message: "El ultimo error supera la cantidad maxima de caracteres",
-  }),
-  command: z.string().max(255, {
-    message: "El comando supera la cantidad maxima de caracteres",
-  }),
-  procesadoLiquidacionesSlyq: z.boolean(),
-  idGerente: z
-    .string()
-    .regex(/^\d+$/, { message: "El id del gerente debe ser un numero" })
-    .min(1, { message: "El id del gerente es requerido" }),
-  obligacionDePagoGenerada: z.boolean(),
-  idBilletera: z
-    .string()
-    .regex(/^\d+$/, { message: "El id de billetera debe ser un numero" })
-    .min(1, { message: "El id de billetera es requerido" }),
-  fechaSincronizacion: z
-    .string()
-    .min(1, { message: "La fecha de sincronizacion es requerida" })
-    .max(30, {
-      message:
-        "La fecha de sincronizacion supera la cantidad maxima de caracteres",
-    }),
-  nasdaqSiStatusReason: z.string().max(255, {
-    message:
-      "La razon de status NASDAQ SI supera la cantidad maxima de caracteres",
-  }),
-  mdwStatusCode: z
-    .string()
-    .regex(/^\d+$/, { message: "El codigo de estado MDW debe ser un numero" })
-    .min(1, { message: "El codigo de estado MDW es requerido" }),
-  mdwBusinessMessageId: z.string().max(255, {
-    message:
-      "El ID de mensaje de negocio MDW supera la cantidad maxima de caracteres",
-  }),
-  mdwResponseMessage: z.string().max(255, {
-    message:
-      "El mensaje de respuesta MDW supera la cantidad maxima de caracteres",
-  }),
-  mdwResponseDatetime: z
-    .string()
-    .min(1, { message: "La fecha de respuesta MDW es requerida" })
-    .max(30, {
-      message:
-        "La fecha de respuesta MDW supera la cantidad maxima de caracteres",
-    }),
-  nasdaqSiStatus: z.string().max(255, {
-    message: "El estado NASDAQ SI supera la cantidad maxima de caracteres",
-  }),
-});
-
-type FormSchema = z.infer<typeof formSchema>;
-
-const FormInputField = ({
-  name,
-  label,
-  type = "text",
-  disabled = false,
-  form,
-  placeholder,
-}: {
-  name: string;
-  label: string;
-  type?: string;
-  disabled?: boolean;
-  form: any;
-  placeholder?: string;
-}) => (
-  <FormField
-    control={form.control}
-    name={name}
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel>{label}</FormLabel>
-        <FormControl>
-          <Input
-            {...field}
-            type={type}
-            disabled={disabled}
-            placeholder={placeholder}
-          />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    )}
-  />
-);
+import { formSchema, FormSchema } from "./components/utils/validationSchema";
+import { FormInputField } from "./components/utils/FormInputField";
 
 export const NuevaSuscripcion = () => {
   const [suscripciones, setSuscripciones] = useState(suscripcionesData);
@@ -388,24 +223,12 @@ export const NuevaSuscripcion = () => {
             form={form}
             placeholder="Ingrese el monto"
           />
-
-          <FormField
-            control={form.control}
+          <FormInputField
             name="liquidaEnByma"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormLabel>Liquida en Byma</FormLabel>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Liquida en Byma"
+            form={form}
+            isCheckbox
           />
-
           <FormInputField
             name="numeroReferencia"
             label="Numero de Referencia"
@@ -413,23 +236,12 @@ export const NuevaSuscripcion = () => {
             form={form}
             placeholder="Ingrese el numero de referencia"
           />
-          <FormField
-            control={form.control}
+          <FormInputField
             name="procesadoCustodia"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormLabel>Procesado Custodia</FormLabel>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Procesado Custodia"
+            form={form}
+            isCheckbox
           />
-
           <FormInputField
             name="ultimoError"
             label="Último Error"
@@ -442,21 +254,11 @@ export const NuevaSuscripcion = () => {
             form={form}
             placeholder="Ingrese el comando"
           />
-          <FormField
-            control={form.control}
+          <FormInputField
             name="procesadoLiquidacionesSlyq"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormLabel>Procesado Liquidaciones Slyq</FormLabel>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Procesado Liquidaciones Slyq"
+            form={form}
+            isCheckbox
           />
           <FormInputField
             name="idGerente"
@@ -465,23 +267,12 @@ export const NuevaSuscripcion = () => {
             form={form}
             placeholder="Ingrese el ID del gerente"
           />
-          <FormField
-            control={form.control}
+          <FormInputField
             name="obligacionDePagoGenerada"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormLabel>Obligacion de Pago Generada</FormLabel>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Obligacion de Pago Generada"
+            form={form}
+            isCheckbox
           />
-
           <FormInputField
             name="idBilletera"
             label="ID Billetera"
@@ -532,7 +323,6 @@ export const NuevaSuscripcion = () => {
             form={form}
             placeholder="Ingrese el estado NASDAQ SI"
           />
-
           <div className="flex justify-end">
             <Button>Guardar</Button>
           </div>
