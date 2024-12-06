@@ -1,5 +1,5 @@
 import { MisEmisores } from "./components/MisEmisores"
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { Toaster } from "./components/ui/sonner";
 import { MisEspecies } from "./components/especie/MisEspecies";
 import MainLayout from "./MainLayout";
@@ -11,16 +11,31 @@ import path from "path";
 import FormEspecie from "./components/especie/FormEspecie";
 import { MisGerentes } from "./components/features/gerente/AbmGerentes";
 import { FormGerente } from "./components/features/gerente/FormGerente";
+import LoginPage from "./components/features/login/LoginPage";
+import Pagina404 from "./components/features/Pagina404/Pagina404";
+import PrivateRoute from "./components/PrivateRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: <Navigate to="/login" replace />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    element: (
+      <PrivateRoute>
+        <MainLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/abm-especies",
         element: <MisEspecies />,
-      }, {
+      },
+      {
         path: "/edit-Especie/:id",
         element: <FormEspecie />,
       },
@@ -34,15 +49,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/abm-acdis",
-        element: <MisAcdis/>
+        element: <MisAcdis />
       },
       {
         path: "/nuevo-acdi",
-        element: <NuevoAcdi/>
+        element: <NuevoAcdi />
       },
       {
         path: "/editar-acdi/:id",
-        element: <NuevoAcdi/>,
+        element: <NuevoAcdi />,
       },
       {
         path: "/nuevo-emisor",
@@ -65,16 +80,20 @@ const router = createBrowserRouter([
       {
         path: "/editar-gerente/:id",
         element: <FormGerente />,
+      },
+      {
+        path: "*",
+        element: <Pagina404 />
       }
     ],
-    
+
   }
 ])
 export const App = () => {
   return (
     <>
       <RouterProvider router={router} />
-      <Toaster richColors theme='light' toastOptions={{}} position="top-right" closeButton />
+      <Toaster richColors theme='light' duration={3000} toastOptions={{}} position="top-right" closeButton />
     </>
   )
 }
