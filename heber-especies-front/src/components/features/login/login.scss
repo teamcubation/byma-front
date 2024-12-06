@@ -2,47 +2,90 @@
     @apply w-full h-[100dvh] grid grid-rows-1 grid-cols-1 bg-[#152D5C];
 }
 
-.card-wrapper{
+.card__wrapper{
     @apply relative px-6 bg-contain bg-center bg-no-repeat bg-fondo-login grid grid-cols-12 grid-rows-1 content-stretch gap-6;
+
+    &__container{
+        @apply bg-[#1090921A] rounded-[50px] px-10 py-8 col-start-8 col-span-4 border-none shadow-black shadow-lg backdrop-blur-md flex flex-col justify-between;
+
+        &__header{
+            @apply relative pb-6 h-fit border-b-2 border-verde-dark flex justify-center items-center;
+        
+            &__text{
+                @apply w-3/4 text-white text-xl text-center;
+            }
+            &__logo-container{
+                @apply absolute bottom-0 transform translate-y-1/2 -translate-x-1/2;
+
+                &__img{
+                    @apply w-3/4;
+                }
+            }
+        }
+
+        &__content{
+            @apply mt-12 py-0 flex flex-col gap-4;
+
+            &__title{
+                @apply text-2xl mb-5 font-semibold text-white;
+            }
+
+            &__text{
+                @apply text-white text-xl;
+            }
+        }
+
+        &__footer{
+            @apply py-0 flex justify-center items-center;
+
+            &__img{
+                @apply w-1/2;
+            }
+        }
+        
+    }
+
+    
+
     
 }
 
-.card_container{
+/* .card_container{
     @apply bg-[#1090921A] rounded-[50px] px-10 py-8 col-start-8 col-span-4 border-none shadow-black shadow-lg backdrop-blur-md flex flex-col justify-between;
-}
+} */
 
-.card_header {
+/* .card_header {
     @apply relative pb-6 h-fit border-b-2 border-verde-dark flex justify-center items-center;
-}
+} */
 
-.card_header_text {
+/* .card_header_text {
     @apply w-3/4 text-white text-xl text-center;
-}
+} */
 
-.card_header_logo-container {
+/* .card_header_logo-container {
     @apply absolute bottom-0 transform translate-y-1/2 -translate-x-1/2;
 }
 
 .card_header_logo-container_img {
     @apply w-3/4;
-}
+} */
 
-.card_content {
+/* .card_content {
     @apply mt-12 py-0 flex flex-col gap-4;
-}
+} */
 
-.card_content_title {
+/* .card_content_title {
     @apply text-2xl mb-5 font-semibold text-white;
 }
 
 .card_content_text {
     @apply text-white text-xl;
-}
+} */
 
-.card_footer {
+/* .card_footer {
     @apply py-0 flex justify-center items-center;
 }
 
 .card_footer_img {
     @apply w-1/2;
-}
+} */

@@ -3,7 +3,7 @@ import logoByma from '@/assets/img/BYMA-Logo-Login.svg'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import useAuth from '@/utils/hooks/useAuth'
 import { useEffect } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { replace, useNavigate, useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import AlertByma from './AlertByma'
@@ -48,36 +48,36 @@ function LoginPage({ }: Props) {
         }
 
         if (isAuthenticated) {
-            navigate(REDIRECT_URL, { replace: true });
+            navigate(REDIRECT_URL, {replace: true});
         }
     }, [isAuthenticated, isError, searchParams, loginResponse, setIsError, setErrorMessage, setSearchParams]);
 
     return (
         <>
             <section className={`login-container`}>
-                <div className='card-wrapper'>
+                <div className='card__wrapper'>
                     {
                         isError && (
                             <AlertByma message={errorMessage} onClose={() => setIsError(false)} />
                         )
                     }
-                    <Card className='card_container'>
-                        <CardHeader className='card_header'>
-                            <p className='card_header_text'>La plataforma de BYMA para registrar tus operaciones Bilaterales.</p>
-                            <div className='card_header_logo-container'>
-                                <img src={logoByma} alt="logo byma fondo azul" className='card_header_logo-container_img' />
+                    <Card className='card__wrapper__container'>
+                        <CardHeader className='card__wrapper__container__header'>
+                            <p className='card__wrapper__container__header__text'>La plataforma de BYMA para registrar tus operaciones Bilaterales.</p>
+                            <div className='card__wrapper__container__header__logo-container'>
+                                <img src={logoByma} alt="logo byma fondo azul" className='card__wrapper__container__header__logo-container__img' />
                             </div>
                         </CardHeader>
-                        <CardContent className='card_content'>
+                        <CardContent className='card__wrapper__container__content'>
                                 <div>
-                                    <h2 className='card_content_title'>Bienvenido</h2>
-                                    <p className='card_content_text'>Accedé con tu usuario y contraseña</p>
+                                    <h2 className='card__wrapper__container__content__title'>Bienvenido</h2>
+                                    <p className='card__wrapper__container__content__text'>Accedé con tu usuario y contraseña</p>
                                 </div>
 
                             <LogInForm onSubmit={onSubmit} isLoading={isLoading} />
                         </CardContent>
-                        <CardFooter className='card_footer'>
-                            <img src={logoBymaBlanco} alt="logo Byma" className='card_footer_img' />
+                        <CardFooter className='card__wrapper__container__footer'>
+                            <img src={logoBymaBlanco} alt="logo Byma" className='card__wrapper__container__footer__img' />
                         </CardFooter>
                     </Card>
 
