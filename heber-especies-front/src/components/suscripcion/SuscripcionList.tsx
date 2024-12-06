@@ -1,11 +1,9 @@
 import { DataTable } from "../utils/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
 import { Card } from "../ui/card";
-import { DataTableColumnHeader } from "../utils/DataTableColumnHeader";
 import { Button } from "../ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,7 +15,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { waitFor } from "@/utils/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,47 +26,10 @@ import {
 import CardSuscripcion from "./CardSuscripcion";
 
 import suscripcionesData from "./suscripciones.json"; 
-import { TypeSuscripcion } from "./typeSuscripcion";
-
-const useHandleDelete = (setSuscripciones: React.Dispatch<React.SetStateAction<TypeSuscripcion[]>>) => {
-  return async (id: number) => {
-    const toastId = toast.loading("Generando eliminacion de la Suscripcion");
-    try {
-      await waitFor(2000);
-      setSuscripciones((prev) => prev.filter((suscripcion) => suscripcion.idSuscripcion !== id));
-      toast.success(`La Suscripcion con ID ${id} fue eliminada exitosamente.`, { id: toastId });
-    } catch (error) {
-      console.error("Error en handleDelete:", error);
-      toast.error("Hubo un error al intentar realizar la eliminacion de la Suscripcion.", { id: toastId });
-    }
-  };
-};
-
-const useHandleBajaSuscripcion = (setSuscripciones: React.Dispatch<React.SetStateAction<TypeSuscripcion[]>>) => {
-  return async (id: number) => {
-    const toastId = toast.loading("Generando baja de la Suscripcion");
-    try {
-      setSuscripciones((prev) => prev.map((suscripcion) => 
-        suscripcion.idSuscripcion === id ? { ...suscripcion, estado: "BAJA" } : suscripcion
-      ));
-      toast.success(`La suscripcion con ID ${id} fue deshabilitada exitosamente.`, { id: toastId });
-    } catch (error) {
-      console.error("Error en handleBajaSuscripcion:", error);
-      toast.error("Hubo un error al intentar realizar la baja de la suscripcion.", { id: toastId });
-    }
-  };
-};
-
-const createColumn = (accessorKey: string, title: string, isBoolean: boolean = false): ColumnDef<TypeSuscripcion> => ({
-  accessorKey,
-  header: ({ column }) => <DataTableColumnHeader column={column} title={title} />,
-  cell: ({ row }) => {
-    if (isBoolean) {
-      return <span>{row.original[accessorKey] ? "SI" : "NO"}</span>;
-    }
-    return <span>{row.original[accessorKey]}</span>
-  }
-});
+import { TypeSuscripcion } from "./types/typeSuscripcion";
+import useHandleDelete from "./components/hooks/useHandleDelete";
+import useHandleBajaSuscripcion from "./components/hooks/useHandleBaja";
+import { useCreateColumn } from "./components/utils/createColumn";
 
 export const SuscripcionList = () => {
   const [suscripciones, setSuscripciones] = useState<TypeSuscripcion[]>(suscripcionesData);
@@ -77,6 +37,7 @@ export const SuscripcionList = () => {
   
   const handleDelete = useHandleDelete(setSuscripciones);
   const handleBajaSuscripcion = useHandleBajaSuscripcion(setSuscripciones);
+  const createColumn = useCreateColumn();
 
   const columns: ColumnDef<TypeSuscripcion>[] = [
     createColumn("idSuscripcion", "Id Suscripción"),

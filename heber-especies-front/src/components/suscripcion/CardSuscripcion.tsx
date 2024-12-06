@@ -1,6 +1,6 @@
 import { Cell, flexRender, Row } from "@tanstack/react-table";
 import { Card, CardContent } from "@/components/ui/card";
-import { TypeSuscripcion } from "./typeSuscripcion";
+import { TypeSuscripcion } from "./types/typeSuscripcion";
 
 /**
  * Props del componente CardSuscripcion
@@ -11,9 +11,9 @@ type CardSuscripcionProps = {
 };
 
 /**
- * Componente CardSuscripcion - Tarjeta que muestra información de un registro en formato mobile.
+ * Componente CardSuscripcion - Tarjeta que muestra informacion de un registro en formato mobile.
  * @param {CardSuscripcionProps} props - Propiedades del componente
- * @returns {JSX.Element} - Tarjeta de visualización de un registro
+ * @returns {JSX.Element} - Tarjeta de visualizacion de un registro
  */
 export default function CardSuscripcion({
   row,
@@ -38,9 +38,7 @@ export default function CardSuscripcion({
     <Card className="w-full max-w-2xl mx-auto hover:shadow-lg transition-shadow duration-300">
       <CardContent className="p-6 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Iteramos sobre todas las celdas visibles de la fila y las renderizamos */}
           {row.getVisibleCells().map((cell) => {
-            // Evitamos renderizar la columna 'opciones', ya que es un botón de acción
             if (cell.column.id !== "opciones") {
               return renderColumn(cell);
             }
@@ -48,7 +46,6 @@ export default function CardSuscripcion({
           })}
         </div>
         <div className="flex justify-end space-x-2 mt-4">
-          {/* Renderizamos la columna 'opciones' */}
           {row.getVisibleCells().map((cell) => {
             if (cell.column.id === "opciones") {
               return (
