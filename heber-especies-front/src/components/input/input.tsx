@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import "./input.scss";
 
 type InputProps = {
@@ -37,37 +36,40 @@ const Input: React.FC<InputProps> = ({
     setPasswordVisible(!passwordVisible);
   };
 
-  const getInputClass = () => {
-    let className = size;
+  const getInputClasses = () => {
+    const classes = ['input__container'];
 
+    // Size class
+    classes.push(`input__container--${size}`);
+
+    // State classes
     if (isPassword) {
-      className += ' password';
+      classes.push('input__container--password');
     } else if (status === 'user') {
-      className += ' user';
+      classes.push('input__container--user');
     }
 
+    // Status classes
     switch (status) {
       case 'error':
-        className += ' error';
+        classes.push('input__container--error');
         break;
       case 'success':
-        className += ' success';
+        classes.push('input__container--success');
         break;
       case 'warning':
-        className += ' warning';
+        classes.push('input__container--warning');
         break;
       case 'notice':
-        className += ' notice';
-        break;
-      default:
+        classes.push('input__container--notice');
         break;
     }
 
-    return className.trim();
+    return classes.join(' ');
   };
 
   return (
-    <div className={`input__container ${getInputClass()}`}>
+    <div className={getInputClasses()}>
       <input
         className="input__s"
         type={isPassword ? (passwordVisible ? "text" : "password") : type}
@@ -76,24 +78,28 @@ const Input: React.FC<InputProps> = ({
         onBlur={onBlur}
         placeholder={placeholder}
       />
+      
       {isPassword && !status && (
         <i
-          className={passwordVisible ? "password--eyeClose" : "password--eye"}
+          className={`password--${passwordVisible ? 'eyeClose' : 'eye'}`}
           onClick={handlePasswordToggle}
         ></i>
       )}
 
       {status === 'error' && errorMessage && (
-        <div className="error__text">{errorMessage}</div>
+        <div className="input__error-text">{errorMessage}</div>
       )}
+
       {status === 'success' && successMessage && (
-        <div className="success__text">{successMessage}</div>
+        <div className="input__success-text">{successMessage}</div>
       )}
+
       {status === 'warning' && warningMessage && (
-        <div className="warning__text">{warningMessage}</div>
+        <div className="input__warning-text">{warningMessage}</div>
       )}
+
       {status === 'notice' && noticeMessage && (
-        <div className="notice__text">{noticeMessage}</div>
+        <div className="input__notice-text">{noticeMessage}</div>
       )}
     </div>
   );

@@ -13,8 +13,12 @@ const MyForm: React.FC = () => {
       setInputStatus('error');
     } else if (inputValue.length < 3) {
       setInputStatus(undefined);
-    } else {
+    } else if (inputValue.length < 5) {
       setInputStatus('success');
+    } else if (inputValue.length < 8) {
+      setInputStatus('notice');
+    } else {
+      setInputStatus('warning');
     }
   };
 

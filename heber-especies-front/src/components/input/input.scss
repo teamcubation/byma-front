@@ -1,253 +1,217 @@
-/* Contenedor principal de los inputs */
-.input__container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    /* Espacio entre la etiqueta, el contenedor del input y el texto condicional */
-    position: relative;
-    /* Necesario para posicionar íconos internos */
-    width: 272px;
-}
-/* Tamaño S (pequeño) */
-.input__container.s {
-    width: 272px; /* Ancho del tamaño S */
-}
-
-/* Tamaño M (mediano) */
-.input__container.m {
-    width: 420px; /* Ancho del tamaño M */
-}
-/* Tamaño L (grande) */
-.input__container.l {
-    width: 568px; /* Ancho del tamaño L */
-}
-
-/* Estilo general del input */
-.input__s {
-    width: 100%;
-    height: 40px;
-    box-sizing: border-box;
-    border: 0.75px solid #061533;
-    border-radius: 12px;
-    padding: 8px 40px 8px 16px;
-    /* Ajuste para íconos */
-    font-size: 14px;
-    outline: none;
-}
-
-/* Placeholder */
-.input__s::placeholder {
-    color: #aaa;
-    font-size: 14px;
-}
-
-/* Estilos adicionales para user (ícono incluido) */
-.input__container.user .input__s {
-    padding-left: 48px;
-    /* Ajusta el espacio para el ícono */
-}
-
-
-/* Icono izquierdo */
-.input__container.user::before {
-    content: '';
-    position: absolute;
-    left: 16px;
-    /* Espacio entre el borde izquierdo y el ícono */
-    top: 50%;
-    transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
-    background-image: url('./icons/user.svg');
-    /* Ruta del ícono de user */
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 1;
-}
-/* Estilos adicionales para password (íconos en ambos lados) */
-.input__container.password .input__s {
-    padding-left: 48px; /* Espacio adicional para el ícono izquierdo */
-    padding-right: 48px; /* Espacio adicional para el ícono derecho */
-  }
+.input {
+    &__container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      width: 272px;
   
-  /* Ícono a la izquierda para password */
-  .input__container.password::before {
-    content: '';
-    position: absolute;
-    left: 12px; /* Distancia del borde izquierdo */
-    top: 50%;
-    transform: translateY(-50%);
-    width: 22px; /* Tamaño del ícono */
-    height: 22px; /* Tamaño del ícono */
-    background-image: url('./icons/lock.svg'); /* Ruta al ícono izquierdo */
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 1;
-  }
+      &--s { width: 272px; }
+      &--m { width: 420px; }
+      &--l { width: 568px; }
   
-  /* Ícono a la derecha para password */
-  .input__container.password .password--eye {
-    content: '';
-    position: absolute;
-    right: 12px; /* Distancia del borde derecho */
-    top: 50%;
-    transform: translateY(-50%);
-    width: 22px; /* Tamaño del ícono */
-    height: 22px; /* Tamaño del ícono */
-    background-image: url('./icons/eye.svg'); /* Ruta al ícono derecho */
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 1;
-  }
-  .input__container.password .password--eyeClose {
-    content: '';
-    position: absolute;
-    right: 12px; /* Distancia del borde derecho */
-    top: 50%;
-    transform: translateY(-50%);
-    width: 22px; /* Tamaño del ícono */
-    height: 22px; /* Tamaño del ícono */
-    background-image: url('./icons/eyeClose.svg'); /* Ruta al ícono derecho */
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 1;
-  }
+      .input__s {
+        width: 100%;
+        height: 40px;
+        box-sizing: border-box;
+        border: 0.75px solid #061533;
+        border-radius: 12px;
+        padding: 8px 40px 8px 16px;
+        font-size: 14px;
+        outline: none;
   
-
-/* Input en estado de error */
-.input__container.error .input__s {
-    border-color: #FF4D4F;
-    background-color: #FFF5F5;
-    /* Fondo claro para indicar error */
-}
-
-/* Icono derecho para éxito */
-.input__container.error::after {
-    content: '';
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
-    background-image: url('./icons/error.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
-    filter: #FF4D4F;
-}
-.input__container.error .error__text {
-    position: absolute;
-    top: 100%; /* Posicionar debajo del input */
-    left: 2px; /* Alinear al inicio del input */
-    margin-top: 8px; /* Espacio de 8px desde el input */
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 100%; /* Igual al alto del texto */
-    letter-spacing: 0.005em;
-    color: #FF4D4F; /* Color rojo del texto de error */
-  }
+        &::placeholder {
+          color: #aaa;
+          font-size: 14px;
+        }
+      }
   
-
-/* Input en estado correcto */
-.input__container.success .input__s {
-    border-color: #00C000;
-    background-color: #E8F7E8;
-}
-
-/* Icono derecho para éxito */
-.input__container.success::after {
-    content: '';
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
-    background-image: url('./icons/success.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
-    filter: #00C000;
-}
-.input__container.success .success__text {
-    position: absolute;
-    top: 100%; /* Posicionar debajo del input */
-    left: 2px; /* Alinear al inicio del input */
-    margin-top: 8px; /* Espacio de 8px desde el input */
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 100%; /* Igual al alto del texto */
-    letter-spacing: 0.005em;
-    color: #00C000; /* Color rojo del texto de error */
-  }
-
-/* Input en estado de advertencia */
-.input__container.warning .input__s {
-    border-color: #FAAD14;
-    background-color: #FFF9E5;
-}
-
-/* Icono derecho para advertencia */
-.input__container.warning::after {
-    content: '';
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
-    background-image: url('./icons/warning.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
-    filter: #FAAD14;
-}
-.input__container.warning .warning__text {
-    position: absolute;
-    top: 100%; /* Posicionar debajo del input */
-    left: 2px; /* Alinear al inicio del input */
-    margin-top: 8px; /* Espacio de 8px desde el input */
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 100%; /* Igual al alto del texto */
-    letter-spacing: 0.005em;
-    color: #FAAD14; /* Color rojo del texto de error */
-  }
-
-/* Input en estado de aviso */
-.input__container.notice .input__s {
-    border-color: #0183D9;
-    background-color: #E6F4FF;
-}
-
-/* Icono derecho para aviso */
-.input__container.notice::after {
-    content: '';
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
-    background-image: url('./icons/notice.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
-    filter: #0183D9;
-}
-.input__container.notice .notice__text {
-    position: absolute;
-    top: 100%; /* Posicionar debajo del input */
-    left: 2px; /* Alinear al inicio del input */
-    margin-top: 8px; /* Espacio de 8px desde el input */
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 100%; /* Igual al alto del texto */
-    letter-spacing: 0.005em;
-    color: #0183D9; /* Color rojo del texto de error */
+      &--user {
+        .input__s {
+          padding-left: 48px;
+        }
+  
+        &::before {
+          content: '';
+          position: absolute;
+          left: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 22px;
+          height: 22px;
+          background-image: url('./icons/user.svg');
+          background-repeat: no-repeat;
+          background-size: contain;
+          z-index: 1;
+        }
+      }
+  
+      &--password {
+        .input__s {
+          padding-left: 48px;
+          padding-right: 48px;
+        }
+  
+        &::before {
+          content: '';
+          position: absolute;
+          left: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 22px;
+          height: 22px;
+          background-image: url('./icons/lock.svg');
+          background-repeat: no-repeat;
+          background-size: contain;
+          z-index: 1;
+        }
+  
+        .password {
+          &--eye,
+          &--eyeClose {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 22px;
+            height: 22px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            z-index: 1;
+            cursor: pointer;
+          }
+  
+          &--eye { background-image: url('./icons/eye.svg'); }
+          &--eyeClose { background-image: url('./icons/eyeClose.svg'); }
+        }
+      }
+  
+      &--error {
+        .input__s {
+          border-color: #FF4D4F;
+          background-color: #FFF5F5;
+        }
+  
+        &::after {
+          content: '';
+          position: absolute;
+          right: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 22px;
+          height: 22px;
+          background-image: url('./icons/error.svg');
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+  
+        .input__error-text {
+          position: absolute;
+          top: 100%;
+          left: 2px;
+          margin-top: 8px;
+          font-family: 'Lato', sans-serif;
+          font-size: 12px;
+          line-height: 100%;
+          letter-spacing: 0.005em;
+          color: #FF4D4F;
+        }
+      }
+  
+      &--success {
+        .input__s {
+          border-color: #00C000;
+          background-color: #E8F7E8;
+        }
+  
+        &::after {
+          content: '';
+          position: absolute;
+          right: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 22px;
+          height: 22px;
+          background-image: url('./icons/success.svg');
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+  
+        .input__success-text {
+          position: absolute;
+          top: 100%;
+          left: 2px;
+          margin-top: 8px;
+          font-family: 'Lato', sans-serif;
+          font-size: 12px;
+          line-height: 100%;
+          letter-spacing: 0.005em;
+          color: #00C000;
+        }
+      }
+  
+      &--warning {
+        .input__s {
+          border-color: #FAAD14;
+          background-color: #FFF9E5;
+        }
+  
+        &::after {
+          content: '';
+          position: absolute;
+          right: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 22px;
+          height: 22px;
+          background-image: url('./icons/warning.svg');
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+  
+        .input__warning-text {
+          position: absolute;
+          top: 100%;
+          left: 2px;
+          margin-top: 8px;
+          font-family: 'Lato', sans-serif;
+          font-size: 12px;
+          line-height: 100%;
+          letter-spacing: 0.005em;
+          color: #FAAD14;
+        }
+      }
+  
+      &--notice {
+        .input__s {
+          border-color: #0183D9;
+          background-color: #E6F4FF;
+        }
+  
+        &::after {
+          content: '';
+          position: absolute;
+          right: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 22px;
+          height: 22px;
+          background-image: url('./icons/notice.svg');
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+  
+        .input__notice-text {
+          position: absolute;
+          top: 100%;
+          left: 2px;
+          margin-top: 8px;
+          font-family: 'Lato', sans-serif;
+          font-size: 12px;
+          line-height: 100%;
+          letter-spacing: 0.005em;
+          color: #0183D9;
+        }
+      }
+    }
   }
