@@ -26,6 +26,7 @@ export default function useAuth() {
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [loginResponse, setLoginResponse] = useState<HookLoginResponse | null>(null);
 
+    const ERROR_MESSAGE = "Error en el inicio de sesión";
 
 
     const login = useCallback(async (data: formData) => {
@@ -42,10 +43,10 @@ export default function useAuth() {
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 setIsError(true);
-                setErrorMessage(error.response?.data?.message || "Error en el inicio de sesión");
+                setErrorMessage(error.response?.data?.message || ERROR_MESSAGE);
             } else {
                 setIsError(true);
-                setErrorMessage("Error en el inicio de sesión");
+                setErrorMessage(ERROR_MESSAGE);
             }
         } finally {
             setIsLoading(false);

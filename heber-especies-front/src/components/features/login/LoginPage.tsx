@@ -33,6 +33,8 @@ function LoginPage({ }: Props) {
         await login(values);
     }
 
+    const REDIRECT_URL = "/abm-gerentes";
+
     useEffect(() => {
         
         if(loginResponse) {
@@ -46,7 +48,7 @@ function LoginPage({ }: Props) {
         }
 
         if (isAuthenticated) {
-            navigate("/abm-gerentes");
+            navigate(REDIRECT_URL, { replace: true });
         }
     }, [isAuthenticated, isError, searchParams, loginResponse, setIsError, setErrorMessage, setSearchParams]);
 
