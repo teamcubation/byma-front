@@ -68,7 +68,9 @@ export default function useAuth() {
         isLoading,
         isError,
         errorMessage,
-        loginResponse
+        loginResponse,
+        setIsError,
+        setErrorMessage
     }
 
 }
