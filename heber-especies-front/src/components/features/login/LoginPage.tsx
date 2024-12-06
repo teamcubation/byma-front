@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 import AlertByma from './AlertByma'
 import LogInForm from './LogInForm'
+import './login.scss'
 
 type Props = {}
 
@@ -51,30 +52,30 @@ function LoginPage({ }: Props) {
 
     return (
         <>
-            <section className={`w-full h-[100dvh] grid grid-rows-1 grid-cols-1 bg-[#152D5C]`}>
-                <div className='relative px-6 bg-contain bg-center bg-no-repeat bg-fondo-login grid grid-cols-12 grid-rows-1 content-stretch gap-6'>
+            <section className={`login-container`}>
+                <div className='card-wrapper'>
                     {
                         isError && (
                             <AlertByma message={errorMessage} onClose={() => setIsError(false)} />
                         )
                     }
-                    <Card className='bg-[#1090921A] rounded-[50px] px-10 py-8 col-start-8 col-span-4 border-none shadow-black shadow-lg backdrop-blur-md flex flex-col justify-between'>
-                        <CardHeader className='relative pb-6 h-fit border-b-2 border-verde-dark flex justify-center items-center'>
-                            <p className='w-3/4 text-white text-xl text-center'>La plataforma de BYMA para registrar tus operaciones Bilaterales.</p>
-                            <div className='absolute bottom-0 transform translate-y-1/2 -translate-x-1/2'>
-                                <img src={logoByma} alt="logo byma fondo azul" className='w-3/4' />
+                    <Card className='card_container'>
+                        <CardHeader className='card_header'>
+                            <p className='card_header_text'>La plataforma de BYMA para registrar tus operaciones Bilaterales.</p>
+                            <div className='card_header_logo-container'>
+                                <img src={logoByma} alt="logo byma fondo azul" className='card_header_logo-container_img' />
                             </div>
                         </CardHeader>
-                        <CardContent className='mt-12 py-0 flex flex-col gap-4'>
+                        <CardContent className='card_content'>
                                 <div>
-                                    <h2 className='text-2xl mb-5 font-semibold text-white'>Bienvenido</h2>
-                                    <p className='text-white text-xl'>Accedé con tu usuario y contraseña</p>
+                                    <h2 className='card_content_title'>Bienvenido</h2>
+                                    <p className='card_content_text'>Accedé con tu usuario y contraseña</p>
                                 </div>
 
                             <LogInForm onSubmit={onSubmit} isLoading={isLoading} />
                         </CardContent>
-                        <CardFooter className='py-0 flex justify-center items-center'>
-                            <img src={logoBymaBlanco} alt="logo Byma" className='w-1/2' />
+                        <CardFooter className='card_footer'>
+                            <img src={logoBymaBlanco} alt="logo Byma" className='card_footer_img' />
                         </CardFooter>
                     </Card>
 
