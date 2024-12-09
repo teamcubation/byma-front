@@ -1,5 +1,5 @@
 import React from 'react';
-import './ButtonText.css';
+import './ButtonText.scss';
 
 interface ButtonTextProps {
   onClick?: () => void; // Evento al hacer clic
@@ -34,7 +34,7 @@ const ButtonText = ({  onClick,
             disabled={disable}
             className={buttonClasses}>
             {icon && (
-                <div className="button__icon-wrapper">
+                <div className="button__icon-wrapper button__icon">
                     <img src={icon} alt="icon" />
                 </div>
             )}

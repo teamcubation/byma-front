@@ -1,5 +1,5 @@
 import React from 'react';
-import './ButtonWithIcon.css';
+import './ButtonWithIcon.scss';
 
 interface ButtonWithIconProps {
     onClick?: () => void; // Evento al hacer clic
@@ -14,11 +14,13 @@ interface ButtonWithIconProps {
         `button-icon__${theme}-mode`,
         className,
       ].join(' ');
+
+    const iconClass = theme === 'light' ? 'button-icon__icon--light-mode' : 'button-icon__icon--dark-mode';
     return (
         <button onClick={onClick}
             className={buttonClasses}>
-            <div className="button-icon__icon-wrapper">
-            <img src={icon} alt="icon" />
+            <div className="button-icon__icon-wrapper ">
+            <img className={iconClass} src={icon} alt="icon" />
             </div>
         </button>
     );
