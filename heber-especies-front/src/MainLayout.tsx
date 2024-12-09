@@ -18,9 +18,9 @@ const MainLayout = () => {
         <MyForm />
       </div>
       <Outlet />
-      </div>
-        <ComboBox />
+      <div>
         <Outlet/>
+        </div>
     </>
   )
 }
