@@ -4,6 +4,7 @@ import MyForm from './components/input/myForm'
 import ParentComponent from './components/switch/App'
 import { Outlet } from 'react-router-dom'
 import { BreadcrumbDemo } from './components/Breadcrumb'
+import ComboBox from './components/comboBox/ComboBox'
 
 
 const MainLayout = () => {
@@ -12,11 +13,14 @@ const MainLayout = () => {
       <Navbar />
       <div className='px-6 mt-5'>
         <BreadcrumbDemo />
-
       </div>
-      <div>        <MyForm />
+      <div>        
+        <MyForm />
       </div>
       <Outlet />
+      </div>
+        <ComboBox />
+        <Outlet/>
     </>
   )
 }

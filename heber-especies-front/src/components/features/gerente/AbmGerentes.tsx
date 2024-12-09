@@ -316,10 +316,10 @@ export const MisGerentes = () => {
   console.dir(columns, "columns");
   return (
     <section className="p-6 flex flex-col gap-6">
-      <h1 className="text-3xl font-bold">Mis gerentes</h1>
+      <h1 className="text-3xl font-bold bg-verde-normal hover:bg-verde-normal-hover">Mis gerentes</h1>
       <div className="flex justify-end">
         <Link to="/nuevo-gerente">
-          <Button>Crear gerente</Button>
+          <Button size={"default"} variant={"default"} className="dark">Crear gerente</Button>
         </Link>
       </div>
 
