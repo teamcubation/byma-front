@@ -1,5 +1,6 @@
 import { toast } from "sonner";
 import { waitFor } from "@/utils/utils";
+import { deleteSuscripcion } from "@/services/SuscripcionService";
 import { TypeSuscripcion } from "../../types/typeSuscripcion"
 
 const useHandleDelete = (
@@ -9,6 +10,7 @@ const useHandleDelete = (
     const toastId = toast.loading("Generando eliminacion de la Suscripcion");
     try {
       await waitFor(2000);
+      await deleteSuscripcion(id);
       setSuscripciones((prev) => prev.filter((suscripcion) => suscripcion.idSuscripcion !== id));
       toast.success(`Suscripción ${id} eliminada exitosamente.`, { id: toastId });
     } catch (error) {

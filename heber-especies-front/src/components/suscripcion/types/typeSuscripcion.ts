@@ -4,8 +4,8 @@ export type TypeSuscripcion = {
     fechaAlta: string;
     nroCertificado: number;
     idEspecie: number;
-    CantCuotapartes: number;
-    IdAcdi: number;
+    cantCuotapartes: number;
+    idAcdi: number;
     idEmisor: number;
     nroPedido: number;
     nroSecuencia: number;

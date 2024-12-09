@@ -1,19 +1,9 @@
 import { z } from "zod";
 
 export const formSchema = z.object({
-  idSuscripcion: z
-    .string()
-    .min(1, { message: "El id de la suscripcion es requerido" })
-    .regex(/^\d+$/, { message: "El id de la suscripcion debe ser un numero" }),
   estado: z.string().min(1, { message: "El estado es requerido" }).max(50, {
     message: "El estado supera la cantidad maxima de caracteres",
   }),
-  fechaAlta: z
-    .string()
-    .min(1, { message: "La fecha de alta es requerida" })
-    .max(30, {
-      message: "La fecha de alta supera la cantidad maxima de caracteres",
-    }),
   nroCertificado: z
     .string()
     .min(1, { message: "El numero de certificado es requerido" })
@@ -24,13 +14,13 @@ export const formSchema = z.object({
     .string()
     .min(1, { message: "El id de la especie es requerido" })
     .regex(/^\d+$/, { message: "El id de la especie debe ser un numero" }),
-  CantCuotapartes: z
+  cantCuotapartes: z
     .string()
     .min(1, { message: "La cantidad de cuotapartes es requerida" })
     .regex(/^\d+$/, {
       message: "La cantidad de cuotapartes debe ser un numero",
     }),
-  IdAcdi: z
+  idAcdi: z
     .string()
     .min(1, { message: "El id ACDI es requerido" })
     .regex(/^\d+$/, { message: "El id ACDI debe ser un numero" }),

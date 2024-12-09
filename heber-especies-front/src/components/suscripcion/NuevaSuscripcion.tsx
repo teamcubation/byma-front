@@ -6,26 +6,26 @@ import { toast } from "sonner";
 import { useState, useEffect } from "react";
 import { waitFor } from "../../utils/utils";
 import { useNavigate, useParams } from "react-router-dom";
-
-import suscripcionesData from "./suscripciones.json";
 import { formSchema, FormSchema } from "./components/utils/validationSchema";
 import { FormInputField } from "./components/utils/FormInputField";
+import {
+  getSuscripcionById,
+  createSuscripcion,
+  updateSuscripcion,
+} from "@/services/SuscripcionService";
 
 export const NuevaSuscripcion = () => {
-  const [suscripciones, setSuscripciones] = useState(suscripcionesData);
   const navigate = useNavigate();
   const { id } = useParams();
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      idSuscripcion: "",
       estado: "",
-      fechaAlta: "",
       nroCertificado: "",
       idEspecie: "",
-      CantCuotapartes: "",
-      IdAcdi: "",
+      cantCuotapartes: "",
+      idAcdi: "",
       idEmisor: "",
       nroPedido: "",
       nroSecuencia: "",
@@ -51,39 +51,57 @@ export const NuevaSuscripcion = () => {
     },
   });
 
+  const transformedSuscripcionDataToForm = (data: any): Partial<FormSchema> => {
+    const transformedData: Partial<FormSchema> = {
+      ...data,
+      nroCertificado: String(data.nroCertificado ?? ""),
+      idEspecie: String(data.idEspecie ?? ""),
+      cantCuotapartes: String(data.cantCuotapartes ?? ""),
+      idAcdi: String(data.idAcdi ?? ""),
+      idEmisor: String(data.idEmisor ?? ""),
+      nroPedido: String(data.nroPedido ?? ""),
+      nroSecuencia: String(data.nroSecuencia ?? ""),
+      monto: String(data.monto ?? ""),
+      numeroReferencia: String(data.numeroReferencia ?? ""),
+      idGerente: String(data.idGerente ?? ""),
+      idBilletera: String(data.idBilletera ?? ""),
+      mdwStatusCode: String(data.mdwStatusCode ?? ""),
+      liquidaEnByma: Boolean(data.liquidaEnByma),
+      procesadoCustodia: Boolean(data.procesadoCustodia),
+      procesadoLiquidacionesSlyq: Boolean(data.procesadoLiquidacionesSlyq),
+      obligacionDePagoGenerada: Boolean(data.obligacionDePagoGenerada),
+    };
+  
+    return transformedData;
+  };
+
   useEffect(() => {
-    if (id) {
-      const suscripcion = suscripciones.find(
-        (s) => s.idSuscripcion === parseInt(id)
-      );
-      if (suscripcion) {
-        const transformedData = Object.keys(suscripcion).reduce((acc, key) => {
-          const value = suscripcion[key as keyof typeof suscripcion];
-
-          acc[key] = typeof value === "boolean" ? value : String(value || "");
-          return acc;
-        }, {} as Record<string, string | boolean>);
-
-        form.reset(transformedData);
-      } else {
-        toast.error("Suscripcion no encontrada");
+    const fetchSuscripcion = async () => {
+      if (id) {
+        try {
+          const suscripcion = await getSuscripcionById(Number(id));
+          const transformedData = transformedSuscripcionDataToForm(suscripcion);
+          form.reset(transformedData);
+        } catch (error) {
+          console.log("Error al obtener la suscripcion: ", error);
+          toast.error("Error al obtener la suscripcion");
+        }
       }
-    }
-  }, [id, suscripciones, form]);
+    };
+    fetchSuscripcion();
+  }, [id, form]);
 
   const onSubmit = async (data: FormSchema) => {
+    const toastId = toast.loading(
+      `${id ? "Modificando" : "Creando"} Suscripcion`
+    );
     try {
-      const toastId = toast.loading(
-        `${id ? "Modificando" : "Creando"} Suscripcion`
-      );
-
       const transformedData = {
         ...data,
-        idSuscripcion: parseInt(data.idSuscripcion),
         nroCertificado: parseInt(data.nroCertificado),
         idEspecie: parseInt(data.idEspecie),
-        CantCuotapartes: parseInt(data.CantCuotapartes),
-        IdAcdi: parseInt(data.IdAcdi),
+        cantCuotapartes: parseInt(data.cantCuotapartes),
+        idAcdi: parseInt(data.idAcdi),
         idEmisor: parseInt(data.idEmisor),
         nroPedido: parseInt(data.nroPedido),
         nroSecuencia: parseInt(data.nroSecuencia),
@@ -101,25 +119,17 @@ export const NuevaSuscripcion = () => {
       await waitFor(2000);
 
       if (id) {
-        const updatedSuscripciones = suscripciones.map((suscripcion) =>
-          suscripcion.idSuscripcion === transformedData.idSuscripcion
-            ? transformedData
-            : suscripcion
-        );
-        setSuscripciones(updatedSuscripciones);
+        await updateSuscripcion(Number(id), transformedData);
       } else {
-        setSuscripciones((prevSuscripciones) => [
-          ...prevSuscripciones,
-          transformedData,
-        ]);
+        await createSuscripcion(transformedData);
       }
-
       toast.success(`Suscripcion ${id ? "modificada" : "creada"} con exito`, {
         id: toastId,
       });
       await waitFor(2000);
       navigate("/abm-suscripciones");
     } catch (error) {
+      console.log("Error inesperado: ", error);
       toast.error("Error inesperado");
     }
   };
@@ -136,24 +146,10 @@ export const NuevaSuscripcion = () => {
           className="flex flex-col gap-4 p-6"
         >
           <FormInputField
-            name="idSuscripcion"
-            label="ID de Suscripcion"
-            type="number"
-            disabled={Boolean(id)}
-            form={form}
-            placeholder="Ingrese el ID de la suscripcion"
-          />
-          <FormInputField
             name="estado"
             label="Estado"
             form={form}
             placeholder="Ingrese el estado"
-          />
-          <FormInputField
-            name="fechaAlta"
-            label="Fecha de Alta"
-            form={form}
-            placeholder="Ingrese la fecha de alta"
           />
           <FormInputField
             name="nroCertificado"
@@ -170,14 +166,14 @@ export const NuevaSuscripcion = () => {
             placeholder="Ingrese el ID de la especie"
           />
           <FormInputField
-            name="CantCuotapartes"
+            name="cantCuotapartes"
             label="Cantidad de Cuotapartes"
             type="number"
             form={form}
             placeholder="Ingrese la cantidad de cuotapartes"
           />
           <FormInputField
-            name="IdAcdi"
+            name="idAcdi"
             label="ID ACDI"
             type="number"
             form={form}

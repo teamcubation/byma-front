@@ -3,7 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,19 +25,33 @@ import {
 } from "@/components/ui/dropdown-menu";
 import CardSuscripcion from "./CardSuscripcion";
 
-import suscripcionesData from "./suscripciones.json"; 
 import { TypeSuscripcion } from "./types/typeSuscripcion";
 import useHandleDelete from "./components/hooks/useHandleDelete";
 import useHandleBajaSuscripcion from "./components/hooks/useHandleBaja";
 import { useCreateColumn } from "./components/utils/createColumn";
+import { getSuscripciones } from "@/services/SuscripcionService";
 
 export const SuscripcionList = () => {
-  const [suscripciones, setSuscripciones] = useState<TypeSuscripcion[]>(suscripcionesData);
+  const [suscripciones, setSuscripciones] = useState<TypeSuscripcion[]>([]);
   const navigate = useNavigate();
   
   const handleDelete = useHandleDelete(setSuscripciones);
   const handleBajaSuscripcion = useHandleBajaSuscripcion(setSuscripciones);
   const createColumn = useCreateColumn();
+
+  useEffect(() => {
+    const fetchSuscripciones = async () => {
+      try {
+        const data = await getSuscripciones();
+        console.log('data: ', data);
+        setSuscripciones(data);
+      } catch (error) {
+        
+      }
+    }
+    fetchSuscripciones();
+  }, [])
+  
 
   const columns: ColumnDef<TypeSuscripcion>[] = [
     createColumn("idSuscripcion", "Id Suscripción"),
@@ -45,8 +59,8 @@ export const SuscripcionList = () => {
     createColumn("fechaAlta", "Fecha de Alta"),
     createColumn("nroCertificado", "Nro Certificado"),
     createColumn("idEspecie", "ID Especie"),
-    createColumn("CantCuotapartes", "Cantidad de Cuotapartes"),
-    createColumn("IdAcdi", "ID ACDI"),
+    createColumn("cantCuotapartes", "Cantidad de Cuotapartes"),
+    createColumn("idAcdi", "ID ACDI"),
     createColumn("idEmisor", "ID Emisor"),
     createColumn("nroPedido", "Nro Pedido"),
     createColumn("nroSecuencia", "Nro Secuencia"),
