@@ -1,0 +1,56 @@
+.button-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+
+    &__dark-mode {
+      background: #274071;
+    }
+
+    &__light-mode {
+      background: #E2E2E2;
+    }
+    
+    &__icon-wrapper {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__icon {
+      background-size: cover;
+      background-position: center;
+    }
+
+    &__icon--light-mode {
+      filter: brightness(0) saturate(100%) invert(7%) sepia(34%) saturate(2819%) hue-rotate(196deg) brightness(101%) contrast(101%);
+    }
+
+    &__icon--dark-mode {
+      filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(179deg) brightness(100%) contrast(100%);
+    }
+
+    &__dark-mode:hover {
+      background: #233A66;
+    }
+    
+    &__dark-mode:active {
+      background: #1F335A;
+      ;
+    }
+    
+    &__light-mode:hover {
+      background: #CCCCCC;
+    }
+    
+    &__light-mode:active {
+      background: #b6b6b6;
+    }  
+  }
