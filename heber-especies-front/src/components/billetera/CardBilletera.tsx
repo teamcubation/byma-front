@@ -1,116 +1,67 @@
 import { Cell, flexRender, Row } from "@tanstack/react-table";
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-  AtSign, 
-  CalendarIcon, 
-  CreditCard, 
-  Hash, 
-  Text, 
-  Check, 
-  AlertCircle 
-} from "lucide-react";
 import { TypeBilletera } from "./types/typeBilletera";
 
-interface CardFieldProps {
-  icon: React.ReactNode;
-  label: string;
-  value: React.ReactNode;
-}
-
-const CardField = ({ icon, label, value }: CardFieldProps) => (
-  <div className="flex items-center space-x-2 text-sm">
-    {icon}
-    <span className="font-medium">{label}:</span>
-    <span>{value}</span>
-  </div>
-);
-
-type CardBilleterasProps = {
+/**
+ * Props del componente CardSuscripcion
+ * @property row - Fila de la tabla a renderizar que representa a los datos de cada registro
+ */
+type CardSuscripcionProps = {
   readonly row: Row<TypeBilletera>;
 };
 
-export default function CardBilleteras({
+/**
+ * Componente CardSuscripcion - Tarjeta que muestra informacion de un registro en formato mobile.
+ * @param {CardSuscripcionProps} props - Propiedades del componente
+ * @returns {JSX.Element} - Tarjeta de visualizacion de un registro
+ */
+export default function CardSuscripcion({
   row,
-}: CardBilleterasProps): JSX.Element {
-  const getCell = (cellId: string): Cell<TypeBilletera, unknown> | undefined => {
-    return row.getVisibleCells().find((cell) => cell.column.id === cellId);
-  };
-
-  const renderColumn = (cellId: string): JSX.Element | null => {
-    const cell = getCell(cellId);
-    return cell ? (
-      <div key={cell.id}>
-        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+}: CardSuscripcionProps): JSX.Element {
+  /**
+   * renderColumn - Renderiza el contenido de cada celda visible de la fila.
+   * @param {Cell<TypeSuscripcion>} cell - Celda que se va a renderizar.
+   * @returns {JSX.Element | null} - Contenido de la celda como JSX, o null si no existe la celda.
+   */
+  const renderColumn = (
+    cell: Cell<TypeBilletera, unknown>
+  ): JSX.Element | null => {
+    return (
+      <div key={cell.id} className="flex items-center space-x-2 text-sm">
+        <span className="font-medium">{cell.column.id}:</span>
+        <span>{flexRender(cell.column.columnDef.cell, cell.getContext())}</span>
       </div>
-    ) : null;
+    );
   };
-
-  const FIELDS_CONFIG = [
-    {
-      id: 'denominacion',
-      label: 'Denominación',
-      icon: <Text className="w-4 h-4 text-muted-foreground" />
-    },
-    {
-      id: 'mail',
-      label: 'Email',
-      icon: <AtSign className="w-4 h-4 text-muted-foreground" />
-    },
-    {
-      id: 'idCuenta',
-      label: 'ID Cuenta',
-      icon: <CreditCard className="w-4 h-4 text-muted-foreground" />
-    },
-    {
-      id: 'fechaAlta',
-      label: 'Fecha de Alta',
-      icon: <CalendarIcon className="w-4 h-4 text-muted-foreground" />
-    },
-    {
-      id: 'liquidaEnByma',
-      label: 'Liquida en BYMA',
-      icon: <Check className="w-4 h-4 text-muted-foreground" />
-    },
-    {
-      id: 'habilitado',
-      label: 'Habilitado',
-      icon: <AlertCircle className="w-4 h-4 text-muted-foreground" />
-    },
-    {
-      id: 'idAcdi',
-      label: 'Id Acdi',
-      icon: <Hash className="w-4 h-4 text-muted-foreground" />
-    },
-    {
-      id: 'observaciones',
-      label: 'Observaciones',
-      icon: <Text className="w-4 h-4 text-muted-foreground" />
-    },
-    { 
-      id: 'opciones',
-      label: 'Opciones',
-    }
-  ];
 
   return (
     <Card className="w-full max-w-2xl mx-auto hover:shadow-lg transition-shadow duration-300">
       <CardContent className="p-6 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {FIELDS_CONFIG.map(({ id, label, icon }) => {
-            const value = renderColumn(id);
-            return value && (
-              <CardField
-                key={id}
-                icon={icon}
-                label={label}
-                value={value}
-              />
-            );
+          {row.getVisibleCells().map((cell) => {
+            if (cell.column.id !== "opciones") {
+              return renderColumn(cell);
+            }
+            return null;
           })}
         </div>
         <div className="flex justify-end space-x-2 mt-4">
-          {/* {renderColumn("editar")}
-          {renderColumn("eliminar")} */}
+          {row.getVisibleCells().map((cell) => {
+            if (cell.column.id === "opciones") {
+              return (
+                <div
+                  key={cell.id}
+                  className="flex items-center space-x-2 text-sm"
+                >
+                  <span className="font-medium">Opciones:</span>
+                  <span>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </span>
+                </div>
+              );
+            }
+            return null;
+          })}
         </div>
       </CardContent>
     </Card>
