@@ -1,143 +1,14 @@
 import { Form } from "../ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
-import { toast } from "sonner";
-import { useState, useEffect } from "react";
-import { waitFor } from "../../utils/utils";
-import { useNavigate, useParams } from "react-router-dom";
-import { formSchema, FormSchema } from "./components/utils/validationSchema";
 import { FormInputField } from "./components/utils/FormInputField";
-import {
-  getSuscripcionById,
-  createSuscripcion,
-  updateSuscripcion,
-} from "@/services/SuscripcionService";
+import { useSuscripcionForm } from "./components/hooks/useSuscripcionForm";
 
 export const NuevaSuscripcion = () => {
-  const navigate = useNavigate();
-  const { id } = useParams();
-
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      estado: "",
-      nroCertificado: "",
-      idEspecie: "",
-      cantCuotapartes: "",
-      idAcdi: "",
-      idEmisor: "",
-      nroPedido: "",
-      nroSecuencia: "",
-      fechaCambioDeEstado: "",
-      rolIngresante: "",
-      monto: "",
-      liquidaEnByma: true,
-      numeroReferencia: "",
-      procesadoCustodia: false,
-      ultimoError: "",
-      command: "",
-      procesadoLiquidacionesSlyq: false,
-      idGerente: "",
-      obligacionDePagoGenerada: false,
-      idBilletera: "",
-      fechaSincronizacion: "",
-      nasdaqSiStatusReason: "",
-      mdwStatusCode: "",
-      mdwBusinessMessageId: "",
-      mdwResponseMessage: "",
-      mdwResponseDatetime: "",
-      nasdaqSiStatus: "",
-    },
-  });
-
-  const transformedSuscripcionDataToForm = (data: any): Partial<FormSchema> => {
-    const transformedData: Partial<FormSchema> = {
-      ...data,
-      nroCertificado: String(data.nroCertificado ?? ""),
-      idEspecie: String(data.idEspecie ?? ""),
-      cantCuotapartes: String(data.cantCuotapartes ?? ""),
-      idAcdi: String(data.idAcdi ?? ""),
-      idEmisor: String(data.idEmisor ?? ""),
-      nroPedido: String(data.nroPedido ?? ""),
-      nroSecuencia: String(data.nroSecuencia ?? ""),
-      monto: String(data.monto ?? ""),
-      numeroReferencia: String(data.numeroReferencia ?? ""),
-      idGerente: String(data.idGerente ?? ""),
-      idBilletera: String(data.idBilletera ?? ""),
-      mdwStatusCode: String(data.mdwStatusCode ?? ""),
-      liquidaEnByma: Boolean(data.liquidaEnByma),
-      procesadoCustodia: Boolean(data.procesadoCustodia),
-      procesadoLiquidacionesSlyq: Boolean(data.procesadoLiquidacionesSlyq),
-      obligacionDePagoGenerada: Boolean(data.obligacionDePagoGenerada),
-    };
-  
-    return transformedData;
-  };
-
-  useEffect(() => {
-    const fetchSuscripcion = async () => {
-      if (id) {
-        try {
-          const suscripcion = await getSuscripcionById(Number(id));
-          const transformedData = transformedSuscripcionDataToForm(suscripcion);
-          form.reset(transformedData);
-        } catch (error) {
-          console.log("Error al obtener la suscripcion: ", error);
-          toast.error("Error al obtener la suscripcion");
-        }
-      }
-    };
-    fetchSuscripcion();
-  }, [id, form]);
-
-  const onSubmit = async (data: FormSchema) => {
-    const toastId = toast.loading(
-      `${id ? "Modificando" : "Creando"} Suscripcion`
-    );
-    try {
-      const transformedData = {
-        ...data,
-        nroCertificado: parseInt(data.nroCertificado),
-        idEspecie: parseInt(data.idEspecie),
-        cantCuotapartes: parseInt(data.cantCuotapartes),
-        idAcdi: parseInt(data.idAcdi),
-        idEmisor: parseInt(data.idEmisor),
-        nroPedido: parseInt(data.nroPedido),
-        nroSecuencia: parseInt(data.nroSecuencia),
-        monto: parseInt(data.monto),
-        numeroReferencia: parseInt(data.numeroReferencia),
-        idGerente: parseInt(data.idGerente),
-        idBilletera: parseInt(data.idBilletera),
-        mdwStatusCode: parseInt(data.mdwStatusCode),
-        liquidaEnByma: Boolean(data.liquidaEnByma),
-        procesadoCustodia: Boolean(data.procesadoCustodia),
-        procesadoLiquidacionesSlyq: Boolean(data.procesadoLiquidacionesSlyq),
-        obligacionDePagoGenerada: Boolean(data.obligacionDePagoGenerada),
-      };
-
-      await waitFor(2000);
-
-      if (id) {
-        await updateSuscripcion(Number(id), transformedData);
-      } else {
-        await createSuscripcion(transformedData);
-      }
-      toast.success(`Suscripcion ${id ? "modificada" : "creada"} con exito`, {
-        id: toastId,
-      });
-      await waitFor(2000);
-      navigate("/abm-suscripciones");
-    } catch (error) {
-      console.log("Error inesperado: ", error);
-      toast.error("Error inesperado");
-    }
-  };
-
+  const { form, onSubmit, isEditMode} = useSuscripcionForm();
   return (
     <div className="flex flex-col gap-4 w-6/12 mx-auto">
       <h2 className="text-center text-xl font-semibold">
-        {id ? "Modificar" : "Crear"} Suscripcion
+        {isEditMode ? "Modificar" : "Crear"} Suscripcion
       </h2>
 
       <Form {...form}>
@@ -327,3 +198,4 @@ export const NuevaSuscripcion = () => {
     </div>
   );
 };
+

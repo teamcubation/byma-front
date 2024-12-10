@@ -28,7 +28,7 @@ import CardSuscripcion from "./CardSuscripcion";
 import { TypeSuscripcion } from "./types/typeSuscripcion";
 import useHandleDelete from "./components/hooks/useHandleDelete";
 import useHandleBajaSuscripcion from "./components/hooks/useHandleBaja";
-import { useCreateColumn } from "./components/utils/createColumn";
+import { createColumn } from "./components/utils/createColumn";
 import { getSuscripciones } from "@/services/SuscripcionService";
 
 export const SuscripcionList = () => {
@@ -37,7 +37,6 @@ export const SuscripcionList = () => {
   
   const handleDelete = useHandleDelete(setSuscripciones);
   const handleBajaSuscripcion = useHandleBajaSuscripcion(setSuscripciones);
-  const createColumn = useCreateColumn();
 
   useEffect(() => {
     const fetchSuscripciones = async () => {
@@ -46,7 +45,7 @@ export const SuscripcionList = () => {
         console.log('data: ', data);
         setSuscripciones(data);
       } catch (error) {
-        
+        console.log("Error al obtener las suscripciones: ", error)
       }
     }
     fetchSuscripciones();
