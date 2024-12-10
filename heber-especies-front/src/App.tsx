@@ -93,6 +93,8 @@ const router = createBrowserRouter([
       {
         path:"/editar-suscripcion/:id",
         element: <NuevaSuscripcion />
+      },
+      {
         path: "*",
         element: <Pagina404 />
       }

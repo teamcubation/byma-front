@@ -47,7 +47,7 @@ export const NuevoEmisor = () => {
 
 
     try {
-      const response = await axios.post('http://localhost:10001/api/v1/emisores', data, { headers: { 'Content-Type': 'application/json' } });
+      const response = await axios.post('http://localhost:8080/api/v1/emisores', data, { headers: { 'Content-Type': 'application/json' } });
       console.log(response, "response");
       await waitFor(2000);
       setBtnLoading({ state: 'success', message: 'Emisor creado correctamente' });

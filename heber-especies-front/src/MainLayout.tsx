@@ -18,9 +18,6 @@ const MainLayout = () => {
         <MyForm />
       </div>
       <Outlet />
-      <div>
-        <Outlet/>
-        </div>
     </>
   )
 }
