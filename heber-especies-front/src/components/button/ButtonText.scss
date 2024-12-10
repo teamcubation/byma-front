@@ -29,8 +29,8 @@
   }
 
   &__icon-wrapper {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -38,6 +38,11 @@
   }
 
   &__icon {
+    img {
+      width: 100%;      // Ocupar todo el espacio del contenedor
+      height: 100%;
+      object-fit: contain;  // Mantener proporción del SVG
+    }
     background-size: cover;
     background-position: center;
   }
