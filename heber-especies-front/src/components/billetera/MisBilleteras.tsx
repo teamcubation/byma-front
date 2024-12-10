@@ -55,7 +55,6 @@ import { deleteBilletera, getAllBilleteras } from "@/services/BilleteraService"
 
     const handleDelete = async (id: number) => {
       try {
-        console.log(id);
         await deleteBilletera(id);
         setBilleteras(prevBilleteras => prevBilleteras.filter(billetera => billetera.id !== id))
       } catch (error) {
@@ -153,7 +152,6 @@ import { deleteBilletera, getAllBilleteras } from "@/services/BilleteraService"
                       className="font-normal"
                       onClick={() => {
                         const idBilletera = row.original.id
-                        console.log(idBilletera)
               
                         navigate(`/editar-billetera/${idBilletera}`, { state: {billetera: row.original } })
                       }}
@@ -197,8 +195,6 @@ import { deleteBilletera, getAllBilleteras } from "@/services/BilleteraService"
             </>
         ),
       },
-     
-  
     ]
   
     return (

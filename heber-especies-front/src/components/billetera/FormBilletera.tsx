@@ -28,7 +28,6 @@ export const FormBilletera = () => {
     });
 
     const transformedBilleteraDataToForm = (data: any): Partial<FormSchema> => {
-        console.log("Data: ", data);
         const transformedData: Partial<FormSchema> = {
             ...data,
             mail: String(data.mail ?? ""),
@@ -43,7 +42,6 @@ export const FormBilletera = () => {
     };
 
     useEffect(() => {
-        console.log("Id: ", id);
         const fetchBilletera = async () => {
             if (id) {
                 try {
@@ -61,7 +59,6 @@ export const FormBilletera = () => {
     }, [id, form]);
 
     const onSubmit = async (data: FormSchema) => {
-        console.log("Datos onSubmit", data);
         const toastId = toast.loading(
             `${id ? "Modificando" : "Creando"} Suscripcion`
         );
