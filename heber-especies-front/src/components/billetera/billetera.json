@@ -1,0 +1,68 @@
+[
+    {
+      "id": 1,
+      "mail": "usuario1@example.com",
+      "idCuenta": "C12345",
+      "denominacion": "Billetera Principal",
+      "liquidaEnByma": true,
+      "habilitado": true,
+      "fechaAlta": "2024-01-01T10:30:00",
+      "observaciones": "Cuenta activa sin restricciones",
+      "idAcdi": "ACDI001"
+    },
+    {
+      "id": 2,
+      "mail": "usuario2@example.com",
+      "idCuenta": "C67890",
+      "denominacion": "Billetera Secundaria",
+      "liquidaEnByma": false,
+      "habilitado": true,
+      "fechaAlta": "2024-02-15T14:45:00",
+      "observaciones": "Pendiente de verificación",
+      "idAcdi": "ACDI002"
+    },
+    {
+      "id": 3,
+      "mail": "usuario3@example.com",
+      "idCuenta": "C54321",
+      "denominacion": "Billetera de Pruebas",
+      "liquidaEnByma": false,
+      "habilitado": false,
+      "fechaAlta": "2023-12-01T09:00:00",
+      "observaciones": "Cuenta deshabilitada temporalmente",
+      "idAcdi": "ACDI003"
+    },
+    {
+      "id": 4,
+      "mail": "usuario4@example.com",
+      "idCuenta": "C98765",
+      "denominacion": "Billetera Empresarial",
+      "liquidaEnByma": true,
+      "habilitado": true,
+      "fechaAlta": "2024-03-10T11:20:00",
+      "observaciones": "Cuenta asociada a empresa",
+      "idAcdi": "ACDI004"
+    },
+    {
+      "id": 5,
+      "mail": "usuario5@example.com",
+      "idCuenta": "C11223",
+      "denominacion": "Billetera Internacional",
+      "liquidaEnByma": false,
+      "habilitado": true,
+      "fechaAlta": "2024-04-05T08:15:00",
+      "observaciones": "Cuenta habilitada para operaciones internacionales",
+      "idAcdi": "ACDI005"
+    },
+    {
+      "id": 6,
+      "mail": "usuario6@example.com",
+      "idCuenta": "C44556",
+      "denominacion": "Billetera de Ahorro",
+      "liquidaEnByma": true,
+      "habilitado": false,
+      "fechaAlta": "2024-05-20T16:40:00",
+      "observaciones": "Cuenta en proceso de activación",
+      "idAcdi": "ACDI006"
+    }
+  ]  

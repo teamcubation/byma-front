@@ -14,6 +14,7 @@ import { FormGerente } from "./components/features/gerente/FormGerente";
 import LoginPage from "./components/features/login/LoginPage";
 import Pagina404 from "./components/features/Pagina404/Pagina404";
 import PrivateRoute from "./components/PrivateRoute";
+import { MisBilleteras } from "./components/billetera/MisBilleteras";
 
 const router = createBrowserRouter([
   {
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
       {
         path: "/editar-gerente/:id",
         element: <FormGerente />,
+      },
+      {
+        path: "/abm-billeteras",
+        element: <MisBilleteras />,
       },
       {
         path: "*",
