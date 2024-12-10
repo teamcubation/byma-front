@@ -36,9 +36,9 @@ const formSchema = z.object({
   billeteras: z.boolean(),
   observaciones: z
     .string()
-    .min(1, { message: "La denominación es requerida" })
+    .min(1, { message: "Las observaciones son requeridas" })
     .max(255, {
-      message: "La denominación supera la cantidad máxima de caracteres",
+      message: "Las observaciones superan la cantidad máxima de caracteres",
     }),
   mail: z.string().email({ message: "El email no tiene el formato correcto" }),
 });

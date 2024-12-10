@@ -25,6 +25,10 @@ const navItems = [
         label: "ABM Billeteras",
         href: "/abm-billeteras",
     },
+    {
+        label: "ABM Suscripciones",
+        href: "/abm-suscripciones",
+    },
 ]
 const Navbar = () => {
     const navigate = useNavigate();
