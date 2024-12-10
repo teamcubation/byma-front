@@ -1,21 +1,22 @@
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
-import { set, useForm } from "react-hook-form"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Input } from "./ui/input"
-import { Button } from "./ui/button"
+import { Form, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "./ui/button";
 import { toast } from "sonner";
-import BtnLoading from "./utils/BtnLoading"
+import BtnLoading from "./utils/BtnLoading";
 import { useState } from "react";
 import { TypeBtnLoading } from "./utils/BtnLoading";
 import { waitFor } from "../utils/utils";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import Input from "./input/input";
 
 export const NuevoEmisor = () => {
   const [btnLoading, setBtnLoading] = useState<TypeBtnLoading>({ state: null, message: "" });
   const navigate = useNavigate();
+  const [nameStatus, setNameStatus] = useState<'error' | 'success' | 'warning' | 'notice' | undefined>(undefined);
 
   const formSchema = z.object({
     denominacion: z.string()
@@ -27,7 +28,7 @@ export const NuevoEmisor = () => {
       .max(255, { message: "La cuenta de emisor supera la cantidad máxima de caracteres" }),
     idOrganizacion: z.string().regex(/^\d+$/, { message: "El id de organización debe ser numérico" }),
     idEntidadLegal: z.string().regex(/^\d+$/, { message: "El id de entidad legal debe ser numérico" }),
-  })
+  });
 
   type FormSchema = z.infer<typeof formSchema>;
 
@@ -40,34 +41,43 @@ export const NuevoEmisor = () => {
       idOrganizacion: "",
       idEntidadLegal: "",
     },
-  })
+  });
 
   const onSubmit = async (data: FormSchema) => {
-    setBtnLoading({ state: 'loading', message: 'Creando emisor...' });
-
+    setBtnLoading({ state: "loading", message: "Creando emisor..." });
 
     try {
-      const response = await axios.post('http://localhost:10001/api/v1/emisores', data, { headers: { 'Content-Type': 'application/json' } });
+      const response = await axios.post("http://localhost:8080/api/v1/emisores", data, {
+        headers: { "Content-Type": "application/json" },
+      });
       console.log(response, "response");
       await waitFor(2000);
-      setBtnLoading({ state: 'success', message: 'Emisor creado correctamente' });
+      setBtnLoading({ state: "success", message: "Emisor creado correctamente" });
       await waitFor(1000);
-      navigate('/abm-emisores');
-
+      navigate("/abm-emisores");
     } catch (error: any) {
-      console.log(typeof (error));
+      console.log(typeof error);
       console.log(error.status, "error");
       if (error.response.status === 409) {
-        setBtnLoading({ state: 'error', message: 'El email ya se encuentra registrado' });
+        setBtnLoading({ state: "error", message: "El email ya se encuentra registrado" });
       } else {
-
-        setBtnLoading({ state: 'error', message: 'Error al crear el emisor' });
+        setBtnLoading({ state: "error", message: "Error al crear el emisor" });
       }
     }
-
-
-
-  }
+  };
+  const handleBlur = (value: string, setStatus: React.Dispatch<React.SetStateAction<'error' | 'success' | 'warning' | 'notice' | undefined>>) => {
+    if (value === '') {
+      setStatus('error');
+    } else if (value.length < 3) {
+      setStatus(undefined);
+    } else if (value.length < 5) {
+      setStatus('success');
+    } else if (value.length < 8) {
+      setStatus('notice');
+    } else {
+      setStatus('warning');
+    }
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -86,9 +96,15 @@ export const NuevoEmisor = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Denominación</FormLabel>
-                      <FormControl>
-                        <Input placeholder="" {...field} />
-                      </FormControl>
+                      <Input
+                        value={field.value}
+                        onChange={field.onChange}
+                        onBlur={() => handleBlur(field.value, setNameStatus)}
+                        placeholder=""
+                        status={nameStatus}
+                        errorMessage={form.formState.errors.denominacion?.message}
+                        size="m"
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -100,9 +116,15 @@ export const NuevoEmisor = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input placeholder="example@gmail.com" {...field} />
-                      </FormControl>
+                      <Input
+                        value={field.value}
+                        onChange={field.onChange}
+                        onBlur={field.onBlur}
+                        placeholder="example@gmail.com"
+                        status={form.formState.errors.email ? "error" : undefined}
+                        errorMessage={form.formState.errors.email?.message}
+                        size="m"
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -114,9 +136,15 @@ export const NuevoEmisor = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Cuenta de emisor</FormLabel>
-                      <FormControl>
-                        <Input placeholder="" {...field} />
-                      </FormControl>
+                      <Input
+                        value={field.value}
+                        onChange={field.onChange}
+                        onBlur={field.onBlur}
+                        placeholder=""
+                        status={form.formState.errors.cuentaEmisor ? "error" : undefined}
+                        errorMessage={form.formState.errors.cuentaEmisor?.message}
+                        size="m"
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -128,9 +156,16 @@ export const NuevoEmisor = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Id de organización</FormLabel>
-                      <FormControl>
-                        <Input type='number' placeholder="" {...field} />
-                      </FormControl>
+                      <Input
+                        value={field.value}
+                        onChange={field.onChange}
+                        onBlur={field.onBlur}
+                        type="number"
+                        placeholder=""
+                        status={form.formState.errors.idOrganizacion ? "error" : undefined}
+                        errorMessage={form.formState.errors.idOrganizacion?.message}
+                        size="m"
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -142,9 +177,16 @@ export const NuevoEmisor = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Id de entidad legal</FormLabel>
-                      <FormControl>
-                        <Input type='number' placeholder="" {...field} />
-                      </FormControl>
+                      <Input
+                        value={field.value}
+                        onChange={field.onChange}
+                        onBlur={field.onBlur}
+                        type="number"
+                        placeholder=""
+                        status={form.formState.errors.idEntidadLegal ? "error" : undefined}
+                        errorMessage={form.formState.errors.idEntidadLegal?.message}
+                        size="m"
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -158,9 +200,6 @@ export const NuevoEmisor = () => {
           </CardContent>
         </Card>
       </div>
-
-
-
     </div>
-  )
-}
+  );
+};

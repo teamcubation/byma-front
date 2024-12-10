@@ -33,7 +33,7 @@ export const MisEmisores = () => {
 
   const traerEmisores = async (signal: AbortSignal) => {
     try {
-      const response = await fetch('http://localhost:10001/api/v1/emisores', { signal: signal }).then(res => res.json())
+      const response = await fetch('http://localhost:8080/api/v1/emisores', { signal: signal }).then(res => res.json())
       console.log(response)
       setEmisores(response)
     } catch (error) {

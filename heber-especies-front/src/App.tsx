@@ -7,7 +7,6 @@ import { MisAcdis } from "./components/acdis/MisAcdis";
 import { NuevoAcdi } from "./components/acdis/NuevoAcdi";
 import { NuevoEmisor } from "./components/NuevoEmisor";
 import { EditarEmisor } from "./components/EditarEmisor";
-import path from "path";
 import FormEspecie from "./components/especie/FormEspecie";
 import { MisGerentes } from "./components/features/gerente/AbmGerentes";
 import { FormGerente } from "./components/features/gerente/FormGerente";
@@ -92,9 +91,11 @@ const router = createBrowserRouter([
       },
       {
         path:"/editar-suscripcion/:id",
-        element: <NuevaSuscripcion />
-        path: "*",
-        element: <Pagina404 />
+          element: <NuevaSuscripcion />
+        },
+        {
+          path: "*",
+          element: <Pagina404 />
       }
     ],
 
