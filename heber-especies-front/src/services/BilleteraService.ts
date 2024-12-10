@@ -12,7 +12,7 @@ export const getAllBilleteras = async (): Promise<TypeBilletera[]> => {
     }
 }
 
-export const createBilletera = async (billetera: TypeBilletera): Promise<TypeBilletera> => {
+export const createBilletera = async (billetera: Partial<TypeBilletera>): Promise<TypeBilletera> => {
     try {
         const response = await axios.post<TypeBilletera>(URL_BASE_REST_API, billetera);
         return response.data;
@@ -30,7 +30,7 @@ export const getBilleteraById = async (idBilletera: number): Promise<TypeBillete
     }
 }
 
-export const updateBilletera = async (idBilletera: number, billetera: TypeBilletera): Promise<TypeBilletera> => {
+export const updateBilletera = async (idBilletera: number, billetera: Partial<TypeBilletera>): Promise<TypeBilletera> => {
     try {
         const response = await axios.put<TypeBilletera>(URL_BASE_REST_API + '/' + idBilletera, billetera);
         return response.data;

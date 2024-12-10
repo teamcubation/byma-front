@@ -94,12 +94,18 @@ import { deleteBilletera, getAllBilleteras } from "@/services/BilleteraService"
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Liquida en BYMA" />
         ),
+        cell: ({ row }) => (
+          <span>{row.original.liquidaEnByma ? "Sí" : "No"}</span>
+        ),
       },
       {
         accessorKey: "habilitado",
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Habilitado" />
-        )
+        ),
+        cell: ({ row }) => (
+          <span>{row.original.habilitado ? "Sí" : "No"}</span>
+        ),
       },
       {
         accessorKey: "fechaAlta",
@@ -149,7 +155,7 @@ import { deleteBilletera, getAllBilleteras } from "@/services/BilleteraService"
                         const idBilletera = row.original.id
                         console.log(idBilletera)
               
-                        navigate(`/edit-billetera/${idBilletera}`, { state: {billetera: row.original } })
+                        navigate(`/editar-billetera/${idBilletera}`, { state: {billetera: row.original } })
                       }}
                     >
                       <span>Modificar</span>
