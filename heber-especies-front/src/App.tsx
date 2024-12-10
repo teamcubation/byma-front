@@ -11,6 +11,8 @@ import path from "path";
 import FormEspecie from "./components/especie/FormEspecie";
 import { MisGerentes } from "./components/features/gerente/AbmGerentes";
 import { FormGerente } from "./components/features/gerente/FormGerente";
+import { SuscripcionList } from "./components/suscripcion/SuscripcionList";
+import { NuevaSuscripcion } from "./components/suscripcion/NuevaSuscripcion";
 import LoginPage from "./components/features/login/LoginPage";
 import Pagina404 from "./components/features/Pagina404/Pagina404";
 import PrivateRoute from "./components/PrivateRoute";
@@ -75,13 +77,22 @@ const router = createBrowserRouter([
       {
         path: "/nuevo-gerente",
         element: <FormGerente />,
-      }
-      ,
+      },
       {
         path: "/editar-gerente/:id",
         element: <FormGerente />,
       },
       {
+        path: "/abm-suscripciones",
+        element: <SuscripcionList />,
+      },
+      {
+        path:"/nueva-suscripcion",
+        element: <NuevaSuscripcion />
+      },
+      {
+        path:"/editar-suscripcion/:id",
+        element: <NuevaSuscripcion />
         path: "*",
         element: <Pagina404 />
       }
