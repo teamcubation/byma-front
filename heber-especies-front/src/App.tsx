@@ -16,6 +16,8 @@ import { NuevaSuscripcion } from "./components/suscripcion/NuevaSuscripcion";
 import LoginPage from "./components/features/login/LoginPage";
 import Pagina404 from "./components/features/Pagina404/Pagina404";
 import PrivateRoute from "./components/PrivateRoute";
+import { MisBilleteras } from "./components/billetera/MisBilleteras";
+import { FormBilletera } from "./components/billetera/FormBilletera";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +83,18 @@ const router = createBrowserRouter([
       {
         path: "/editar-gerente/:id",
         element: <FormGerente />,
+      },
+      {
+        path: "/abm-billeteras",
+        element: <MisBilleteras />,
+      },
+      {
+        path: "/nueva-billetera",
+        element: <FormBilletera />,
+      },
+      {
+        path: "/editar-billetera/:id" ,
+        element: <FormBilletera />,
       },
       {
         path: "/abm-suscripciones",
