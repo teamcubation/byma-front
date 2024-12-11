@@ -50,7 +50,6 @@ export const FormGerente = () => {
   })
 
   const onSubmit = async (data: FormSchema) => {
-    console.log(data);
     setBtnLoading({ state: 'loading', message: location.state?.gerente ? "Editando Gerente..." : "Creando Gerente..." });
 
 
@@ -65,7 +64,7 @@ export const FormGerente = () => {
 
       console.log(response, "response");
       await waitFor(2000);
-      setBtnLoading({ state: 'success', message: 'Emisor creado correctamente' });
+      setBtnLoading({ state: 'success', message: 'Gerente creado correctamente' });
       await waitFor(1000);
       navigate('/abm-gerentes');
 
@@ -83,80 +82,71 @@ export const FormGerente = () => {
   }
 
   return (
-    <div className="container p-2 min-h-screen mx-auto flex justify-center items-center">
-      <Card className="w-full lg:w-1/2">
-        <CardHeader>
-          <CardTitle>{id ? "Editar Gerente" : "Nuevo Gerente"}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 p-6">
-              <FormField
-                control={form.control}
-                name="denominacion"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Denominación</FormLabel>
-                    <FormControl>
-                      <Input placeholder="" disabled={location.state?.gerente && true} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+    <div className="flex flex-col gap-4 w-6/12 mx-auto">
+      <h2 className="text-center text-xl font-semibold">{id ? "Editar Gerente" : "Nuevo Gerente"}</h2>
 
-              <FormField
-                control={form.control}
-                name="mailGerente"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="example@gmail.com"  {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 p-6">
+          <FormField
+            control={form.control}
+            name="denominacion"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Denominación</FormLabel>
+                <FormControl>
+                  <Input placeholder="" disabled={location.state?.gerente && true} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-              <FormField
-                control={form.control}
-                name="observaciones"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Observaciones</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="" disabled={location.state?.gerente && true} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+          <FormField
+            control={form.control}
+            name="mailGerente"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="example@gmail.com"  {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-              <FormField
-                control={form.control}
-                name="liquidaEnByma"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl className="mx-2">
-                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                    </FormControl>
-                    <FormLabel>Liquida en Byma</FormLabel>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+          <FormField
+            control={form.control}
+            name="observaciones"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Observaciones</FormLabel>
+                <FormControl>
+                  <Textarea placeholder="" disabled={location.state?.gerente && true} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-
-
-              <div className="flex justify-end">
-                <BtnLoading btnLoading={btnLoading}></BtnLoading>
-              </div>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
-
+          <FormField
+            control={form.control}
+            name="liquidaEnByma"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl className="mx-2">
+                  <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                </FormControl>
+                <FormLabel>Liquida en Byma</FormLabel>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="flex justify-end">
+            <BtnLoading btnLoading={btnLoading}></BtnLoading>
+          </div>
+        </form>
+      </Form>
     </div>
   )
 }
