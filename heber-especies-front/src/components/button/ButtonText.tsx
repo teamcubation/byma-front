@@ -2,7 +2,7 @@ import React from 'react';
 import './ButtonText.scss';
 
 interface ButtonTextProps {
-  onClick?: () => void; // Evento al hacer clic
+  onClick?: (e: any) => void; // Evento al hacer clic
   text: string;         // Texto del botón
   disable?: boolean;     // Indica si el botón está deshabilitado
   className?: string;   // Clases adicionales para personalización
