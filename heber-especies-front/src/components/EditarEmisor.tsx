@@ -52,7 +52,7 @@ export const EditarEmisor = () => {
     try {
       setBtnLoading({ state: 'loading', message: 'Editando Emisor...' });
 
-      const response = await fetch(`http://localhost:10001/api/v1/emisores/${id}`, {
+      const response = await fetch(`http://localhost:8080/api/v1/emisores/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

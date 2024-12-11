@@ -13,12 +13,8 @@ const MainLayout = () => {
       <Navbar />
       <div className='px-6 mt-5'>
         <BreadcrumbDemo />
-        </div>
-        <div>
-        {/* <ComboBox /> */}
-        {/* <MyForm></MyForm> */}
-        <Outlet/>
-        </div>
+      </div>
+      <Outlet />
     </>
   )
 }

@@ -56,7 +56,7 @@ export const MisAcdis = () => {
 
   const traerAcdis = async (signal: AbortSignal) => {
     try {
-      const response = await fetch("http://localhost:10003/api/v1/acdis", {
+      const response = await fetch("http://localhost:8080/api/v1/acdis", {
         signal: signal,
       }).then((res) => res.json());
       console.log(response);
@@ -70,7 +70,7 @@ export const MisAcdis = () => {
     const toastId = toast.loading("Generando eliminacion del Acdi");
     try {
       await waitFor(2000);
-      fetch(`http://localhost:10003/api/v1/acdis/${id}`, {
+      fetch(`http://localhost:8080/api/v1/acdis/${id}`, {
         method: "DELETE",
       });
       setAcdis((prevAcdis) => prevAcdis.filter((acdi) => acdi.idAcdi !== id));
@@ -91,7 +91,7 @@ export const MisAcdis = () => {
       await waitFor(2000);
 
       const response = await fetch(
-        `http://localhost:10003/api/v1/acdis/${id}/baja`,
+        `http://localhost:8080/api/v1/acdis/${id}/baja`,
         {
           method: "PUT",
           headers: {
