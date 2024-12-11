@@ -1,9 +1,7 @@
-import { Form, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { Form, FormField, FormItem, FormLabel } from "./ui/form";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "./ui/button";
-import { toast } from "sonner";
 import BtnLoading from "./utils/BtnLoading";
 import { useState } from "react";
 import { TypeBtnLoading } from "./utils/BtnLoading";
@@ -16,7 +14,6 @@ import Input from "./input/input";
 export const NuevoEmisor = () => {
   const [btnLoading, setBtnLoading] = useState<TypeBtnLoading>({ state: null, message: "" });
   const navigate = useNavigate();
-  const [nameStatus, setNameStatus] = useState<'error' | 'success' | 'warning' | 'notice' | undefined>(undefined);
 
   const formSchema = z.object({
     denominacion: z.string()
@@ -65,19 +62,13 @@ export const NuevoEmisor = () => {
       }
     }
   };
-  const handleBlur = (value: string, setStatus: React.Dispatch<React.SetStateAction<'error' | 'success' | 'warning' | 'notice' | undefined>>) => {
-    if (value === '') {
-      setStatus('error');
-    } else if (value.length < 3) {
-      setStatus(undefined);
-    } else if (value.length < 5) {
-      setStatus('success');
-    } else if (value.length < 8) {
-      setStatus('notice');
-    } else {
-      setStatus('warning');
-    }
-  };
+  // const handleBlur = (value: string, setStatus: React.Dispatch<React.SetStateAction<'error' | 'success' | 'warning' | 'notice' | undefined>>) => {
+  //   if (value === '') {
+  //     setStatus('error');
+  //   } else {
+  //     setStatus(undefined);
+  //   }
+  // };
 
   return (
     <div className="flex flex-col gap-6">
@@ -99,13 +90,12 @@ export const NuevoEmisor = () => {
                       <Input
                         value={field.value}
                         onChange={field.onChange}
-                        onBlur={() => handleBlur(field.value, setNameStatus)}
+                        onBlur={field.onBlur}
                         placeholder=""
-                        status={nameStatus}
+                        status={form.formState.errors.denominacion ? "error" : undefined}
                         errorMessage={form.formState.errors.denominacion?.message}
                         size="m"
                       />
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -125,7 +115,6 @@ export const NuevoEmisor = () => {
                         errorMessage={form.formState.errors.email?.message}
                         size="m"
                       />
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -145,7 +134,6 @@ export const NuevoEmisor = () => {
                         errorMessage={form.formState.errors.cuentaEmisor?.message}
                         size="m"
                       />
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -166,7 +154,6 @@ export const NuevoEmisor = () => {
                         errorMessage={form.formState.errors.idOrganizacion?.message}
                         size="m"
                       />
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -187,7 +174,6 @@ export const NuevoEmisor = () => {
                         errorMessage={form.formState.errors.idEntidadLegal?.message}
                         size="m"
                       />
-                      <FormMessage />
                     </FormItem>
                   )}
                 />

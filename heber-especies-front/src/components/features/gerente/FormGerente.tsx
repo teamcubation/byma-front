@@ -2,7 +2,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { set, useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Input } from "../../ui/input"
+import  Input  from "../../input/input"
 import { Button } from "../../ui/button"
 import { toast } from "sonner";
 import BtnLoading from "../../utils/BtnLoading"
@@ -12,15 +12,17 @@ import { waitFor } from "../../../utils/utils";
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import axios from "axios";
 import { Textarea } from "@/components/ui/textarea"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-
+import Checkbox from "../../checkbox/checkbox"
+import TextArea from "../../textarea/textarea"
 export const FormGerente = () => {
 
   const [btnLoading, setBtnLoading] = useState<TypeBtnLoading>({ state: null, message: "" });
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
+  const [isChecked, setIsChecked] = useState(false);
+
 
   console.log(location.state?.gerente, "gerente");
 
@@ -91,16 +93,21 @@ export const FormGerente = () => {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 p-6">
-              <FormField
+            <FormField
                 control={form.control}
                 name="denominacion"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Denominación</FormLabel>
-                    <FormControl>
-                      <Input placeholder="" disabled={location.state?.gerente && true} {...field} />
-                    </FormControl>
-                    <FormMessage />
+                    <Input
+                      value={field.value}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      placeholder="Denominación"
+                      status={form.formState.errors.denominacion ? 'error' : undefined}
+                      errorMessage={form.formState.errors.denominacion?.message}
+                      size="m"
+                    />
                   </FormItem>
                 )}
               />
@@ -111,10 +118,15 @@ export const FormGerente = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="example@gmail.com"  {...field} />
-                    </FormControl>
-                    <FormMessage />
+                    <Input
+                      value={field.value}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      placeholder="example@gmail.com"
+                      status={form.formState.errors.mailGerente ? 'error' : undefined}
+                      errorMessage={form.formState.errors.mailGerente?.message}
+                      size="m"
+                    />
                   </FormItem>
                 )}
               />
@@ -125,10 +137,14 @@ export const FormGerente = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Observaciones</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="" disabled={location.state?.gerente && true} {...field} />
-                    </FormControl>
-                    <FormMessage />
+                    <TextArea
+                      value={field.value}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      placeholder="Observaciones"
+                      status={form.formState.errors.observaciones ? 'error' : undefined}
+                      errorMessage={form.formState.errors.observaciones?.message}
+                    />
                   </FormItem>
                 )}
               />
@@ -138,10 +154,17 @@ export const FormGerente = () => {
                 name="liquidaEnByma"
                 render={({ field }) => (
                   <FormItem>
+                    <FormLabel className="align-label">Liquida en Byma</FormLabel>
                     <FormControl className="mx-2">
-                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                      <Checkbox
+                        isDisabled={false}
+                        isChecked={field.value}
+                        onToggle={(checked) => {
+                          field.onChange(checked);
+                          setIsChecked(checked);
+                        }}
+                      />
                     </FormControl>
-                    <FormLabel>Liquida en Byma</FormLabel>
                     <FormMessage />
                   </FormItem>
                 )}

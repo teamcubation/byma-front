@@ -1,23 +1,44 @@
 /* Bloque base */
-.input-textarea {
-    position: relative;
-    height: 120px;
-    box-sizing: border-box;
-    border: 0.75px solid #061533;
-    border-radius: 12px;
-    padding: 8px;
-    font-size: 14px;
-    font-family: Arial, sans-serif;
-    resize: none;
-    outline: none;
+.textarea__container {
+  position: relative;
+}
 
-    &--l {
-      width: 568px;
-    }
-    &--m {
-      width: 420px;
-    }
-    &--s {
-      width: 272px;
-    }
+.input-textarea {
+  position: relative;
+  height: 120px;
+  box-sizing: border-box;
+  border: 0.75px solid #061533;
+  border-radius: 12px;
+  padding: 8px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  resize: none;
+  outline: none;
+
+  &--l {
+    width: 568px;
   }
+  &--m {
+    width: 420px;
+  }
+  &--s {
+    width: 272px;
+  }
+
+  &--error {
+    border-color: #FF4D4F;
+    background-color: #FFF5F5;
+  }
+}
+
+.textarea__error-text {
+  position: absolute;
+  top: 100%;
+  left: 2px;
+  margin-top: 8px;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0.005em;
+  color: #FF4D4F;
+}
