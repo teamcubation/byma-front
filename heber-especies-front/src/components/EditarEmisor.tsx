@@ -18,7 +18,6 @@ export const EditarEmisor = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
-  console.log(id, "id emisor");
   console.dir(location.state.emisor, "emisor");
 
   const formSchema = z.object({
@@ -60,8 +59,6 @@ export const EditarEmisor = () => {
         body: JSON.stringify(data),
       });
 
-      console.log(response);
-
       await waitFor(2000); // Simula una espera para mejorar la UX
 
       if (response.status === 200) {
@@ -85,98 +82,86 @@ export const EditarEmisor = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1>Formulario</h1>
-      <div className="container min-h-screen mx-auto flex justify-center items-center">
+    <div className="flex flex-col gap-4 w-6/12 mx-auto">
+      <h2 className="text-center text-xl font-semibold">Modificar Emisor</h2>
 
-        <Card className="lg:w-1/2">
-          <CardHeader>
-            <CardTitle>{"Editar Gerente"}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 p-6">
-                <FormField
-                  control={form.control}
-                  name="denominacion"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Denominación</FormLabel>
-                      <FormControl>
-                        <Input placeholder="" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 p-6">
+          <FormField
+            control={form.control}
+            name="denominacion"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Denominación</FormLabel>
+                <FormControl>
+                  <Input placeholder="" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input placeholder="example@gmail.com" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="example@gmail.com" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-                <FormField
-                  control={form.control}
-                  name="cuentaEmisor"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Cuenta de emisor</FormLabel>
-                      <FormControl>
-                        <Input placeholder="" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+          <FormField
+            control={form.control}
+            name="cuentaEmisor"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Cuenta de emisor</FormLabel>
+                <FormControl>
+                  <Input placeholder="" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-                <FormField
-                  control={form.control}
-                  name="idOrganizacion"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Id de organización</FormLabel>
-                      <FormControl>
-                        <Input type='number' placeholder="" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+          <FormField
+            control={form.control}
+            name="idOrganizacion"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Id de organización</FormLabel>
+                <FormControl>
+                  <Input type='number' placeholder="" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-                <FormField
-                  control={form.control}
-                  name="idEntidadLegal"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Id de entidad legal</FormLabel>
-                      <FormControl>
-                        <Input type='number' placeholder="" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+          <FormField
+            control={form.control}
+            name="idEntidadLegal"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Id de entidad legal</FormLabel>
+                <FormControl>
+                  <Input type='number' placeholder="" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-                <div className="flex justify-end">
-                  <BtnLoading btnLoading={btnLoading}></BtnLoading>
-                </div>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
-
-      </div>
-
-
+          <div className="flex justify-end">
+            <BtnLoading btnLoading={btnLoading}></BtnLoading>
+          </div>
+        </form>
+      </Form>
     </div>
   )
 }

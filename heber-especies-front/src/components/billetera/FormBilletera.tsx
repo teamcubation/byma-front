@@ -46,11 +46,9 @@ export const FormBilletera = () => {
             if (id) {
                 try {
                     const billetera = await getBilleteraById(Number(id));
-                    console.log("Billetera obtenida: ", billetera);
                     const transformedData = transformedBilleteraDataToForm(billetera);
                     form.reset(transformedData);
                 } catch (error) {
-                    console.log("Error al obtener la billetera: ", error);
                     toast.error("Error al obtener la billetera");
                 }
             }
@@ -60,7 +58,7 @@ export const FormBilletera = () => {
 
     const onSubmit = async (data: FormSchema) => {
         const toastId = toast.loading(
-            `${id ? "Modificando" : "Creando"} Suscripcion`
+            `${id ? "Modificando" : "Creando"} Billetera`
         );
         try {
             const transformedData = {

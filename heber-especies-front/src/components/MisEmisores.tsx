@@ -34,7 +34,6 @@ export const MisEmisores = () => {
   const traerEmisores = async (signal: AbortSignal) => {
     try {
       const response = await fetch('http://localhost:8080/api/v1/emisores', { signal: signal }).then(res => res.json())
-      console.log(response)
       setEmisores(response)
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') return;
@@ -105,7 +104,6 @@ export const MisEmisores = () => {
       enableGlobalFilter: false,
       cell: ({ row }) => (
         <Button variant="ghost" size="sm" className="h-8 px-2 py-0 rounded-full bg-blue-300 hover:bg-blue-400" onClick={() => {
-          console.log(row)
           navigate(`/editar-emisor/${row.original.id}`, { state: { emisor: row.original } })
         }}>
           <Pencil className="h-4 w-4" />
