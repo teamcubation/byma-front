@@ -18,9 +18,11 @@
   &--l {
     width: 568px;
   }
+
   &--m {
     width: 420px;
   }
+
   &--s {
     width: 272px;
   }
@@ -28,6 +30,13 @@
   &--error {
     border-color: #FF4D4F;
     background-color: #FFF5F5;
+  }
+
+  &--disabled {
+    background: #e2e2e2;
+    border: 0.75px solid #7b808c;
+    cursor: not-allowed;
+    color: #7b808c;
   }
 }
 
