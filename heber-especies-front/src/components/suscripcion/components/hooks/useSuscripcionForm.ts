@@ -54,7 +54,9 @@ export const useSuscripcionForm = () => {
       navigate("/abm-suscripciones");
     } catch (error) {
       console.log("Error inesperado: ", error);
-      toast.error("Error inesperado");
+      toast.error("Error inesperado", {
+        id: toastId,
+      });
     }
   };
 
