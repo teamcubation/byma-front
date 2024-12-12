@@ -11,7 +11,6 @@ import { TypeBtnLoading } from "../../utils/BtnLoading";
 import { waitFor } from "../../../utils/utils";
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import axios from "axios";
-import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Checkbox from "../../checkbox/checkbox"
 import TextArea from "../../textarea/textarea"
@@ -107,6 +106,7 @@ export const FormGerente = () => {
                       status={form.formState.errors.denominacion ? 'error' : undefined}
                       errorMessage={form.formState.errors.denominacion?.message}
                       size="m"
+                      isDisabled={id ? true : false}
                     />
                   </FormItem>
                 )}
@@ -144,6 +144,7 @@ export const FormGerente = () => {
                       placeholder="Observaciones"
                       status={form.formState.errors.observaciones ? 'error' : undefined}
                       errorMessage={form.formState.errors.observaciones?.message}
+                      isDisabled={id ? true : false}
                     />
                   </FormItem>
                 )}
