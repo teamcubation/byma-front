@@ -94,7 +94,7 @@ export const NuevoEmisor = () => {
                         placeholder=""
                         status={form.formState.errors.denominacion ? "error" : undefined}
                         errorMessage={form.formState.errors.denominacion?.message}
-                        size="m"
+                        size="l"
                       />
                     </FormItem>
                   )}
@@ -113,7 +113,7 @@ export const NuevoEmisor = () => {
                         placeholder="example@gmail.com"
                         status={form.formState.errors.email ? "error" : undefined}
                         errorMessage={form.formState.errors.email?.message}
-                        size="m"
+                        size="l"
                       />
                     </FormItem>
                   )}
@@ -132,7 +132,7 @@ export const NuevoEmisor = () => {
                         placeholder=""
                         status={form.formState.errors.cuentaEmisor ? "error" : undefined}
                         errorMessage={form.formState.errors.cuentaEmisor?.message}
-                        size="m"
+                        size="l"
                       />
                     </FormItem>
                   )}
@@ -152,7 +152,7 @@ export const NuevoEmisor = () => {
                         placeholder=""
                         status={form.formState.errors.idOrganizacion ? "error" : undefined}
                         errorMessage={form.formState.errors.idOrganizacion?.message}
-                        size="m"
+                        size="l"
                       />
                     </FormItem>
                   )}
@@ -172,7 +172,7 @@ export const NuevoEmisor = () => {
                         placeholder=""
                         status={form.formState.errors.idEntidadLegal ? "error" : undefined}
                         errorMessage={form.formState.errors.idEntidadLegal?.message}
-                        size="m"
+                        size="l"
                       />
                     </FormItem>
                   )}

@@ -9,14 +9,15 @@ import {
 import { set, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "../ui/input";
-import { Checkbox } from "../ui/checkbox";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { useState, useEffect } from "react";
 import { waitFor } from "../../utils/utils";
 import { useNavigate, useParams } from "react-router-dom";
 import { getAcdiById, createAcdi, updateAcdi } from "../../services/AcdiService"
+import Input from "../input/input";
+import Checkbox from "../checkbox/checkbox";
+import TextArea from "../textarea/textarea";
 
 const formSchema = z.object({
   idOrganizacion: z
@@ -49,6 +50,10 @@ export const NuevoAcdi = () => {
   const [formReady, setFormReady] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
+  const [isCheckedBilletera, setIsCheckedBilletera] = useState(false);
+  const [isCheckedLiquidaEnByma, setIsCheckedLiquidaEnByma] = useState(false);
+  const [isCheckedHabilitado, setIsCheckedHabilitado] = useState(false);
+
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -118,12 +123,16 @@ export const NuevoAcdi = () => {
                 <FormLabel>Id de organización</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Id Organizacion"
-                    {...field}
-                    disabled={Boolean(id)}
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    placeholder="Id de organización"
+                    status={form.formState.errors.idOrganizacion ? 'error' : undefined}
+                    errorMessage={form.formState.errors.idOrganizacion?.message}
+                    size="l"
+                    isDisabled={id ? true : false}
                   />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -136,12 +145,16 @@ export const NuevoAcdi = () => {
                 <FormLabel>Denominación</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Denominacion"
-                    {...field}
-                    disabled={Boolean(id)}
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    placeholder="Denominación"
+                    status={form.formState.errors.denominacion ? 'error' : undefined}
+                    errorMessage={form.formState.errors.denominacion?.message}
+                    size="l"
+                    isDisabled={id ? true : false}
                   />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -151,13 +164,18 @@ export const NuevoAcdi = () => {
             name="liquidaEnByma"
             render={({ field }) => (
               <FormItem>
+                <FormLabel>Liquida en Byma</FormLabel>
+
                 <FormControl>
                   <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
+                    isDisabled={false}
+                    isChecked={field.value}
+                    onToggle={(checked) => {
+                      field.onChange(checked);
+                      setIsCheckedLiquidaEnByma(checked);
+                    }}
                   />
                 </FormControl>
-                <FormLabel>Liquida en Byma</FormLabel>
                 <FormMessage />
               </FormItem>
             )}
@@ -168,14 +186,18 @@ export const NuevoAcdi = () => {
             name="habilitado"
             render={({ field }) => (
               <FormItem>
+                <FormLabel>Habilitado</FormLabel>
+
                 <FormControl>
                   <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    disabled={Boolean(id)}
+                    isDisabled={id ? true : false}
+                    isChecked={field.value}
+                    onToggle={(checked) => {
+                      field.onChange(checked);
+                      setIsCheckedHabilitado(checked);
+                    }}
                   />
                 </FormControl>
-                <FormLabel>Habilitado</FormLabel>
                 <FormMessage />
               </FormItem>
             )}
@@ -186,14 +208,18 @@ export const NuevoAcdi = () => {
             name="billeteras"
             render={({ field }) => (
               <FormItem>
+                <FormLabel>Billeteras</FormLabel>
+
                 <FormControl>
                   <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    disabled={Boolean(id)}
+                    isDisabled={id ? true : false}
+                    isChecked={field.value}
+                    onToggle={(checked) => {
+                      field.onChange(checked);
+                      setIsCheckedBilletera(checked);
+                    }}
                   />
                 </FormControl>
-                <FormLabel>Billeteras</FormLabel>
                 <FormMessage />
               </FormItem>
             )}
@@ -206,9 +232,15 @@ export const NuevoAcdi = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="example@gmail.com" {...field} />
-                </FormControl>
-                <FormMessage />
+                  <Input
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    placeholder="Email"
+                    status={form.formState.errors.mail ? 'error' : undefined}
+                    errorMessage={form.formState.errors.mail?.message}
+                    size="l"
+                  />                </FormControl>
               </FormItem>
             )}
           />
@@ -220,9 +252,16 @@ export const NuevoAcdi = () => {
               <FormItem>
                 <FormLabel>Observaciones</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} disabled={Boolean(id)} />
-                </FormControl>
-                <FormMessage />
+                  <TextArea
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    placeholder="Observaciones"
+                    status={form.formState.errors.observaciones ? 'error' : undefined}
+                    errorMessage={form.formState.errors.observaciones?.message}
+                    size="l"
+                    isDisabled={id ? true : false}
+                  />                </FormControl>
               </FormItem>
             )}
           />

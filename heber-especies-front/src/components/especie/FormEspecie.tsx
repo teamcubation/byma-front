@@ -3,13 +3,14 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "../ui/input";
 import BtnLoading from "../utils/BtnLoading";
 import { TypeBtnLoading } from "../utils/BtnLoading";
 import { waitFor } from "@/utils/utils";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import { Checkbox } from "../ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import Checkbox from "../checkbox/checkbox";
+import Input from "../input/input";
+import TextArea from "../textarea/textarea";
 const FormEspecie = () => {
     const location = useLocation();
     const especie = location.state?.especie || null;
@@ -108,7 +109,7 @@ const FormEspecie = () => {
         try {
             if (especie) {
                 setBtnLoading({ state: 'loading', message: 'Editando especie...' });
-                const response = await fetch(`http://localhost:10002/api/v1/especies/${id}`, {
+                const response = await fetch(`http://localhost:8080/api/v1/especies/${id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -134,7 +135,7 @@ const FormEspecie = () => {
                 }
                 setBtnLoading({ state: 'loading', message: 'Creando especie...' });
 
-                const response = await fetch(`http://localhost:10002/api/v1/especies`, {
+                const response = await fetch(`http://localhost:8080/api/v1/especies`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -178,109 +179,159 @@ const FormEspecie = () => {
                                     <FormItem>
                                         <FormLabel>Denominación</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="" {...field} />
+                                            <Input
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                placeholder="Denominación"
+                                                status={form.formState.errors.denominacion ? 'error' : undefined}
+                                                errorMessage={form.formState.errors.denominacion?.message}
+                                                size="l"
+                                            />
                                         </FormControl>
-                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
 
-                    <FormField
-                        control={form.control}
-                        name="precio"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Precio</FormLabel>
-                                <FormControl>
-                                    <Input type="number" placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="laminaMinima"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Lamina minima</FormLabel>
-                                <FormControl>
-                                    <Input type="number" placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="cafci"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>CAFCI</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="codigoCVSA"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Codigo CVSA</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} 
-                                    readOnly={!!especie}
-                                    className={especie ? "bg-gray-100 cursor-not-allowed" : ""}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="idEmisor"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Id emisor</FormLabel>
-                                <FormControl>
-                                    <Input type="number" placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="idGerente"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Id gerente</FormLabel>
-                                <FormControl>
-                                    <Input type="number" placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="cuentaDeEmision"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Cuenta de emision</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    
-                    {/* <FormField
+                            <FormField
+                                control={form.control}
+                                name="precio"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Precio</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                placeholder="Precio"
+                                                status={form.formState.errors.precio ? 'error' : undefined}
+                                                errorMessage={form.formState.errors.precio?.message}
+                                                size="l"
+                                            />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="laminaMinima"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Lamina minima</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                placeholder="Lamina minima"
+                                                status={form.formState.errors.laminaMinima ? 'error' : undefined}
+                                                errorMessage={form.formState.errors.laminaMinima?.message}
+                                                size="l"
+                                            />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="cafci"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>CAFCI</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                placeholder="CAFCI"
+                                                status={form.formState.errors.cafci ? 'error' : undefined}
+                                                errorMessage={form.formState.errors.cafci?.message}
+                                                size="l"
+                                            />                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="codigoCVSA"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Codigo CVSA</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                placeholder="codigo CVSA"
+                                                status={form.formState.errors.codigoCVSA ? 'error' : undefined}
+                                                errorMessage={form.formState.errors.codigoCVSA?.message}
+                                                size="l"
+                                                isDisabled={especie ? true : false}
+                                            />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="idEmisor"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Id emisor</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                placeholder="Id emisor"
+                                                status={form.formState.errors.idEmisor ? 'error' : undefined}
+                                                errorMessage={form.formState.errors.idEmisor?.message}
+                                                size="l"
+                                            />                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="idGerente"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Id gerente</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                placeholder="Id gerente"
+                                                status={form.formState.errors.idGerente ? 'error' : undefined}
+                                                errorMessage={form.formState.errors.idGerente?.message}
+                                                size="l"
+                                            />                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="cuentaDeEmision"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Cuenta de emision</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                placeholder="Cuenta de emision"
+                                                status={form.formState.errors.cuentaDeEmision ? 'error' : undefined}
+                                                errorMessage={form.formState.errors.cuentaDeEmision?.message}
+                                                size="l"
+                                            />                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+
+                            {/* <FormField
                         control={form.control}
                         name="vigencia"
                         render={({ field }) => (
@@ -313,9 +364,15 @@ const FormEspecie = () => {
                                     <FormItem>
                                         <FormLabel>Codigo CNV</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
+                                            <Input
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                placeholder="Codigo CNV"
+                                                status={form.formState.errors.codigoCNV ? 'error' : undefined}
+                                                errorMessage={form.formState.errors.codigoCNV?.message}
+                                                size="l"
+                                            />                                        </FormControl>
                                     </FormItem>
                                 )}
                             />
@@ -326,9 +383,15 @@ const FormEspecie = () => {
                                     <FormItem>
                                         <FormLabel>ISIN</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
+                                            <Input
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                placeholder="ISIN"
+                                                status={form.formState.errors.isin ? 'error' : undefined}
+                                                errorMessage={form.formState.errors.isin?.message}
+                                                size="l"
+                                            />                                        </FormControl>
                                     </FormItem>
                                 )}
                             />
@@ -339,9 +402,15 @@ const FormEspecie = () => {
                                     <FormItem>
                                         <FormLabel>Familia de fondos</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
+                                            <Input
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                placeholder="Familia de fondos"
+                                                status={form.formState.errors.familiaDeFondos ? 'error' : undefined}
+                                                errorMessage={form.formState.errors.familiaDeFondos?.message}
+                                                size="l"
+                                            />                                        </FormControl>
                                     </FormItem>
                                 )}
                             />
@@ -352,9 +421,16 @@ const FormEspecie = () => {
                                     <FormItem>
                                         <FormLabel>Observaciones</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="" {...field} />
+                                            <TextArea
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                placeholder="Observaciones"
+                                                status={form.formState.errors.observaciones ? 'error' : undefined}
+                                                errorMessage={form.formState.errors.observaciones?.message}
+                                                size="l"
+                                            />
                                         </FormControl>
-                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
@@ -365,28 +441,38 @@ const FormEspecie = () => {
                                     <FormItem>
                                         <FormLabel>ID Moneda</FormLabel>
                                         <FormControl>
-                                            <Input type="number" placeholder="" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
+                                            <Input
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                                placeholder="Id Moneda"
+                                                status={form.formState.errors.idMoneda ? 'error' : undefined}
+                                                errorMessage={form.formState.errors.idMoneda?.message}
+                                                size="l"
+                                            />                                         </FormControl>
                                     </FormItem>
                                 )}
                             />
-                            <FormField
+                            {/* <FormField
                                 control={form.control}
                                 name="estado"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
                                             <Checkbox
-                                                checked={field.value}
-                                                onCheckedChange={field.onChange}
+                                                isDisabled={false}
+                                                isChecked={field.value}
+                                                onToggle={(checked) => {
+                                                    field.onChange(checked);
+                                                    setIsChecked(checked);
+                                                }}
                                             />
                                         </FormControl>
                                         <FormLabel>Estado</FormLabel>
                                         <FormMessage />
                                     </FormItem>
                                 )}
-                            />
+                            /> */}
 
 
                             <div className="flex justify-end">

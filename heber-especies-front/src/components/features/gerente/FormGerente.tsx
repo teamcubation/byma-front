@@ -105,7 +105,7 @@ export const FormGerente = () => {
                       placeholder="Denominación"
                       status={form.formState.errors.denominacion ? 'error' : undefined}
                       errorMessage={form.formState.errors.denominacion?.message}
-                      size="m"
+                      size="l"
                       isDisabled={id ? true : false}
                     />
                   </FormItem>
@@ -125,7 +125,7 @@ export const FormGerente = () => {
                       placeholder="example@gmail.com"
                       status={form.formState.errors.mailGerente ? 'error' : undefined}
                       errorMessage={form.formState.errors.mailGerente?.message}
-                      size="m"
+                      size="l"
                     />
                   </FormItem>
                 )}
@@ -145,6 +145,7 @@ export const FormGerente = () => {
                       status={form.formState.errors.observaciones ? 'error' : undefined}
                       errorMessage={form.formState.errors.observaciones?.message}
                       isDisabled={id ? true : false}
+                      size="l"
                     />
                   </FormItem>
                 )}
