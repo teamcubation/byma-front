@@ -10,7 +10,7 @@ function PrivateRoute({ children }: Props) {
     const ERROR_MESSAGE = "Debes iniciar sesión";
 
     if (localStorage.getItem('accessToken') === null) {
-        return <Navigate to={`/login?message=${ERROR_MESSAGE}}`} replace />
+        return <Navigate to={`/login?message=${ERROR_MESSAGE}`} replace />
     }
     return (
         <>{children}</>
