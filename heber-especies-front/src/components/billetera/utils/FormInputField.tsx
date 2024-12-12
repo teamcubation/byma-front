@@ -5,7 +5,7 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { InputFieldProps } from "../../types/typeInputFieldProps";
+import { InputFieldProps } from "../types/typeInputFieldProps";
 import Input from "@/components/input/input";
 import Checkbox from "@/components/checkbox/checkbox";
 
