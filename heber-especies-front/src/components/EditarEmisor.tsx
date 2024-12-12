@@ -52,7 +52,6 @@ export const EditarEmisor = () => {
       setBtnLoading({ state: 'loading', message: 'Editando Emisor...' });
 
       const response = await fetch(`http://localhost:8080/api/v1/emisores/${id}`, {
-      const response = await fetch(`http://localhost:8080/api/v1/emisores/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -192,9 +191,14 @@ export const EditarEmisor = () => {
 
           <div className="flex justify-end">
             <BtnLoading btnLoading={btnLoading}></BtnLoading>
-          </div>
-        </form>
-      </Form>
-    </div>
+              </div>
+            <div className="flex justify-end">
+              <BtnLoading btnLoading={btnLoading}></BtnLoading>
+            </div>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
+  </div>
   )
 }
