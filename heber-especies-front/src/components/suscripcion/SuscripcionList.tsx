@@ -121,25 +121,6 @@ export const SuscripcionList = () => {
                   </AlertDialogContent>
                 </AlertDialog>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button variant="ghost" className="font-normal" onClick={(e) => e.stopPropagation()}>
-                      <span>Dar de baja</span>
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Baja de Suscripción</AlertDialogTitle>
-                      <AlertDialogDescription>Se dará de baja la Suscripción, ¿Estás seguro?</AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>No</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => handleBajaSuscripcion(row.original.idSuscripcion)}>Sí</AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
           </DropdownMenuContent>

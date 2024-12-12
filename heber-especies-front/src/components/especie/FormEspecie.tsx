@@ -110,6 +110,7 @@ const FormEspecie = () => {
             if (especie) {
                 setBtnLoading({ state: 'loading', message: 'Editando especie...' });
                 const response = await fetch(`http://localhost:8080/api/v1/especies/${id}`, {
+                const response = await fetch(`http://localhost:8080/api/v1/especies/${id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -135,6 +136,7 @@ const FormEspecie = () => {
                 }
                 setBtnLoading({ state: 'loading', message: 'Creando especie...' });
 
+                const response = await fetch(`http://localhost:8080/api/v1/especies`, {
                 const response = await fetch(`http://localhost:8080/api/v1/especies`, {
                     method: 'POST',
                     headers: {
@@ -163,7 +165,10 @@ const FormEspecie = () => {
 
 
     return (
-        <div className="container min-h-screen mx-auto flex justify-center items-center">
+        <div className="flex flex-col gap-4 w-6/12 mx-auto">
+
+
+            <h2 className="text-center text-xl font-semibold">{id ? "Editar especie" : "Crear nueva especie"}</h2>
 
             <Card className="lg:w-1/2">
                 <CardHeader>
@@ -333,10 +338,10 @@ const FormEspecie = () => {
 
                             {/* <FormField
                         control={form.control}
-                        name="vigencia"
+                        name="codigoCNV"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Vigencia</FormLabel>
+                                <FormLabel>Codigo CNV</FormLabel>
                                 <FormControl>
                                     <Input placeholder="" {...field} />
                                 </FormControl>
@@ -346,7 +351,7 @@ const FormEspecie = () => {
                     />
                     <FormField
                         control={form.control}
-                        name="plazoDeLiquidacion"
+                        name="isin"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Plazo de liquidacion</FormLabel>
@@ -485,4 +490,4 @@ const FormEspecie = () => {
         </div>
     );
 }
-export default FormEspecie
+export default FormEspecie;      

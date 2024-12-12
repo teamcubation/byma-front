@@ -10,9 +10,8 @@ const MainLayout = () => {
       <Navbar />
       <div className='px-6 mt-5'>
         <BreadcrumbDemo />
-      </div>  
+      </div>
       <Outlet />
-      
     </>
   )
 }

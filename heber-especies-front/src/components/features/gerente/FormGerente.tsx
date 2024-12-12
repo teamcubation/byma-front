@@ -51,7 +51,6 @@ export const FormGerente = () => {
   })
 
   const onSubmit = async (data: FormSchema) => {
-    console.log(data);
     setBtnLoading({ state: 'loading', message: location.state?.gerente ? "Editando Gerente..." : "Creando Gerente..." });
 
 
@@ -66,7 +65,7 @@ export const FormGerente = () => {
 
       console.log(response, "response");
       await waitFor(2000);
-      setBtnLoading({ state: 'success', message: 'Emisor creado correctamente' });
+      setBtnLoading({ state: 'success', message: 'Gerente creado correctamente' });
       await waitFor(1000);
       navigate('/abm-gerentes');
 

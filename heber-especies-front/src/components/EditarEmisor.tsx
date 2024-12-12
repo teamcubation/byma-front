@@ -18,7 +18,6 @@ export const EditarEmisor = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
-  console.log(id, "id emisor");
   console.dir(location.state.emisor, "emisor");
 
   const formSchema = z.object({
@@ -53,14 +52,13 @@ export const EditarEmisor = () => {
       setBtnLoading({ state: 'loading', message: 'Editando Emisor...' });
 
       const response = await fetch(`http://localhost:8080/api/v1/emisores/${id}`, {
+      const response = await fetch(`http://localhost:8080/api/v1/emisores/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
-
-      console.log(response);
 
       await waitFor(2000); // Simula una espera para mejorar la UX
 
@@ -85,9 +83,8 @@ export const EditarEmisor = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1>Formulario</h1>
-      <div className="container min-h-screen mx-auto flex justify-center items-center">
+    <div className="flex flex-col gap-4 w-6/12 mx-auto">
+      <h2 className="text-center text-xl font-semibold">Modificar Emisor</h2>
 
         <Card className="lg:w-1/2">
           <CardHeader>
@@ -193,17 +190,11 @@ export const EditarEmisor = () => {
                   )}
                 />
 
-                <div className="flex justify-end">
-                  <BtnLoading btnLoading={btnLoading}></BtnLoading>
-                </div>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
-
-      </div>
-
-
+          <div className="flex justify-end">
+            <BtnLoading btnLoading={btnLoading}></BtnLoading>
+          </div>
+        </form>
+      </Form>
     </div>
   )
 }

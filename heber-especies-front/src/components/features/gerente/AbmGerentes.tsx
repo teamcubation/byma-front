@@ -20,7 +20,7 @@ import { TypeEmisor } from "@/components/MisEmisores";
 import { TypeEspecie } from "@/components/especie/MisEspecies";
 
 export interface TypeGerente {
-  idGerente: number;
+  id: number;
   denominacion: string;
   habilitado: boolean;
   liquidaEnByma: boolean;
@@ -174,12 +174,12 @@ export const MisGerentes = () => {
         `${import.meta.env.VITE_GERENTE_BASE_URL}/gerentes`
       );
       const data = await response.data;
-      console.log(data);
+
       const gerente = data[0] as TypeGerente;
 
       const columnDef = definirColumnas<TypeGerente, TypeGerenteKeys>(
         Object.keys(gerente) as Array<keyof TypeGerente>,
-        "idGerente",
+        "id",
         "habilitado",
         navigate,
         handleDelete
@@ -202,7 +202,7 @@ export const MisGerentes = () => {
 
       setGerentes((prevGerentes) =>
         prevGerentes.map((gerente) =>
-          gerente.idGerente === id
+          gerente.id === id
             ? { ...gerente, habilitado: !gerente.habilitado }
             : gerente
         )
@@ -267,7 +267,7 @@ export const MisGerentes = () => {
                   className="h-8 px-2 py-0 rounded-full bg-blue-300 hover:bg-blue-400"
                   onClick={() => {
                     console.log(row);
-                    navigate(`/editar-gerente/${row.original.idGerente}`, {
+                    navigate(`/editar-gerente/${row.original.id}`, {
                       state: { gerente: row.original },
                     });
                   }}
@@ -289,7 +289,7 @@ export const MisGerentes = () => {
                       ? "bg-gray-300 hover:bg-gray-400"
                       : "bg-green-300 hover:bg-green-400"
                   }`}
-                  onClick={() => handleDelete(row.original.idGerente)}
+                  onClick={() => handleDelete(row.original.id)}
                 >
                   {row.original.habilitado ? (
                     <Ban className="h-4 w-4" />
@@ -316,7 +316,7 @@ export const MisGerentes = () => {
   console.dir(columns, "columns");
   return (
     <section className="p-6 flex flex-col gap-6">
-      <h1 className="text-3xl font-bold bg-verde-normal hover:bg-verde-normal-hover">Mis gerentes</h1>
+      <h1 className="text-3xl font-bold">Mis gerentes</h1>
       <div className="flex justify-end">
         <Link to="/nuevo-gerente">
           <Button size={"default"} variant={"default"} className="dark">Crear gerente</Button>

@@ -59,7 +59,6 @@ export const MisAcdis = () => {
       const response = await fetch("http://localhost:8080/api/v1/acdis", {
         signal: signal,
       }).then((res) => res.json());
-      console.log(response);
       setAcdis(response);
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") return;
