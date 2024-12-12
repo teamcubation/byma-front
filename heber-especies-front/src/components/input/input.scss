@@ -213,5 +213,13 @@
           color: #0183D9;
         }
       }
+      &--disabled {
+        .input__s {
+          background: #e2e2e2;
+          border: 0.75px solid #7b808c;
+          cursor: not-allowed;
+          color: #7b808c;
+        }
+      }
     }
   }

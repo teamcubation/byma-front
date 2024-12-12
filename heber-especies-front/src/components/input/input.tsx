@@ -14,6 +14,7 @@ type InputProps = {
   noticeMessage?: string;
   isPassword?: boolean;
   size?: 's' | 'm' | 'l';
+  isDisabled?: boolean;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -28,7 +29,8 @@ const Input: React.FC<InputProps> = ({
   successMessage,
   warningMessage,
   size = 's',
-  noticeMessage
+  noticeMessage,
+  isDisabled = false, // Nueva prop
 }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -64,6 +66,9 @@ const Input: React.FC<InputProps> = ({
         classes.push('input__container--notice');
         break;
     }
+    if (isDisabled) {
+      classes.push('input__container--disabled');
+    }
 
     return classes.join(' ');
   };
@@ -77,6 +82,7 @@ const Input: React.FC<InputProps> = ({
         onChange={onChange}
         onBlur={onBlur}
         placeholder={placeholder}
+        disabled={isDisabled}
       />
       
       {isPassword && !status && (
