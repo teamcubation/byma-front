@@ -3,51 +3,63 @@ import {
   FormControl,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "../../../ui/form";
-import { Input } from "../../../ui/input";
-import { Checkbox } from "../../../ui/checkbox";
 import { InputFieldProps } from "../../types/typeInputFieldProps";
+import Input from "@/components/input/input";
+import Checkbox from "@/components/checkbox/checkbox";
 
-export const FormInputField = ({
+export const FormInputField: React.FC<InputFieldProps> = ({
   name,
   label,
-  type = "text",
+  type = 'text',
   disabled = false,
   form,
-  placeholder,
+  placeholder = '',
   isCheckbox = false,
-}: InputFieldProps) => (
-  <FormField
-    control={form.control}
-    name={name}
-    render={({ field }) => (
-      <FormItem>
-        {isCheckbox ? (
-          <>
-            <FormControl>
-              <Checkbox
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-            </FormControl>
-            <FormLabel>{label}</FormLabel>
-          </>
-        ) : (
-          <>
-            <FormLabel>{label}</FormLabel>
-            <FormControl>
-              <Input
-                {...field}
-                type={type}
-                disabled={disabled}
-                placeholder={placeholder}
-              />
-            </FormControl>
-          </>
-        )}
-        <FormMessage />
-      </FormItem>
-    )}
-  />
-);
+  status,
+  errorMessage,
+  successMessage,
+  warningMessage,
+  noticeMessage,
+}) => {
+  return (
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          {isCheckbox ? (
+            <>
+              <FormLabel>{label}</FormLabel>
+              <FormControl>
+                <Checkbox
+                  isDisabled={disabled}
+                  isChecked={field.value}
+                  onToggle={field.onChange}
+                />
+              </FormControl>
+            </>
+          ) : (
+            <>
+              <FormLabel>{label}</FormLabel>
+              <FormControl className="text-center">
+                <Input
+                  {...field}
+                  type={type}
+                  isDisabled={disabled}
+                  placeholder={placeholder}
+                  size="l"
+                  status={form.formState.errors[name] ? "error" : status}
+                  errorMessage={form.formState.errors[name]?.message || errorMessage}
+                  successMessage={successMessage}
+                  warningMessage={warningMessage}
+                  noticeMessage={noticeMessage}
+                />
+              </FormControl>
+            </>
+          )}
+        </FormItem>
+      )}
+    />
+  );
+};

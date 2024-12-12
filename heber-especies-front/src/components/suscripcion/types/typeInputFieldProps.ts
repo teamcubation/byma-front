@@ -6,4 +6,9 @@ export type InputFieldProps = {
     form: any;
     placeholder?: string;
     isCheckbox?: boolean;
-};
+    status?: 'error' | 'success' | 'warning' | 'notice' | 'password' | 'user' | undefined;
+    errorMessage?: string;
+    successMessage?: string;
+    warningMessage?: string;
+    noticeMessage?: string;
+  };
