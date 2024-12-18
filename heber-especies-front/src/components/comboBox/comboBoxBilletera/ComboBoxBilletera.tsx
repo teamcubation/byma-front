@@ -6,12 +6,12 @@ import { TypeItem } from "../types/typeItem";
 
 interface ComboBoxProps {
   onItemSelected: (item: TypeItem[]) => void;
-  id: string | null,
+  selectedBilleteraId: string,
 }
 
 const ComboBoxBilletera: React.FC<ComboBoxProps> = ({
     onItemSelected,
-    id = null
+    selectedBilleteraId
     }) => {
 
     const [billeteras, setBilleteras] = useState<TypeBilletera[]>([]);
@@ -39,10 +39,16 @@ const ComboBoxBilletera: React.FC<ComboBoxProps> = ({
         return billeterasItems;
     }
 
+    const selectedBilletera = selectedBilleteraId !== null
+    ? arrayBilleteras().find(billetera => billetera.id === Number(selectedBilleteraId))
+    : null;
+
+    const placeholder = selectedBilletera ? selectedBilletera.name : "Seleccione una billetera";
+
     return (
         <ComboBox 
             title="Billeteras"
-            placeholder= "Seleccione una billetera"
+            placeholder= {placeholder}
             items={arrayBilleteras()}
             onItemSelected={onItemSelected}
         />

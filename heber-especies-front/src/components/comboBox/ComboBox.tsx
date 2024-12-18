@@ -30,7 +30,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
   };
 
   const existItem = (items : TypeItem[], item : TypeItem) => {
-    return items.some((selected) => selected.id === item.id && selected.name === item.name);
+    return items.some((selected) => selected.id === item.id);
   }
 
   const handleSelect = (item: TypeItem) => {

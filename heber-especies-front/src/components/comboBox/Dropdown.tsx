@@ -45,14 +45,14 @@ const Dropdown: React.FC<DropdownProps> = ({
         <div
           key={item.id}
           className={`combo-box__item ${
-            selectedItems.some((selected) => selected.id === item.id && selected.name === item.name) ? "combo-box__item--selected" : ""
+            selectedItems.some((selected) => selected.id === item.id) ? "combo-box__item--selected" : ""
           }`}
           onClick={() => onSelect(item)}
         >
           {enableMultiselect ? (
             <div className="combo-box__checkbox">
               <Checkbox
-                isChecked={selectedItems.some((selected) => selected.id === item.id && selected.name === item.name)}
+                isChecked={selectedItems.some((selected) => selected.id === item.id)}
                 onToggle={() => onSelect(item)}
               />
               <div className="combo-box__item-checkbox">

@@ -154,13 +154,12 @@ export const NuevaSuscripcion = () => {
             form={form}
             isCheckbox
           />
-          <FormInputField
+          {/* <FormInputField
             name="idBilletera"
             label="ID Billetera"
-            type="number"
             form={form}
             placeholder="Ingrese el ID de la billetera"
-          />
+          /> */}
           <FormInputField
             name="fechaSincronizacion"
             label="Fecha Sincronizacion"
@@ -206,7 +205,11 @@ export const NuevaSuscripcion = () => {
           />
           <ComboBoxBilletera 
             onItemSelected={selectBilletera}
-            id={form.getValues("idBilletera")}
+            selectedBilleteraId={form.getValues("idBilletera")}
+          />
+          <input
+            type="hidden"
+            {...form.register("idBilletera")}
           />
           <div className="flex justify-end">
             <Button>Guardar</Button>
