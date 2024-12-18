@@ -2,9 +2,19 @@ import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 import { FormInputField } from "./components/utils/FormInputField";
 import { useSuscripcionForm } from "./components/hooks/useSuscripcionForm";
+import ComboBox from "../comboBox/ComboBox";
+import { TypeItem } from "../comboBox/types/typeItem";
+import ComboBoxBilletera from "@/components/comboBox/comboBoxBilletera/ComboBoxBilletera"
 
 export const NuevaSuscripcion = () => {
   const { form, onSubmit, isEditMode} = useSuscripcionForm();
+
+  const selectedItem = (items: TypeItem[]) => {
+    console.log(items);
+    
+    items.map((item) => console.log(`ITEM: ${item.id} - ${item.name}`));
+  };
+  
   return (
     <div className="flex flex-col gap-4 w-6/12 mx-auto">
       <h2 className="text-center text-xl font-semibold">
@@ -189,6 +199,9 @@ export const NuevaSuscripcion = () => {
             label="Estado NASDAQ SI"
             form={form}
             placeholder="Ingrese el estado NASDAQ SI"
+          />
+          <ComboBoxBilletera 
+            onItemSelected={selectedItem}
           />
           <div className="flex justify-end">
             <Button>Guardar</Button>

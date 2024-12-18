@@ -1,22 +1,27 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./ComboBox.scss";
 import Dropdown from "./Dropdown";
+import { TypeItem } from "./types/typeItem";
 
 interface ComboBoxProps {
-  items: string[];
+  title: string;
+  items: TypeItem[];
   placeholder?: string;
   enableManualInput?: boolean;
   enableMultiselect?: boolean;
+  onItemSelected: (item: TypeItem[]) => void;
 }
 
 const ComboBox: React.FC<ComboBoxProps> = ({
-  items = ["ítem 1", "ítem 2", "ítem 3", "ítem 4", "ítem 5", "ítem 6", "ítem 7", "ítem 8"],
+  title,
+  items,
   placeholder = "Seleccione una opción",
   enableManualInput = false,
   enableMultiselect = false,
+  onItemSelected
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<TypeItem[]>([]);
   const [inputValue, setInputValue] = useState("");
   const comboBoxRef = useRef<HTMLDivElement>(null);
 
@@ -24,14 +29,20 @@ const ComboBox: React.FC<ComboBoxProps> = ({
     setIsOpen(!isOpen);
   };
 
-  const handleSelect = (item: string) => {
+  const existItem = (items : TypeItem[], item : TypeItem) => {
+    return items.some((selected) => selected.id === item.id && selected.name === item.name);
+  }
+
+  const handleSelect = (item: TypeItem) => {
     if (enableMultiselect) {
       setSelectedItems((prev) =>
-        prev.includes(item) ? prev.filter((selected) => selected !== item) : [...prev, item]
+        existItem(prev, item)
+      ? prev.filter(() => !existItem(prev, item)) : [...prev, item]
       );
     } else {
       setSelectedItems([item]);
-      setInputValue(item);
+      onItemSelected([item]);
+      setInputValue(item.name);
       setIsOpen(false);
     }
   };
@@ -64,7 +75,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
   return (
     <div className="combo-box-container">
       <div className="combo-box-container__label_container">
-        <label className="combo-box-container__label">Lorem ipsum</label>
+        <label className="combo-box-container__label">{title}</label>
       </div>
       <div className="combo-box" ref={comboBoxRef}>
         {enableManualInput ? (
@@ -85,7 +96,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
                 selectedItems.length > 0 ? "combo-box__placeholder--selected" : ""
               }`}
             >
-              {selectedItems.join(", ") || placeholder}
+              {(selectedItems.map((item) => item.name)).join(", ") || placeholder}
             </span>
             <div className="combo-box__icon"></div>
           </div>
