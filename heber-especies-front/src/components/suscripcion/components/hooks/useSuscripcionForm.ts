@@ -35,6 +35,9 @@ export const useSuscripcionForm = () => {
   }, [id, form, isEditMode]);
 
   const onSubmit = async (data: FormSchema) => {
+    console.log(data);
+    debugger
+
     const toastId = toast.loading(
       `${isEditMode ? "Modificando" : "Creando"} Suscripcion`
     );

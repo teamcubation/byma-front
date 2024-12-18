@@ -3,15 +3,17 @@ import './Switch.scss';
 
 interface SwitchProps {
   disabled: boolean;
-  size?: 's' | 'l'; // Tamaño opcional: pequeño o grande
+  size?: 's' | 'l';
+  onChange: (item: boolean) => void; // Tamaño opcional: pequeño o grande
 }
 
-const Switch: React.FC<SwitchProps> = ({ disabled, size = 's' }) => {
+const Switch: React.FC<SwitchProps> = ({ disabled, size = 's', onChange }) => {
   const [isOn, setIsOn] = useState(false);
 
   const toggleSwitch = () => {
     if (!disabled) {
-      setIsOn(!isOn);
+      setIsOn(!isOn)
+      onChange(!isOn);
     }
   };
 

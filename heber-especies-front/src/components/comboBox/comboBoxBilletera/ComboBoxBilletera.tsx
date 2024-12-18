@@ -3,6 +3,18 @@ import { TypeBilletera } from "@/components/billetera/types/typeBilletera";
 import { getAllBilleteras } from "@/services/BilleteraService";
 import ComboBox from "../ComboBox";
 import { TypeItem } from "../types/typeItem";
+import { Card } from "../../ui/card";
+import { Button } from "../../ui/button";
+import {
+    AlertDialog,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+  } from "@/components/ui/alert-dialog";
 
 interface ComboBoxProps {
   onItemSelected: (item: TypeItem[]) => void;
@@ -15,6 +27,7 @@ const ComboBoxBilletera: React.FC<ComboBoxProps> = ({
     }) => {
 
     const [billeteras, setBilleteras] = useState<TypeBilletera[]>([]);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     useEffect(() => {
     const fetchBilleteras = async () => {

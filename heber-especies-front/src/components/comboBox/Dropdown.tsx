@@ -2,6 +2,7 @@ import React from "react";
 import "./ComboBox.scss";
 import Checkbox from "../checkbox/checkbox"
 import { TypeItem } from "./types/typeItem";
+import { log } from "console";
 
 interface DropdownProps {
   items: TypeItem[];

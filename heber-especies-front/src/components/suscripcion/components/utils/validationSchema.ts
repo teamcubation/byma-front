@@ -72,9 +72,7 @@ export const formSchema = z.object({
     .regex(/^\d+$/, { message: "El id del gerente debe ser un numero" }),
   obligacionDePagoGenerada: z.boolean(),
   idBilletera: z
-    .string()
-    .min(1, { message: "El id de billetera es requerido" })
-    .regex(/^\d+$/, { message: "El id de billetera debe ser un numero" }),
+    .string(),
   fechaSincronizacion: z
     .string()
     .min(1, { message: "La fecha de sincronizacion es requerida" })

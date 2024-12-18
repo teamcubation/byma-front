@@ -7,9 +7,15 @@ import ComboBox from "../comboBox/ComboBox";
 import { TypeItem } from "../comboBox/types/typeItem";
 import ComboBoxBilletera from "@/components/comboBox/comboBoxBilletera/ComboBoxBilletera"
 import { useEffect } from "react";
+import Switch from "../switch/Switch";
 
 export const NuevaSuscripcion = () => {
   const { form, onSubmit, isEditMode} = useSuscripcionForm();
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+
+  const handleSwitchChange = (value: boolean) => {
+    setIsSwitchOn(value);
+  };
 
   const selectBilletera = (items: TypeItem[]) => {
     const billetera = items[0];
@@ -203,10 +209,24 @@ export const NuevaSuscripcion = () => {
             form={form}
             placeholder="Ingrese el estado NASDAQ SI"
           />
-          <ComboBoxBilletera 
+          {/* <ComboBoxBilletera 
             onItemSelected={selectBilletera}
             selectedBilleteraId={form.getValues("idBilletera")}
-          />
+          /> */}
+          <div className="flex items-center gap-2">
+            <label>Habilitar Billetera</label>
+            <Switch
+              disabled={false}
+              size="s"
+              onChange={handleSwitchChange}
+            />
+          </div>
+          {isSwitchOn && (
+            <ComboBoxBilletera 
+              onItemSelected={selectBilletera}
+              selectedBilleteraId={form.getValues("idBilletera")}
+            />
+          )}
           <input
             type="hidden"
             {...form.register("idBilletera")}
