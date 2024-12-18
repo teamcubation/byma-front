@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 import { FormInputField } from "./components/utils/FormInputField";
@@ -5,14 +6,17 @@ import { useSuscripcionForm } from "./components/hooks/useSuscripcionForm";
 import ComboBox from "../comboBox/ComboBox";
 import { TypeItem } from "../comboBox/types/typeItem";
 import ComboBoxBilletera from "@/components/comboBox/comboBoxBilletera/ComboBoxBilletera"
+import { useEffect } from "react";
 
 export const NuevaSuscripcion = () => {
   const { form, onSubmit, isEditMode} = useSuscripcionForm();
 
-  const selectedItem = (items: TypeItem[]) => {
+  const selectBilletera = (items: TypeItem[]) => {
+    const billetera = items[0];
+    form.setValue("idBilletera", String(billetera.id));
+
     console.log(items);
-    
-    items.map((item) => console.log(`ITEM: ${item.id} - ${item.name}`));
+    console.log(`billetera: ${billetera.id} ${billetera.name}`);
   };
   
   return (
@@ -201,7 +205,8 @@ export const NuevaSuscripcion = () => {
             placeholder="Ingrese el estado NASDAQ SI"
           />
           <ComboBoxBilletera 
-            onItemSelected={selectedItem}
+            onItemSelected={selectBilletera}
+            id={form.getValues("idBilletera")}
           />
           <div className="flex justify-end">
             <Button>Guardar</Button>

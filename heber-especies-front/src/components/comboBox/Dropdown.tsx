@@ -22,6 +22,16 @@ const Dropdown: React.FC<DropdownProps> = ({
   enableManualInput,
   isOpen
 }) => {
+
+  if (items.length === 0) {
+    return <div className={`combo-box__dropdown ${
+      isOpen ? "combo-box__dropdown--open" : ""
+    }`}>
+      <div className="combo-box__item">
+        Sin elementos
+      </div>
+    </div>;
+  }
   
   const filteredItems = enableManualInput
     ? items.filter((item) => item.name.toLowerCase().includes(inputValue.toLowerCase()))
