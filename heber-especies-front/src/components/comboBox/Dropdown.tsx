@@ -1,11 +1,12 @@
 import React from "react";
 import "./ComboBox.scss";
-import Checkbox from "./checkbox/Checkbox";
+import Checkbox from "../checkbox/checkbox"
+import { TypeItem } from "./types/typeItem";
 
 interface DropdownProps {
-  items: string[];
-  selectedItems: string[];
-  onSelect: (item: string) => void;
+  items: TypeItem[];
+  selectedItems: TypeItem[];
+  onSelect: (item: TypeItem) => void;
   enableMultiselect: boolean;
   inputValue: string;
   enableManualInput: boolean;
@@ -21,34 +22,35 @@ const Dropdown: React.FC<DropdownProps> = ({
   enableManualInput,
   isOpen
 }) => {
+  
   const filteredItems = enableManualInput
-    ? items.filter((item) => item.toLowerCase().includes(inputValue.toLowerCase()))
+    ? items.filter((item) => item.name.toLowerCase().includes(inputValue.toLowerCase()))
     : items;
 
   return (
     <div className={`combo-box__dropdown ${
       isOpen ? "combo-box__dropdown--open" : ""
     }`}>
-      {filteredItems.map((item, index) => (
+      {filteredItems.map((item) => (
         <div
-          key={index}
+          key={item.id}
           className={`combo-box__item ${
-            selectedItems.includes(item) ? "combo-box__item--selected" : ""
+            selectedItems.some((selected) => selected.id === item.id && selected.name === item.name) ? "combo-box__item--selected" : ""
           }`}
           onClick={() => onSelect(item)}
         >
           {enableMultiselect ? (
             <div className="combo-box__checkbox">
               <Checkbox
-                isChecked={selectedItems.includes(item)}
+                isChecked={selectedItems.some((selected) => selected.id === item.id && selected.name === item.name)}
                 onToggle={() => onSelect(item)}
               />
               <div className="combo-box__item-checkbox">
-                {item}
+                {item.name}
               </div>
             </div>
           ) : (
-            <>{item}</>
+            <>{item.name}</>
           )}
         </div>
       ))}
