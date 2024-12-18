@@ -3,7 +3,7 @@ import "./input.scss";
 
 type InputProps = {
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
   status?: 'error' | 'success' | 'warning' | 'notice' | 'password' | 'user' | undefined;
   placeholder?: string;

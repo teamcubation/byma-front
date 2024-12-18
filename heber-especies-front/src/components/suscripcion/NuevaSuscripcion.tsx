@@ -5,16 +5,70 @@ import { useSuscripcionForm } from "./components/hooks/useSuscripcionForm";
 import ComboBox from "../comboBox/ComboBox";
 import { TypeItem } from "../comboBox/types/typeItem";
 import ComboBoxBilletera from "@/components/comboBox/comboBoxBilletera/ComboBoxBilletera"
+import ComboBoxEspecie from "../comboBox/comboBoxEspecie/ComboBoxEspecie";
+import Input from "../input/input";
+import { useState, useEffect } from "react";
+import { set } from "react-hook-form";
+import { findEspecieById } from "@/services/EspecieService";
+import { number } from "zod";
+import { FormLabel } from "../ui/form";
 
 export const NuevaSuscripcion = () => {
-  const { form, onSubmit, isEditMode} = useSuscripcionForm();
+  const { form, onSubmit, isEditMode } = useSuscripcionForm();
+  const [selectedItemEspecie, setSelectedItemEspecie] = useState<TypeItem>({ id: 0, name: '' });
+  const [emisor, setEmisor] = useState<string>("");
+  const [gerente, setGerente] = useState<string>("");
+  const [laminaMinima, setLaminaMinima] = useState<string>("");
+  const [precio, setPrecio] = useState<string>("");
+  const [moneda, setMoneda] = useState<string>("");
+  const [plazoDeLiquidacion, setPlazoDeLiquidacion] = useState<string>('');
+  const [monto, setMonto] = useState<number>(0);
+  const [cuotaPartes, setCuotaPartes] = useState<number>(1);
+
+
 
   const selectedItem = (items: TypeItem[]) => {
     console.log(items);
-    
+
     items.map((item) => console.log(`ITEM: ${item.id} - ${item.name}`));
   };
-  
+  const handleSelectedItemEspecie = async (items: TypeItem[]) => {
+    console.log(items);
+    setSelectedItemEspecie(items[0]);
+
+    items.map((item) => console.log(`ITEM: ${item.id} - ${item.name}`));
+
+    try {
+      const especie = await findEspecieById(items[0].id, new AbortController().signal);
+      console.log(especie);
+      setEmisor(especie.idEmisor);
+      setGerente(especie.idGerente);
+      setLaminaMinima(especie.laminaMinima);
+      setPrecio(especie.precio);
+      setMoneda(especie.idMoneda);
+      setPlazoDeLiquidacion(especie.plazoDeLiquidacion);
+    } catch (error) {
+      console.error("Error al obtener la especie:", error);
+    }
+  };
+  const handleMontoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newMonto = parseFloat(e.target.value);
+    setMonto(newMonto);
+  };
+
+  const handleCuotaPartesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newCuotaPartes = parseFloat(e.target.value);
+    setCuotaPartes(newCuotaPartes);
+  };
+
+  useEffect(() => {
+    if (cuotaPartes > 0) {
+      setPrecio((monto / cuotaPartes).toString());
+    }
+  }, [monto, cuotaPartes]);
+
+
+
   return (
     <div className="flex flex-col gap-4 w-6/12 mx-auto">
       <h2 className="text-center text-xl font-semibold">
@@ -46,12 +100,13 @@ export const NuevaSuscripcion = () => {
             form={form}
             placeholder="Ingrese el ID de la especie"
           />
-          <FormInputField
-            name="cantCuotapartes"
-            label="Cantidad de Cuotapartes"
+          <FormLabel>Cuota Partes</FormLabel> 
+          <Input
+            value={cuotaPartes.toString()}
+            onChange={handleCuotaPartesChange}
             type="number"
-            form={form}
             placeholder="Ingrese la cantidad de cuotapartes"
+            size='l'
           />
           <FormInputField
             name="idAcdi"
@@ -93,12 +148,12 @@ export const NuevaSuscripcion = () => {
             form={form}
             placeholder="Ingrese el rol ingresante"
           />
-          <FormInputField
-            name="monto"
-            label="Monto"
+          <FormLabel>Monto</FormLabel>
+          <Input
+            value={monto.toString()}
+            onChange={handleMontoChange}
             type="number"
-            form={form}
-            placeholder="Ingrese el monto"
+            size='l'
           />
           <FormInputField
             name="liquidaEnByma"
@@ -200,8 +255,54 @@ export const NuevaSuscripcion = () => {
             form={form}
             placeholder="Ingrese el estado NASDAQ SI"
           />
-          <ComboBoxBilletera 
+          <ComboBoxBilletera
             onItemSelected={selectedItem}
+          />
+
+          <ComboBoxEspecie
+            onItemSelected={handleSelectedItemEspecie}
+          />
+          <FormLabel>Emisor</FormLabel>
+          <Input
+            value={emisor}
+            placeholder="Emisor"
+            type="text"
+            size='l'
+          />
+          <FormLabel>Gerente</FormLabel>
+          <Input
+            value={gerente}
+            placeholder="Gerente"
+            type="text"
+            size='l'
+          />
+          <FormLabel>Lamina Minima</FormLabel>
+          <Input
+            value={laminaMinima}
+            placeholder="Lamina Minima"
+            type="text"
+            size='l'
+          />
+          <FormLabel>Precio</FormLabel>
+          <Input
+            value={precio}
+            placeholder="Precio"
+            type="text"
+            size='l'
+          />
+          <FormLabel>Moneda</FormLabel>
+          <Input
+            value={moneda}
+            placeholder="Moneda"
+            type="text"
+            size='l'
+          />
+          <FormLabel>Plazo de Liquidacion</FormLabel>
+          <Input
+            value={plazoDeLiquidacion}
+            placeholder="Plazo de Liquidacion"
+            type="text"
+            size='l'
           />
           <div className="flex justify-end">
             <Button>Guardar</Button>
